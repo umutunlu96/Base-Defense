@@ -9,7 +9,6 @@ namespace Signals
     public class CoreGameSignals : MonoSingleton<CoreGameSignals>
     {
         public UnityAction<GameStates> onChangeGameState = delegate { };
-        public UnityAction<SaveGameDataParams> onSaveGameData = delegate { };
         public UnityAction onLevelInitialize = delegate { };
         public UnityAction onClearActiveLevel = delegate { };
         public UnityAction onLevelFailed = delegate { };
