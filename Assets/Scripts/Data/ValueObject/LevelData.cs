@@ -1,11 +1,12 @@
 using System;
-using System.Collections.Generic;
+using Data.ValueObject.Base;
 
 namespace Data.ValueObject
 {
     [Serializable]
     public class LevelData
     {
-        public int Level;
+        public FrondYardData FrondYardData;
+        public BaseData BaseData;
     }
 }
