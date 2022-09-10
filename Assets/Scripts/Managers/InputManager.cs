@@ -94,7 +94,7 @@ namespace Managers
                 {
                     InputSignals.Instance.onInputDragged?.Invoke(new InputParams()
                     {
-                        movementVector = new Vector3(floatingJoystick.Horizontal, 0, floatingJoystick.Vertical).normalized
+                        movementVector = new Vector3(floatingJoystick.Horizontal, 0, floatingJoystick.Vertical)
                     });
                 }
             }
