@@ -1,7 +1,10 @@
 ﻿using Commands;
+using Data.ValueObject.Base;
 using Signals;
 using UnityEngine;
 
+
+//Sadece Sinyaller buraya load ve save commandine gonderilmek icin kullaniyoruz.
 namespace Managers
 {
     public class SaveManager : MonoBehaviour
@@ -21,7 +24,6 @@ namespace Managers
         private void Awake()
         {
             Initialization();
-         
         }
 
         private void Initialization()
@@ -39,22 +41,26 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            // SaveLoadSignals.Instance.onSaveGameData += _saveGameCommand.Execute;
-            // SaveLoadSignals.Instance.onLoadGameData += _loadGameCommand.Execute<LevelIdData>;
-            // SaveLoadSignals.Instance.onSaveBuildingsData += _saveGameCommand.Execute;
-            // SaveLoadSignals.Instance.onLoadBuildingsData += _loadGameCommand.Execute<BuildingsData>;
-            // SaveLoadSignals.Instance.onSaveIdleData += _saveGameCommand.Execute;
-            // SaveLoadSignals.Instance.onLoadIdleData += _loadGameCommand.Execute<IdleLevelData>;
+            SaveLoadSignals.Instance.onSaveAmmoWorkerData += _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadAmmoWorkerData += _loadGameCommand.Execute<AmmoWorkerData>;
+
+            SaveLoadSignals.Instance.onSaveMoneyWorkerData += _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadMoneyWorkerData += _loadGameCommand.Execute<MoneyWorkerData>;
+
+            SaveLoadSignals.Instance.onSaveMineBaseData += _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadMineBaseData += _loadGameCommand.Execute<MineBaseData>;
         }
 
         private void UnsubscribeEvents()
         {
-            // SaveLoadSignals.Instance.onSaveGameData -= _saveGameCommand.Execute;
-            // SaveLoadSignals.Instance.onLoadGameData -= _loadGameCommand.Execute<LevelIdData>;
-            // SaveLoadSignals.Instance.onSaveIdleData-= _saveGameCommand.Execute;
-            // SaveLoadSignals.Instance.onLoadBuildingsData -= _loadGameCommand.Execute<BuildingsData>;
-            // SaveLoadSignals.Instance.onSaveIdleData -= _saveGameCommand.Execute;
-            // SaveLoadSignals.Instance.onLoadIdleData -= _loadGameCommand.Execute<IdleLevelData>;
+            SaveLoadSignals.Instance.onSaveAmmoWorkerData -= _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadAmmoWorkerData -= _loadGameCommand.Execute<AmmoWorkerData>;
+            
+            SaveLoadSignals.Instance.onSaveMoneyWorkerData -= _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadMoneyWorkerData -= _loadGameCommand.Execute<MoneyWorkerData>;
+            
+            SaveLoadSignals.Instance.onSaveMineBaseData -= _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadMineBaseData -= _loadGameCommand.Execute<MineBaseData>;
         }
         private void OnDisable()
         {

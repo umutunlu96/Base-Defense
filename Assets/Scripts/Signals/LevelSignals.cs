@@ -1,4 +1,5 @@
-﻿using Extentions;
+﻿using System;
+using Extentions;
 using UnityEngine.Events;
 
 namespace Signals
@@ -12,5 +13,6 @@ namespace Signals
         public UnityAction onNextLevel = delegate { };
         public UnityAction onRestartLevel = delegate { };
         public UnityAction onNextIdleLevel = delegate { };
+        public Func<int> onGetLevelID;
     }
 }

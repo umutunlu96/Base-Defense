@@ -14,9 +14,7 @@ namespace Managers
         #region Self Variables
 
         #region Public Variables
-
-        [Header("Data")] public LevelData Data;
-
+        
         #endregion
 
         #region Serialized Variables
@@ -50,12 +48,7 @@ namespace Managers
             if (!ES3.FileExists()) return 1;
             return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 1;
         }
-
-        private int GetActiveIdleLevel()
-        {
-            if (!ES3.FileExists()) return 0;
-            return ES3.KeyExists("IdleLevel") ? ES3.Load<int>("IdleLevel") : 0;
-        }
+        
         
         #region Event Subscription
 
@@ -70,6 +63,7 @@ namespace Managers
             LevelSignals.Instance.onClearActiveLevel += OnClearActiveLevel;
             LevelSignals.Instance.onNextLevel += OnNextLevel;
             LevelSignals.Instance.onRestartLevel += OnRestartLevel;
+            LevelSignals.Instance.onGetLevelID += OnGetLevelID;
         }
 
         private void UnsubscribeEvents()
@@ -78,6 +72,7 @@ namespace Managers
             LevelSignals.Instance.onClearActiveLevel -= OnClearActiveLevel;
             LevelSignals.Instance.onNextLevel -= OnNextLevel;
             LevelSignals.Instance.onRestartLevel -= OnRestartLevel;
+            LevelSignals.Instance.onGetLevelID -= OnGetLevelID;
         }
 
         private void OnDisable()
@@ -126,7 +121,7 @@ namespace Managers
         
         private void OnInitializeLevel()
         {
-            levelLoader.InitializeLevel(GetLevelCount(), levelHolder.transform);
+            // levelLoader.InitializeLevel(GetLevelCount(), levelHolder.transform);
         }
 
         private void OnClearActiveLevel()

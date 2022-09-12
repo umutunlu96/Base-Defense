@@ -1,4 +1,5 @@
 ﻿using System;
+using Data.ValueObject.Base;
 using Extentions;
 using UnityEngine.Events;
 
@@ -6,16 +7,13 @@ namespace Signals
 {
     public class SaveLoadSignals : MonoSingleton<SaveLoadSignals>
     {
-        // public UnityAction<LevelIdData,int> onSaveGameData = delegate { };
-        //
-        // public Func<string, int, LevelIdData> onLoadGameData;
-        //
-        // public UnityAction<BuildingsData,int> onSaveBuildingsData = delegate { };
-        //
-        // public Func<string, int, BuildingsData> onLoadBuildingsData;
-        //
-        // public UnityAction<IdleLevelData,int> onSaveIdleData = delegate {  };
-        //
-        // public Func<string, int, IdleLevelData> onLoadIdleData;
+        public Action<MoneyWorkerData, int> onSaveMoneyWorkerData;
+        public Func<string, int, MoneyWorkerData> onLoadMoneyWorkerData;
+        
+        public Action<AmmoWorkerData, int> onSaveAmmoWorkerData;
+        public Func<string, int, AmmoWorkerData> onLoadAmmoWorkerData;
+
+        public Action<MineBaseData, int> onSaveMineBaseData;
+        public Func<string, int, MineBaseData> onLoadMineBaseData;
     }
 }

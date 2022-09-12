@@ -27,4 +27,32 @@ MonoBehaviour:
     Speed: 0
     AttackRate: 0
   EnemyAIData:
-    EnemyDatas: []
+    EnemyDatas:
+    - Health: 0
+      Damage: 0
+      AttackRange: 0
+      Speed: 0
+      ChaseSpeed: 0
+      Chase: 0
+      EnemyType: 0
+    - Health: 0
+      Damage: 0
+      AttackRange: 0
+      Speed: 0
+      ChaseSpeed: 0
+      Chase: 0
+      EnemyType: 1
+    - Health: 0
+      Damage: 0
+      AttackRange: 0
+      Speed: 0
+      ChaseSpeed: 0
+      Chase: 0
+      EnemyType: 2
+    - Health: 0
+      Damage: 0
+      AttackRange: 0
+      Speed: 0
+      ChaseSpeed: 0
+      Chase: 0
+      EnemyType: 3

@@ -1,12 +1,13 @@
 ﻿using System;
+using Abstract;
 
 namespace Data.ValueObject.AI
 {
     [Serializable]
-    public class AIMoneyWorkerData
+    public class AIMoneyWorkerData : Worker
     {
-        public float Speed;
-
-        public int Capacity;
+        public AIMoneyWorkerData(float speed, int capacity) : base(speed, capacity)
+        {
+        }
     }
 }

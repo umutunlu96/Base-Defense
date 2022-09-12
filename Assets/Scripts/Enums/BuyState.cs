@@ -2,7 +2,7 @@
 {
     public enum BuyState
     {
-        Bought,
-        NotBought
+        NotBought,
+        Bought
     }
 }

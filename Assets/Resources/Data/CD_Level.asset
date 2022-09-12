@@ -14,18 +14,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Levels:
   - FrondYardData:
-      StageDatas: []
-      FrondYardItemsDatas: []
+      StageDatas:
+      - BuyState: 0
+        Cost: 10
+        PayedAmount: 0
+      - BuyState: 0
+        Cost: 20
+        PayedAmount: 0
+      - BuyState: 0
+        Cost: 30
+        PayedAmount: 0
+      FrondYardItemsDatas:
+      - BombCost: 100
+        BombWaitTime: 120
+        BombExplodeTimer: 10
     BaseData:
       BaseRoomData:
-        RoomDatas: []
+        RoomDatas:
+        - TurretData:
+            BuyState: 0
+            Cost: 30
+            PayedAmount: 0
+            HasTurretSoldier: 0
+            AmmoCapacity: 50
+            AmmoDamage: 5
+            TurretParticle: {fileID: 0}
+            Key: 
+          Cost: 0
+          PayedAmount: 0
+          Key: TurretData
+        - TurretData:
+            BuyState: 0
+            Cost: 30
+            PayedAmount: 0
+            HasTurretSoldier: 0
+            AmmoCapacity: 50
+            AmmoDamage: 5
+            TurretParticle: {fileID: 0}
+            Key: 
+          Cost: 0
+          PayedAmount: 0
+          Key: TurretData
       MineBaseData:
         MaxWorkerAmount: 0
         CurrentWorkerAmount: 0
         DiamondCapacity: 0
         CurrentDiamondAmount: 0
         MineCardCapacity: 0
-        Key: 
+        Key: MineBaseData
       MilitaryBaseData:
         MaxSoldierAmount: 0
         CandidateAmount: 0
@@ -36,12 +72,15 @@ MonoBehaviour:
         Slots: []
         AttackTimer: 0
         Key: 
-      BuyablesData:
-        MoneyWorkerCost: 0
-        MoneyWorkerPayedAmount: 0
-        AmmoWorkerCost: 0
-        AmmoWorkerPayedAmount: 0
-        MoneyWorkerLevel: 0
-        AmmoWorkerLevel: 0
+      AmmoWorkerData:
         BuyState: 0
-        Key: 
+        AmmoWorkerCost: 25
+        AmmoWorkerPayedAmount: 0
+        AmmoWorkerLevel: 1
+        Key: AmmoWorkerData
+      MoneyWorkerData:
+        BuyState: 0
+        MoneyWorkerCost: 50
+        MoneyWorkerPayedAmount: 0
+        MoneyWorkerLevel: 1
+        Key: MoneyWorkerData

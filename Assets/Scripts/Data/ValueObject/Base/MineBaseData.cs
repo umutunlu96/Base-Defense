@@ -16,6 +16,18 @@ namespace Data.ValueObject.Base
         
         public int MineCardCapacity;
         
+        
+        public MineBaseData(){}
+
+        public MineBaseData(int maxWorkerAmount, int currentWorkerAmount, int diamondCapacity, int currentDiamondAmount, int mineCardCapacity)
+        {
+            MaxWorkerAmount = maxWorkerAmount;
+            CurrentWorkerAmount = currentWorkerAmount;
+            DiamondCapacity = diamondCapacity;
+            CurrentDiamondAmount = currentDiamondAmount;
+            MineCardCapacity = mineCardCapacity;
+        }
+        
         public string Key = "MineBaseData";
 
         public string GetKey() => Key;
