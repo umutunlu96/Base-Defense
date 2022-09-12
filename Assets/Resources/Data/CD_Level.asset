@@ -74,7 +74,7 @@ MonoBehaviour:
         Key: 
       AmmoWorkerData:
         BuyState: 0
-        AmmoWorkerCost: 25
+        AmmoWorkerCost: 100
         AmmoWorkerPayedAmount: 0
         AmmoWorkerLevel: 1
         Key: AmmoWorkerData

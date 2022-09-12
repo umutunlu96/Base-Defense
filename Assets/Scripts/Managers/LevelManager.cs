@@ -1,9 +1,5 @@
-using System;
-using Controllers;
 using Data.UnityObject;
-using Data.ValueObject;
 using Commands;
-using Keys;
 using Signals;
 using UnityEngine;
 
@@ -26,8 +22,8 @@ namespace Managers
         #region Private Variables
         
         private int _levelID;
-        private LevelLoaderCommand levelLoader = new LevelLoaderCommand();
-        private ClearActiveLevelCommand levelClearer = new ClearActiveLevelCommand();
+        private LevelLoaderCommand _levelLoader;
+        private ClearActiveLevelCommand _levelClearer;
 
         #endregion
 
@@ -41,6 +37,8 @@ namespace Managers
         private void Initialize()
         {
             _levelID = GetActiveLevel();
+            _levelLoader = levelHolder.AddComponent<LevelLoaderCommand>();
+            _levelClearer = levelHolder.AddComponent<ClearActiveLevelCommand>();
         }
         
         private int GetActiveLevel()
@@ -126,7 +124,7 @@ namespace Managers
 
         private void OnClearActiveLevel()
         {
-            levelClearer.ClearActiveLevel(levelHolder.transform);
+            _levelClearer.ClearActiveLevel(levelHolder.transform);
         }
     }
 }
