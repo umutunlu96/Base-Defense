@@ -6,6 +6,9 @@ namespace Data.ValueObject.Base
     [Serializable]
     public class RoomData : ISaveableEntity
     {
+        public string Key = "RoomData";
+        public string GetKey() => Key;
+        
         public int Cost;
 
         public int PayedAmount;
@@ -20,8 +23,5 @@ namespace Data.ValueObject.Base
             PayedAmount = payedAmount;
             TurretData = turretData;
         }
-        
-        public string Key = "RoomData";
-        public string GetKey() => Key;
     }
 }

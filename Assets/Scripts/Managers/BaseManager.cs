@@ -13,7 +13,8 @@ namespace Managers
         #region Variables
 
         #region Public
-        
+
+        public BaseData BaseData;
         
         #endregion
 
@@ -31,5 +32,26 @@ namespace Managers
         #endregion
 
         #endregion
+        
+        
+        private int GetLevelID => LevelSignals.Instance.onGetLevelID();
+        
+        private void GetBaseData() => BaseData =  Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelID-1].
+            BaseData;
+
+        private void Start()
+        {
+            GetBaseData();
+            SetDataToManagers();
+        }
+
+        private void SetDataToManagers()
+        {
+            for (int i = 0; i < RoomManagers.Count; i++)
+            {
+                RoomManagers[i].SetData(BaseData.BaseRoomData.RoomDatas[i], i);
+            }
+        }
+        
     }
 }

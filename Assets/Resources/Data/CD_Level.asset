@@ -31,42 +31,24 @@ MonoBehaviour:
     BaseData:
       BaseRoomData:
         RoomDatas:
-        - RoomBuyState: 1
-          RoomCost: 50
-          RoomPayedAmount: 50
-          TurretBuyState: 0
-          TurretCost: 50
-          TurretPayedAmount: 0
-          TurretHasTurretSoldier: 0
+        - Key: RoomData
+          Cost: 50
+          PayedAmount: 0
           TurretData:
+            Key: TurretData
+            Cost: 50
+            PayedAmount: 0
             AmmoCapacity: 50
             AmmoDamage: 5
-            TurretParticle: {fileID: 0}
-          Key: RoomData
-        - RoomBuyState: 0
-          RoomCost: 50
-          RoomPayedAmount: 0
-          TurretBuyState: 0
-          TurretCost: 50
-          TurretPayedAmount: 0
-          TurretHasTurretSoldier: 0
+        - Key: RoomData
+          Cost: 50
+          PayedAmount: 0
           TurretData:
+            Key: TurretData
+            Cost: 50
+            PayedAmount: 0
             AmmoCapacity: 50
             AmmoDamage: 5
-            TurretParticle: {fileID: 0}
-          Key: RoomData
-        - RoomBuyState: 0
-          RoomCost: 50
-          RoomPayedAmount: 0
-          TurretBuyState: 0
-          TurretCost: 50
-          TurretPayedAmount: 0
-          TurretHasTurretSoldier: 0
-          TurretData:
-            AmmoCapacity: 50
-            AmmoDamage: 5
-            TurretParticle: {fileID: 0}
-          Key: RoomData
       MineBaseData:
         MaxWorkerAmount: 0
         CurrentWorkerAmount: 0
@@ -96,3 +78,9 @@ MonoBehaviour:
         MoneyWorkerPayedAmount: 0
         MoneyWorkerLevel: 1
         Key: MoneyWorkerData
+      TurretData:
+        Key: TurretData
+        Cost: 0
+        PayedAmount: 0
+        AmmoCapacity: 0
+        AmmoDamage: 0

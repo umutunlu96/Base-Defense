@@ -1,16 +1,14 @@
 ﻿using DG.Tweening;
-using Enums;
 using Managers;
-using Signals;
 using TMPro;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class RoomAreaPhysicController : MonoBehaviour
+    public class TurretAreaPhysicController : MonoBehaviour
     {
         [SerializeField] private float delay = 0.005f;
-        [SerializeField] private RoomManager manager;
+        [SerializeField] private TurretManager manager;
         [SerializeField] private TextMeshPro payedAmountText;
         [SerializeField] private Renderer filledSquareRenderer;
         private float _timer;

@@ -7,6 +7,10 @@ namespace Data.ValueObject.Base
     [Serializable]
     public class TurretData : ISaveableEntity
     {
+        public string Key = "TurretData";
+        
+        public string GetKey() => Key;
+        
         public int Cost;
 
         public int PayedAmount;
@@ -14,18 +18,15 @@ namespace Data.ValueObject.Base
         public int AmmoCapacity;
 
         public int AmmoDamage;
-
-        public ParticleSystem TurretParticle;
-
+        
         public TurretData(){}
 
-        public TurretData(int cost, int payedAmount, int ammoCapacity, int ammoDamage, ParticleSystem particleSystem)
+        public TurretData(int cost, int payedAmount, int ammoCapacity, int ammoDamage)
         {
-            
+            Cost = cost;
+            PayedAmount = payedAmount;
+            AmmoCapacity = ammoCapacity;
+            AmmoDamage = ammoDamage;
         }
-
-        public string Key = "TurretData";
-        
-        public string GetKey() => Key;
     }
 }

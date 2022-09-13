@@ -18,6 +18,9 @@ namespace Signals
 
         public Action<RoomData, int> onSaveRoomData;
         public Func<string, int, RoomData> onLoadRoomData;
+        
+        public Action<TurretData, int> onSaveTurretData;
+        public Func<string, int, TurretData> onLoadTurretData;
 
         public Action<ScoreParams, int> onSaveScoreParams;
         public Func<string, int, ScoreParams> onLoadScoreParams;
