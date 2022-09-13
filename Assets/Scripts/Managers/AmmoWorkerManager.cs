@@ -16,6 +16,7 @@ namespace Managers
 
         #region Public
         public AmmoWorkerData Data;
+        public int UniqueId;
         
         [Header("Variables")]
         [SerializeField] private int Identifier = 0;
@@ -39,9 +40,6 @@ namespace Managers
         #region Private
 
         private int _levelID;
-        private int _uniqueId;
-        private bool _canBuy;
-        private float _timer;
 
         #endregion
 
@@ -70,17 +68,17 @@ namespace Managers
         {
             _levelID = GetLevelID;
 
-            _uniqueId = _levelID * 10 + Identifier;
+            UniqueId = _levelID * 10 + Identifier;
             
-            if (!ES3.FileExists($"AmmoWorkerData{_uniqueId}.es3"))
+            if (!ES3.FileExists($"AmmoWorkerData{UniqueId}.es3"))
             {
                 if (!ES3.KeyExists("AmmoWorkerData"))
                 {
                     Data = GetAmmoWorkerData();
-                    Save(_uniqueId);
+                    Save(UniqueId);
                 }
             }
-            Load(_uniqueId);
+            Load(UniqueId);
             // SetDataToControllers();
         }
 
@@ -93,14 +91,12 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            InputSignals.Instance.onInputReleased += EnableCanBuyState;
-            InputSignals.Instance.onInputTaken += DisableCanBuyState;
+
         }
         
         private void UnSubscribeEvents()
         {
-            InputSignals.Instance.onInputReleased -= EnableCanBuyState;
-            InputSignals.Instance.onInputTaken -= DisableCanBuyState;
+
         }
 
         private void OnDisable()
@@ -108,13 +104,6 @@ namespace Managers
             UnSubscribeEvents();
         }
 
-        #endregion
-
-        #region EventDriven Functions
-        
-        private void EnableCanBuyState() => _canBuy = true;
-        private void DisableCanBuyState() => _canBuy = false;
-        
         #endregion
         
         #region Save-Load
@@ -150,9 +139,9 @@ namespace Managers
 
         #region Controller
 
-        private void UpdatePayedAmountText() => payedAmountText.text = (Data.AmmoWorkerCost - Data.AmmoWorkerPayedAmount).ToString();
+        public void UpdatePayedAmountText() => payedAmountText.text = (Data.AmmoWorkerCost - Data.AmmoWorkerPayedAmount).ToString();
 
-        private void CheckPayedAmount()
+        public void CheckPayedAmount()
         {
             if (Data.AmmoWorkerPayedAmount >= Data.AmmoWorkerCost)
             {
@@ -166,8 +155,8 @@ namespace Managers
             if(buyState == BuyState.NotBought) return;
             buyPart.SetActive(false);
         }
-        
-        private void SetRadialFilletAmount(bool isInitialize)
+
+        public void SetRadialFilletAmount(bool isInitialize)
         {
             if (isInitialize)
             {
@@ -179,45 +168,6 @@ namespace Managers
                 filledSquareRenderer.material.DOFloat(filletAmount,"_Arc2",delay);
             }
         }
-        #endregion
-        
-        #region Physic Check
-
-        private void OnTriggerStay(Collider other)
-        {
-            
-            if (other.CompareTag("Player"))
-            {
-                if (!_canBuy) return;
-                if (ScoreSignals.Instance.onGetMoneyAmount() > Data.AmmoWorkerCost) return;
-                
-                _timer -= Time.deltaTime;
-
-                if (!(_timer <= 0)) return;
-                if (Data.AmmoWorkerPayedAmount < Data.AmmoWorkerCost)
-                {
-                    ScoreSignals.Instance.onSetMoneyAmount(-1);
-                    Data.AmmoWorkerPayedAmount++;
-                    UpdatePayedAmountText();
-                    CheckPayedAmount();
-                    SetRadialFilletAmount(false);
-                }
-                else
-                {
-                    Data.BuyState = BuyState.Bought;
-                }
-                _timer = delay;
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                Save(_uniqueId);
-            }
-        }
-
         #endregion
     }
 }

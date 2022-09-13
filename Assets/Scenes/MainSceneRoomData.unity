@@ -337,6 +337,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bb387736836fb45b491991ae03d052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &420440592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7090843748666334846, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+  m_PrefabInstance: {fileID: 7623484849607079135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &420440593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420440592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f845792712e4a099a4b134716cc15d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data:
+    Cost: 0
+    PayedAmount: 0
+    TurretData:
+      Cost: 0
+      PayedAmount: 0
+      AmmoCapacity: 0
+      AmmoDamage: 0
+      TurretParticle: {fileID: 0}
+      Key: TurretData
+    Key: RoomData
+  roomBuyArea: []
 --- !u!1 &429695601
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,6 +459,40 @@ Transform:
   m_Father: {fileID: 193562365}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &531228323 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4119239847931551052, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+  m_PrefabInstance: {fileID: 7623484849607079135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &531228324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531228323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f845792712e4a099a4b134716cc15d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data:
+    Cost: 0
+    PayedAmount: 0
+    TurretData:
+      Cost: 0
+      PayedAmount: 0
+      AmmoCapacity: 0
+      AmmoDamage: 0
+      TurretParticle: {fileID: 0}
+      Key: TurretData
+    Key: RoomData
+  roomBuyArea: []
+--- !u!4 &605325308 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2489814386518560032, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
+  m_PrefabInstance: {fileID: 2489814387251709274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &641711528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,9 +1194,8 @@ Transform:
   m_Children:
   - {fileID: 1892333595}
   - {fileID: 543450653567480473}
-  - {fileID: 1169769839}
   m_Father: {fileID: 1782675815}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1169769838
 GameObject:
@@ -1165,8 +1227,8 @@ Transform:
   - {fileID: 1291807518}
   - {fileID: 235896198}
   - {fileID: 780642591}
-  m_Father: {fileID: 1132396117}
-  m_RootOrder: 2
+  m_Father: {fileID: 1782675815}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1205873063
 GameObject:
@@ -1306,6 +1368,35 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291807517}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1361545637 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5564629543026414433, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+  m_PrefabInstance: {fileID: 7623484849607079135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1361545638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361545637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f845792712e4a099a4b134716cc15d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data:
+    Cost: 0
+    PayedAmount: 0
+    TurretData:
+      Cost: 0
+      PayedAmount: 0
+      AmmoCapacity: 0
+      AmmoDamage: 0
+      TurretParticle: {fileID: 0}
+      Key: TurretData
+    Key: RoomData
+  roomBuyArea: []
 --- !u!1 &1647084734
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,6 +1659,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 605325308}
+  - {fileID: 1169769839}
   - {fileID: 1132396117}
   m_Father: {fileID: 1647084735}
   m_RootOrder: 11
@@ -1834,11 +1927,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1782675815}
     m_Modifications:
     - target: {fileID: 2489814386518560032, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2489814386518560032, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1884,6 +1977,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkerAreas
       objectReference: {fileID: 0}
+    - target: {fileID: 2489814386518560035, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
 --- !u!1001 &7623484849607079135
@@ -1893,9 +1990,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1132396117}
     m_Modifications:
+    - target: {fileID: 2034269211029506463, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564629543026414433, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7281589171087564028, guid: 02a53dc8195c8214683416be09253bde, type: 3}
       propertyPath: m_Name
       value: Base_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623484848226150817, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7946239155127780934, guid: 02a53dc8195c8214683416be09253bde, type: 3}
       propertyPath: m_RootOrder
@@ -1941,5 +2050,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8688651745685471116, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+      propertyPath: m_Name
+      value: TurretBuyArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688651745685471116, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2849092917814983517, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+    - {fileID: 2115997022529311885, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+    - {fileID: 2392749165423549351, guid: 02a53dc8195c8214683416be09253bde, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+--- !u!1 &7623484849607079136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8688651745685471116, guid: 02a53dc8195c8214683416be09253bde, type: 3}
+  m_PrefabInstance: {fileID: 7623484849607079135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7623484849607079137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623484849607079136}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 15, z: 5}
+  m_Center: {x: 0, y: 0, z: -2.5}

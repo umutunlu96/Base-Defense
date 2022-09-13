@@ -21,7 +21,7 @@ namespace Managers
         #region Private
 
         private PlayerData _playerData;
-
+        private bool _canBuy;
         #endregion Private
 
         #endregion Self Variables
@@ -49,6 +49,8 @@ namespace Managers
             InputSignals.Instance.onInputTaken += OnPointerDown;
             InputSignals.Instance.onInputReleased += OnInputReleased;
             InputSignals.Instance.onInputDragged += OnInputDragged;
+
+            PlayerSignals.Instance.canBuy += OnCanBuy;
         }
 
         private void UnsubscribeEvents()
@@ -59,6 +61,8 @@ namespace Managers
             InputSignals.Instance.onInputTaken -= OnPointerDown;
             InputSignals.Instance.onInputReleased -= OnInputReleased;
             InputSignals.Instance.onInputDragged -= OnInputDragged;
+
+            PlayerSignals.Instance.canBuy -= OnCanBuy;
         }
 
         private void OnDisable()
@@ -68,6 +72,8 @@ namespace Managers
 
         #endregion Event Subsicription
 
+        private bool OnCanBuy() => _canBuy;
+        
         private void SetPlayerDataToControllers()
         {
             movementController.SetMovementData(_playerData.playerMovementData);
@@ -81,12 +87,14 @@ namespace Managers
         private void OnPointerDown()
         {
             ActivateMovement();
+            _canBuy = false;
             //animation controller set run animation
         }
 
         private void OnInputReleased()
         {
             DeactivateMovement();
+            _canBuy = true;
             //animation controller set idle animation
         }
 

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Data.UnityObject;
 using Data.ValueObject;
+using Data.ValueObject.Base;
 using Signals;
 using UnityEngine;
 
@@ -10,25 +12,24 @@ namespace Managers
     {
         #region Variables
 
-        public LevelData Data;
-        private int levelID;
+        #region Public
+        
+        
+        #endregion
+
+        #region Serialized
+
+        [SerializeField] private List<RoomManager> RoomManagers;
 
         #endregion
 
-        private void Awake()
-        {
-            Data = GetData();
-        }
+        #region Private
 
-        private int GetLevelID => LevelSignals.Instance.onGetLevelID();
+        private int _levelID;
+        private int _uniqueId;
 
-        private LevelData GetData()
-        {
-            return Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelID - 1];
-        }
+        #endregion
 
-        private void SetData()
-        {
-        }
+        #endregion
     }
 }

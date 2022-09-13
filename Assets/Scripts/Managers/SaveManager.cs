@@ -49,6 +49,9 @@ namespace Managers
 
             SaveLoadSignals.Instance.onSaveMineBaseData += _saveGameCommand.Execute;
             SaveLoadSignals.Instance.onLoadMineBaseData += _loadGameCommand.Execute<MineBaseData>;
+
+            SaveLoadSignals.Instance.onSaveRoomData += _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadRoomData += _loadGameCommand.Execute<RoomData>;
         }
 
         private void UnsubscribeEvents()
@@ -61,6 +64,9 @@ namespace Managers
             
             SaveLoadSignals.Instance.onSaveMineBaseData -= _saveGameCommand.Execute;
             SaveLoadSignals.Instance.onLoadMineBaseData -= _loadGameCommand.Execute<MineBaseData>;
+            
+            SaveLoadSignals.Instance.onSaveRoomData += _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadRoomData += _loadGameCommand.Execute<RoomData>;
         }
         private void OnDisable()
         {

@@ -17,7 +17,7 @@ namespace Managers
         #endregion
 
         #region Serialized
-        
+        [SerializeField] private int Identifier = 0;
         //Controllers
         
         #endregion
@@ -25,7 +25,7 @@ namespace Managers
         #region Private
 
         private int _levelID;
-        private string _uniqueIdString;
+        private int _uniqueId;
 
         #endregion
 
@@ -45,15 +45,17 @@ namespace Managers
         {
             _levelID = GetLevelID;
 
-            if (!ES3.FileExists($"MineBaseData{_levelID}.es3"))
+            _uniqueId = _levelID * 10 + Identifier;
+
+            if (!ES3.FileExists($"MineBaseData{_uniqueId}.es3"))
             {
                 if (!ES3.KeyExists("MineBaseData"))
                 {
                     Data = GetMineBaseData();
-                    Save(_levelID);
+                    Save(_uniqueId);
                 }
             }
-            Load(_levelID);
+            Load(_uniqueId);
             // SetDataToControllers();
         }
         
@@ -61,12 +63,12 @@ namespace Managers
 
         private void OnSave()
         {
-            Save(_levelID);
+            Save(_uniqueId);
         }
 
         private void OnLoad()
         {
-            Load(_levelID);
+            Load(_uniqueId);
         }
 
         public void Save(int uniqueId)

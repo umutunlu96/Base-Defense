@@ -2,7 +2,6 @@
 using Data.ValueObject.Base;
 using Extentions;
 using Keys;
-using UnityEngine.Events;
 
 namespace Signals
 {
@@ -16,6 +15,9 @@ namespace Signals
 
         public Action<MineBaseData, int> onSaveMineBaseData;
         public Func<string, int, MineBaseData> onLoadMineBaseData;
+
+        public Action<RoomData, int> onSaveRoomData;
+        public Func<string, int, RoomData> onLoadRoomData;
 
         public Action<ScoreParams, int> onSaveScoreParams;
         public Func<string, int, ScoreParams> onLoadScoreParams;
