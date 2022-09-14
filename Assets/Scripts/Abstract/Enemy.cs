@@ -1,9 +1,12 @@
 ﻿using Enums;
+using UnityEngine;
 
 namespace Abstract
 {
-    public abstract class Enemy
+    public abstract class Enemy : MonoBehaviour
     {
+        public Enemy prefab;
+        
         public int Health;
 
         public int Damage;
@@ -18,6 +21,21 @@ namespace Abstract
         
         public EnemyType EnemyType;
 
+        protected Enemy EnemyFactoryMethod()
+        {
+            return Instantiate(prefab);
+        }
+
+        protected void TurnOnEnemy(Enemy enemy)
+        {
+            enemy.gameObject.SetActive(true);
+        }
+        
+        protected void TurnOffEnemy(Enemy enemy)
+        {
+            enemy.gameObject.SetActive(false);
+        }
+        
         protected Enemy(int health, int damage, float attackRange, float speed, float chaseSpeed, int chase, EnemyType enemyType)
         {
             Health = health;
