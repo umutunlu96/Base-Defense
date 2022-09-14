@@ -1978,7 +1978,7 @@ GameObject:
   - component: {fileID: 7946239155127780934}
   - component: {fileID: 7623484849607079137}
   m_Layer: 0
-  m_Name: Base_1
+  m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

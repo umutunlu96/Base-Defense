@@ -11,6 +11,7 @@ namespace Managers
 
         #region Seriliazed Field
 
+        [SerializeField] private Rigidbody rigidBody;
         [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private PlayerPhysicsController physicsController;
         [SerializeField] private PlayerMeshController meshController;
@@ -21,9 +22,10 @@ namespace Managers
         #region Private
 
         private PlayerData _playerData;
-        private bool _canBuy;
+        private bool _isPlayerMoving;
         #endregion Private
 
+        
         #endregion Self Variables
 
         private void Awake()
@@ -50,7 +52,9 @@ namespace Managers
             InputSignals.Instance.onInputReleased += OnInputReleased;
             InputSignals.Instance.onInputDragged += OnInputDragged;
 
-            PlayerSignals.Instance.canBuy += OnCanBuy;
+            PlayerSignals.Instance.onIsPlayerMoving += OnCanBuy;
+            PlayerSignals.Instance.onGetPlayerTransfrom += OnGetPlayerTransform;
+            PlayerSignals.Instance.onGetPlayerSpeed += OnGetPlayerSpeed;
         }
 
         private void UnsubscribeEvents()
@@ -62,7 +66,9 @@ namespace Managers
             InputSignals.Instance.onInputReleased -= OnInputReleased;
             InputSignals.Instance.onInputDragged -= OnInputDragged;
 
-            PlayerSignals.Instance.canBuy -= OnCanBuy;
+            PlayerSignals.Instance.onIsPlayerMoving -= OnCanBuy;
+            PlayerSignals.Instance.onGetPlayerTransfrom -= OnGetPlayerTransform;
+            PlayerSignals.Instance.onGetPlayerSpeed -= OnGetPlayerSpeed;
         }
 
         private void OnDisable()
@@ -72,7 +78,7 @@ namespace Managers
 
         #endregion Event Subsicription
 
-        private bool OnCanBuy() => _canBuy;
+        private bool OnCanBuy() => _isPlayerMoving;
         
         private void SetPlayerDataToControllers()
         {
@@ -87,14 +93,14 @@ namespace Managers
         private void OnPointerDown()
         {
             ActivateMovement();
-            _canBuy = false;
+            _isPlayerMoving = true;
             //animation controller set run animation
         }
 
         private void OnInputReleased()
         {
             DeactivateMovement();
-            _canBuy = true;
+            _isPlayerMoving = false;
             //animation controller set idle animation
         }
 
@@ -111,6 +117,8 @@ namespace Managers
 
         private Transform OnGetPlayerTransform() => transform;
 
+        private float OnGetPlayerSpeed() => rigidBody.velocity.magnitude;
+        
         private void OnLevelFailed() => movementController.IsReadyToPlay(false);
         
         private void OnReset()

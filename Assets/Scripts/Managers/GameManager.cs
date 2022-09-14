@@ -1,3 +1,4 @@
+using System;
 using Enums;
 using Signals;
 using UnityEngine;
@@ -27,6 +28,11 @@ namespace Managers
         private void Awake()
         {
             Application.targetFrameRate = 60;
+        }
+
+        private void Start()
+        {
+            CoreGameSignals.Instance.onPlay?.Invoke();
         }
 
         #region Event System

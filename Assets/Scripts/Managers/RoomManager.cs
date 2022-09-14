@@ -54,7 +54,7 @@ namespace Managers
             int playerMoney = ScoreSignals.Instance.onGetMoneyAmount();
             int moneyToPay = Data.Cost - Data.PayedAmount;
             
-            if(!PlayerSignals.Instance.canBuy() && playerMoney < Data.Cost) return;
+            if(PlayerSignals.Instance.onIsPlayerMoving() && playerMoney < Data.Cost) return;
             if (playerMoney >= Data.Cost && moneyToPay > 0)
             {
                 if (!_playerEntered)

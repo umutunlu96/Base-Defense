@@ -78,8 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3a44cb81a8e0446ae43b3175166559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidBody: {fileID: 1892333597}
   movementController: {fileID: 1892333598}
-  physicsController: {fileID: 0}
+  physicsController: {fileID: 5448402810838680784}
   meshController: {fileID: 0}
   animationController: {fileID: 0}
 --- !u!114 &1892333598
@@ -106,6 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3927869125418948765}
   - component: {fileID: 8471539991797527172}
+  - component: {fileID: 5448402810838680784}
   m_Layer: 0
   m_Name: PhysicController
   m_TagString: Player
@@ -141,6 +143,19 @@ CapsuleCollider:
   m_Height: 2.75
   m_Direction: 1
   m_Center: {x: 0, y: 1.3, z: 0}
+--- !u!114 &5448402810838680784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524757491936014826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dddfa80260f1ac4ca23bd73f8dee13a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 1892333599}
 --- !u!1001 &1294032278825533864
 PrefabInstance:
   m_ObjectHideFlags: 0

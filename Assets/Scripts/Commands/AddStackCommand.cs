@@ -5,24 +5,21 @@ namespace Commands
 {
     public class AddStackCommand
     {
-
-        private List<Transform> _collectable;
+        private List<Transform> _hostages;
         private Transform _transform;
-        private MonoBehaviour _monoBehaviour;
 
-        public AddStackCommand(ref List<Transform> collectable, Transform transform, MonoBehaviour monoBehaviour)
+        public AddStackCommand(ref List<Transform> hostages, Transform transform)
         {
-            _collectable = collectable;
+            _hostages = hostages;
             _transform = transform;
-            _monoBehaviour = monoBehaviour;
         }
 
-        public void OnAddStack(Transform collectable)
+        public void Execute(Transform hostage)
         {
-            collectable.tag = "Collected";
-            collectable.SetParent(_transform);
-            _collectable.Add(collectable);
-            _collectable.TrimExcess();
+            hostage.tag = "Rescued";
+            hostage.SetParent(_transform);
+            _hostages.Add(hostage);
+            _hostages.TrimExcess();
         }
     }
 }

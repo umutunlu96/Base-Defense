@@ -16,7 +16,7 @@ namespace Controllers
         {
             if (other.CompareTag("Player"))
             {
-                if (!PlayerSignals.Instance.canBuy()) return;
+                if (PlayerSignals.Instance.onIsPlayerMoving()) return;
                 if (ScoreSignals.Instance.onGetMoneyAmount() > manager.Data.AmmoWorkerCost) return;
                 
                 _timer -= Time.deltaTime;
