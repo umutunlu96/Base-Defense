@@ -9,14 +9,26 @@ namespace Managers
 {
     public class StackManager : MonoBehaviour
     {
+        #region Variables
+
+        #region Serialized
+        
         [SerializeField] private List<Transform> hostageList = new List<Transform>();
-        [SerializeField] private Transform _playerTransform;
+        
+        #endregion
+
+        #region Private
+        
+        private Transform _transform;
         private LerpData _lerpData;
+        private Transform _playerTransform;
         private StackLerpMoveCommand _stackLerpMoveCommand;
         private AddStackCommand _addStackCommand;
         private RemoveStackCommand _removeStackCommand;
-        private bool canLerp;
         
+        #endregion
+        
+        #endregion
         private LerpData GetLerpData() => Resources.Load<CD_Lerp>("Data/CD_Lerp").Data;
         
         #region EventSubscription
@@ -53,11 +65,12 @@ namespace Managers
         }
         private void Initialize()
         {
+            _transform = this.transform;
             _lerpData = GetLerpData();
-
-            _addStackCommand = new AddStackCommand(ref hostageList, transform);
+            _addStackCommand = new AddStackCommand(ref hostageList, ref _transform);
             _removeStackCommand = new RemoveStackCommand(ref hostageList);
         }
+        
         private void FixedUpdate()
         {
             if(_playerTransform == null) return;

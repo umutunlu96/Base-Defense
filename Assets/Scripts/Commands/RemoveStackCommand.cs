@@ -5,18 +5,18 @@ namespace Commands
 {
     public class RemoveStackCommand
     {
-        private List<Transform> _collectable;
+        private List<Transform> _hostages;
 
-        public RemoveStackCommand(ref List<Transform> collectable)
+        public RemoveStackCommand(ref List<Transform> hostages)
         {
-            _collectable = collectable;
+            _hostages = hostages;
         }
 
         public void Execute(Transform collectable)
         {
-            if(_collectable.Count == 0) return;
-            _collectable.Remove(collectable);
-            _collectable.TrimExcess();
+            if(_hostages.Count == 0) return;
+            _hostages.Remove(collectable);
+            _hostages.TrimExcess();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Commands
         private List<Transform> _hostages;
         private Transform _transform;
 
-        public AddStackCommand(ref List<Transform> hostages, Transform transform)
+        public AddStackCommand(ref List<Transform> hostages, ref Transform transform)
         {
             _hostages = hostages;
             _transform = transform;
