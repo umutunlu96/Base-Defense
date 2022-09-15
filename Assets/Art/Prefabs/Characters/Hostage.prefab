@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1294032278345427919}
   - component: {fileID: 1892333597}
+  - component: {fileID: 8265416735160950704}
+  - component: {fileID: 7336653350222876287}
   m_Layer: 0
   m_Name: Hostage
   m_TagString: Untagged
@@ -49,6 +51,42 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &8265416735160950704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294032278345427918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9744dac7864be78c83726e4e85f642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  physicController: {fileID: 5140999712965089936}
+  animator: {fileID: 0}
+--- !u!195 &7336653350222876287
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294032278345427918}
+  m_Enabled: 0
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1524757491936014826
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,6 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3927869125418948765}
   - component: {fileID: 8471539991797527172}
+  - component: {fileID: 5140999712965089936}
   m_Layer: 20
   m_Name: PhysicController
   m_TagString: Hostage
@@ -94,6 +133,19 @@ CapsuleCollider:
   m_Height: 2.75
   m_Direction: 1
   m_Center: {x: 0, y: 1.3, z: 0}
+--- !u!114 &5140999712965089936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524757491936014826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42479ab313634da48fc60ef9fb180c36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 8265416735160950704}
 --- !u!1001 &1294032278825533864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -164,7 +216,7 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: 79c37860bc62b1c4eb447cd0b44103b2, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 854eeeb6c4f6fad49b1582843b0e12c5, type: 2}
+      objectReference: {fileID: 9100000, guid: 978f47d4ac841e445a16d61e32d4260e, type: 2}
     - target: {fileID: 9500000, guid: 79c37860bc62b1c4eb447cd0b44103b2, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
