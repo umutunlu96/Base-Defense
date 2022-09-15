@@ -1,8 +1,8 @@
-﻿namespace Abstract
+﻿namespace StateMachine
 {
     public interface IState
     {
-        void OnSetup();
+        void Tick();
         void OnEnter();
         void OnExit();
     }
