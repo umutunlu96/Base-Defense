@@ -73,7 +73,7 @@ namespace StateMachine.Enemy
             At(move,chase,CanChasePlayer());
             At(chase,attack, IsInAttackRange());
             At(attack,chase, IsNotInAttackRange());
-            At(chase,move, CantChasePlayer());
+            At(chase,search, CantChasePlayer());
             
             _stateMachine.AddAnyTransition(death,IsDeath());
             

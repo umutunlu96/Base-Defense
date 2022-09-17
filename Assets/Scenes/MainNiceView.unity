@@ -2384,7 +2384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a00fc0245846d2a1a222d5951139de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
+  CurrentTarget: {fileID: 0}
   _attackSide: 1
   Health: 100
   chaseUpdateSpeed: 0.2
