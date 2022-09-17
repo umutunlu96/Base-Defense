@@ -1,4 +1,6 @@
 ﻿using Signals;
+using StateMachine.Miner;
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace StateMachine.Exclusive
@@ -10,6 +12,7 @@ namespace StateMachine.Exclusive
         
         public void MakeMeAMiner()
         {
+            // animator.runtimeAnimatorController
             StackSignals.Instance.onRemoveStack?.Invoke(transform);
             gameObject.AddComponent<MinerAI>();
             Destroy(physicController);

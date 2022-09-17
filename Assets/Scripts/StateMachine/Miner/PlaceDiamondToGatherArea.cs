@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using StateMachine.Miner;
+using UnityEngine;
 
 namespace StateMachine
 {

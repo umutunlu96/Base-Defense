@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace StateMachine
+namespace StateMachine.Miner
 {
     public class MinerAI : MonoBehaviour
     {
@@ -20,10 +20,8 @@ namespace StateMachine
         {
             var navMeshAgent = GetComponent<NavMeshAgent>();
             var animator = GetComponentInChildren<Animator>();
-            // var animator = GetComponent<Animator>();
 
             navMeshAgent.enabled = true;
-            // navMeshAgent.agentTypeID = 1;
             
             GatherArea = AiSignals.Instance.onGetGatherArea();
             ResourceArea = AiSignals.Instance.onGetResourceArea();
@@ -51,7 +49,7 @@ namespace StateMachine
             Func<bool> ReachedStockpile() => () => GatherArea != null && 
                                                    Vector3.Distance(transform.position, GatherArea.position) < 2f;
         }
-
+        
         private void Update() => _stateMachine.Tick();
 
         public void TakeFromTarget() => _gathered++;
