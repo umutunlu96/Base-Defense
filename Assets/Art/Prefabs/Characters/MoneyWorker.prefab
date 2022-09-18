@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1975176223537316669}
   - component: {fileID: 9131113213528716639}
   - component: {fileID: 764608972716822765}
+  - component: {fileID: 356639854}
   m_Layer: 0
   m_Name: MoneyWorker
-  m_TagString: Untagged
+  m_TagString: Worker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,6 +103,20 @@ MonoBehaviour:
   speed: 5
   capacity: 10
   _collectedMoney: 0
+--- !u!136 &356639854
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764608972716822766}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.4, z: 0}
 --- !u!1 &764608973327268896
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +345,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd8e9b2970dd51142af12e7e29ee77f5, type: 2}
+  - {fileID: 2100000, guid: 58420becb2d926f44a14daae004ff3cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

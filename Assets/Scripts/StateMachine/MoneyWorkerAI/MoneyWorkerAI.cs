@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
+//delete movetofrontyard
 namespace StateMachine.MoneyWorkerAI
 {
     public class MoneyWorkerAI : MonoBehaviour
@@ -42,7 +43,7 @@ namespace StateMachine.MoneyWorkerAI
         private Animator _animator;
         
         private Transform _baseTransform;
-        private Transform _outsideTransform;
+        // private Transform _outsideTransform;
 
         private bool _cantFindAnyMoney;
         // private bool _moneyInRange;
@@ -57,7 +58,7 @@ namespace StateMachine.MoneyWorkerAI
 
         public Transform BaseTransform { get { return _baseTransform; } private set { _baseTransform = value; } }
         
-        public Transform OutsideTransform { get { return _outsideTransform; } private set { _outsideTransform = value; } }
+        // public Transform OutsideTransform { get { return _outsideTransform; } private set { _outsideTransform = value; } }
         
         
         
@@ -70,7 +71,7 @@ namespace StateMachine.MoneyWorkerAI
         {
             StackData = GetStackData();
             BaseTransform = AiSignals.Instance.onGetBaseTransform();
-            OutsideTransform = AiSignals.Instance.onGetOutsideTransform();
+            // OutsideTransform = AiSignals.Instance.onGetOutsideTransform();
         }
         
         private void Start()
@@ -86,7 +87,7 @@ namespace StateMachine.MoneyWorkerAI
             _stateMachine = new StateMachine();
 
             var moveBase = new MoveToBase(this, _animator, _navMeshAgent, _baseTransform);
-            var moveOutside = new MoveToFrontyard(this, _animator, _navMeshAgent, _outsideTransform);
+            // var moveOutside = new MoveToFrontyard(this, _animator, _navMeshAgent, _outsideTransform);
             var moveToMoney = new MoveToMoney(this, _animator, _navMeshAgent);
             
             var search = new Search(this, moneyFinder);
@@ -96,11 +97,12 @@ namespace StateMachine.MoneyWorkerAI
             // At(search, moveToMoney, HasFoundMoney());
             
             At(moveBase, search, HasAtBase());
-            At(search, moveOutside, GoOutsideWhenFoundMoney());
-            At(moveOutside, moveToMoney, HasFoundMoney());
+            // At(search, moveOutside, GoOutsideWhenFoundMoney());
+            // At(moveOutside, moveToMoney, HasFoundMoney());
+            At(search, moveToMoney, HasFoundMoney());
             At(moveToMoney, search, HasPickedMoney());
-            At(search, moveOutside, IsBackPackFull());
-            At(moveOutside, moveBase, HasAtOutsideAndBackPackIsFull());
+            At(search, moveBase, IsBackPackFull());
+            // At(moveOutside, moveBase, HasAtOutsideAndBackPackIsFull());
             
             _stateMachine.SetState(moveBase);
             
@@ -113,13 +115,10 @@ namespace StateMachine.MoneyWorkerAI
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
             
             Func<bool> HasAtBase() => () => Vector3.Distance(transform.position, BaseTransform.position) < 1f;
-            Func<bool> HasAtOutside() => () => _collectedMoney < capacity && Vector3.Distance(transform.position, OutsideTransform.position) < 1f;
             Func<bool> HasFoundMoney() => () => _collectedMoney < capacity && MoneyTransform != null;
             Func<bool> HasPickedMoney() => () => MoneyTransform == null;
             Func<bool> IsBackPackFull() => () => _collectedMoney == capacity;
-            Func<bool> HasAtOutsideAndBackPackIsFull () => () => _collectedMoney == capacity && Vector3.Distance(transform.position, OutsideTransform.position) < 1f;
-            Func<bool> GoOutsideWhenFoundMoney () => () => MoneyTransform != null && Vector3.Distance(transform.position, BaseTransform.position) < 1f;
-            Func<bool> CantFindAnyMoney() => () => CantFindMoney == true;
+            Func<bool> CantFindAnyMoney() => () => CantFindMoney;
         }
         private void Update() => _stateMachine.Tick();
         

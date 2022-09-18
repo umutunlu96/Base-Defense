@@ -37,7 +37,6 @@ namespace StateMachine.MoneyWorkerAI
 
         public void OnExit()
         {
-            Debug.Log("ExitBase");
             _moneyWorkerAI.DropMoney();
         }
     }
