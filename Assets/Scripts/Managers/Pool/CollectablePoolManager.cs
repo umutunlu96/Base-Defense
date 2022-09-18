@@ -30,6 +30,8 @@ namespace Managers.Pool
             GemPool = new ObjectPool<GameObject>(GemFactory, GemTurnOnCallback, GemTurnOffCallback, GemAmount, true);
         }
 
+        #region Money
+        
         private GameObject MoneyFactory()
         {
             GameObject moneyObject = Instantiate(moneyPrefab, transform);
@@ -50,6 +52,10 @@ namespace Managers.Pool
             money.SetActive(false);
         }
         
+        #endregion
+
+        #region Gem
+
         private GameObject GemFactory()
         {
             GameObject gemObject = Instantiate(gemPrefab, transform);
@@ -69,5 +75,8 @@ namespace Managers.Pool
             GemList.TrimExcess();
             gem.SetActive(false);
         }
+        
+        #endregion
+
     }
 }

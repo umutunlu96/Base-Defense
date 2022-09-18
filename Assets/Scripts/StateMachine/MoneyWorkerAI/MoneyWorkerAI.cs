@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Data.UnityObject;
 using Data.ValueObject;
+using Enums;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,9 +15,10 @@ namespace StateMachine.MoneyWorkerAI
 
         #region Public
 
+        public StackType StackType;
         public List<Transform> collectedMoneyList;
+
         public StackData StackData;
-        public Transform CurrentTarget;
         public Transform MoneyTransform;
 
         public int SearchRange = 25;
@@ -24,7 +26,9 @@ namespace StateMachine.MoneyWorkerAI
         #endregion
 
         #region Serialized
-        
+
+        [SerializeField] private MoneyFinder moneyFinder;
+        [SerializeField] private CollectableStackManager stackManager;
         [SerializeField] private float speed = 2f;
         [SerializeField] private int capacity = 10;
         [SerializeField] private int _collectedMoney = 0;
@@ -55,7 +59,7 @@ namespace StateMachine.MoneyWorkerAI
         // public bool MoneyInRange { get { return _moneyInRange; } set { _moneyInRange = value; } }
         
         
-        private StackData GetStackData() => Resources.Load<CD_StackData>("Data/CD_StackData").MoneyWorkerStackData;
+        private StackData GetStackData() => Resources.Load<CD_StackData>("Data/CD_StackData").StackDatas[(int)StackType];
         
         private void SetReferances()
         {
@@ -80,7 +84,7 @@ namespace StateMachine.MoneyWorkerAI
             var moveOutside = new MoveToFrontyard(this, _animator, _navMeshAgent, _outsideTransform);
             var moveToMoney = new MoveToMoney(this, _animator, _navMeshAgent);
             
-            var search = new Search(this);
+            var search = new Search(this, moneyFinder);
             var collect = new Collect(this, _animator, MoneyTransform);
 
 
@@ -108,9 +112,9 @@ namespace StateMachine.MoneyWorkerAI
         
         public void TakeMoney(Transform money)
         {
+            stackManager.AddStack(money);
             collectedMoneyList.Add(money);
             _collectedMoney++;
-            money.transform.SetParent(transform);
             MoneyTransform = null;
         }
 

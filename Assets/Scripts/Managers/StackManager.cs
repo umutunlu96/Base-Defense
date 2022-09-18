@@ -67,7 +67,7 @@ namespace Managers
         {
             _transform = this.transform;
             _lerpData = GetLerpData();
-            _addStackCommand = new AddStackCommand(ref hostageList, ref _transform);
+            // _addStackCommand = new AddStackCommand(ref hostageList,transform, ref _transform);
             _removeStackCommand = new RemoveStackCommand(ref hostageList);
         }
         

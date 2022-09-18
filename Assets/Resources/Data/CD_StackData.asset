@@ -12,18 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0451183ec864240adc31dfead175a3d, type: 3}
   m_Name: CD_StackData
   m_EditorClassIdentifier: 
-  PlayerStackData:
-    Capacity: 0
-    LerpSpeed: 0
-    OffsetY: 0
-    OffsetZ: 0
-  MoneyWorkerStackData:
-    Capacity: 10
+  StackDatas:
+  - Capacity: 10
     LerpSpeed: 10
     OffsetY: 1
-    OffsetZ: -1
-  AmmoWorkerStackData:
-    Capacity: 0
-    LerpSpeed: 0
-    OffsetY: 0
+    OffsetZ: 1
+  - Capacity: 10
+    LerpSpeed: 10
+    OffsetY: 0.11
     OffsetZ: 0
+  - Capacity: 10
+    LerpSpeed: 10
+    OffsetY: 1
+    OffsetZ: 1
