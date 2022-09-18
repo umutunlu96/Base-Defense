@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Commands;
 using Data.UnityObject;
 using Data.ValueObject;
@@ -21,9 +22,6 @@ namespace StateMachine
         #endregion
 
         #region Private
-
-        private AddStackCommand _addStackCommand;
-        private RemoveStackCommand _removeStackCommand;
         
         private StackData _stackData;
         private Vector3 _nextPos;
@@ -43,8 +41,6 @@ namespace StateMachine
         {
             _stackData = GetStackData();
             _nextPos = new Vector3(0, 0, 0);
-            // _addStackCommand = new AddStackCommand(ref collectableList, transform, ref _nextPos);
-            // _removeStackCommand = new RemoveStackCommand();
         }
         
         public void AddStack(Transform collectable)
@@ -60,10 +56,32 @@ namespace StateMachine
 
         public void RemoveStackAll()
         {
-            foreach (var collectable in collectableList)
-            {
-                
-            }
+            StartCoroutine(RemoveStackCoroutine());
         }
+        
+        public IEnumerator RemoveStackCoroutine()
+        {
+            for (int i = 0; i < collectableList.Count; i++)
+            {
+                Vector3 pos1 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-4, 4), collectableList[i].transform.localPosition.y + 10, collectableList[i].transform.localPosition.z + Random.Range(-4, 4));
+                Vector3 pos2 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-4, 4), collectableList[i].transform.localPosition.y - 30, collectableList[i].transform.localPosition.z + Random.Range(-4, 4));
+                collectableList[i].transform.DOLocalPath(new Vector3[2] { pos1, pos2 }, 0.5f);
+                yield return new WaitForSeconds(.1f);
+            }
+            yield return new WaitForSeconds(.2f);
+            RemoveAllList();
+        }
+
+        private void RemoveAllList()
+        {
+            for (int i = 0; i < collectableList.Count; i++)
+            {
+                collectableList[i].gameObject.SetActive(false);
+                collectableList.RemoveAt(i);
+                collectableList.TrimExcess();
+            }
+            //Return To Pool
+        }
+        
     }
 }

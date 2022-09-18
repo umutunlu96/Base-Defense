@@ -29,7 +29,6 @@ namespace StateMachine.MoneyWorkerAI
 
         public void OnEnter()
         {
-            
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _moneyWorkerAI.Speed;
             _navMeshAgent.SetDestination(_target.position);
@@ -38,7 +37,8 @@ namespace StateMachine.MoneyWorkerAI
 
         public void OnExit()
         {
-            
+            Debug.Log("ExitBase");
+            _moneyWorkerAI.DropMoney();
         }
     }
 }

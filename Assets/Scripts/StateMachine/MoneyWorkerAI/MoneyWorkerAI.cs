@@ -85,28 +85,28 @@ namespace StateMachine.MoneyWorkerAI
             var moveToMoney = new MoveToMoney(this, _animator, _navMeshAgent);
             
             var search = new Search(this, moneyFinder);
-            var collect = new Collect(this, _animator, MoneyTransform);
-
-
+            
             At(moveBase, moveOutside, HasAtBase());
             At(moveOutside, search, HasAtOutside());
             At(search, moveToMoney, HasFoundMoney());
             At(moveToMoney, search, HasPickedMoney());
-            At(moveOutside, moveBase, IsBackPackFull());
+            At(search, moveOutside, IsBackPackFull());
+            At(moveOutside, moveBase, HasAtOutsideAndBackPackIsFull());
             
             _stateMachine.SetState(moveBase);
             
             _stateMachine.AddAnyTransition(moveToMoney, HasFoundMoney());
-            _stateMachine.AddAnyTransition(moveBase, IsBackPackFull());
+            // _stateMachine.AddAnyTransition(moveOutside, IsBackPackFull());
 
             
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
             
             Func<bool> HasAtBase() => () => Vector3.Distance(transform.position, BaseTransform.position) < 1f;
-            Func<bool> HasAtOutside() => () => Vector3.Distance(transform.position, OutsideTransform.position) < 1f;
-            Func<bool> HasFoundMoney() => () => MoneyTransform != null;
+            Func<bool> HasAtOutside() => () => _collectedMoney < capacity && Vector3.Distance(transform.position, OutsideTransform.position) < 1f;
+            Func<bool> HasFoundMoney() => () => _collectedMoney < capacity && MoneyTransform != null;
             Func<bool> HasPickedMoney() => () => MoneyTransform == null;
             Func<bool> IsBackPackFull() => () => _collectedMoney == capacity;
+            Func<bool> HasAtOutsideAndBackPackIsFull () => () => _collectedMoney == capacity && Vector3.Distance(transform.position, OutsideTransform.position) < 1f;
         }
         private void Update() => _stateMachine.Tick();
         
@@ -118,8 +118,10 @@ namespace StateMachine.MoneyWorkerAI
             MoneyTransform = null;
         }
 
-        public void GiveMoney()
+        public void DropMoney()
         {
+            if(_collectedMoney != capacity) return;
+            stackManager.RemoveStackAll();
             _collectedMoney = 0;
         }
     }
