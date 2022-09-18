@@ -27,6 +27,8 @@ namespace StateMachine.MoneyWorkerAI
             {
                 _moneyFinder.IncreaseRaius();
                 _timer = 0;
+                if (_moneyFinder.Radius > 150)
+                    _moneyWorkerAI.CantFindMoney = true;
             }
         }
 

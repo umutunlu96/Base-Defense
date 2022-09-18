@@ -8,27 +8,32 @@ namespace StateMachine.MoneyWorkerAI
     {
         [SerializeField] private MoneyWorkerAI manager;
         private SphereCollider _collider;
+
+        public float Radius { get { return _collider.radius;} private set { _collider.radius = value; } }
         
         private void Awake()
         {
             _collider = GetComponent<SphereCollider>();
-            _collider.radius = manager.SearchRange;
+            Radius = manager.SearchRange;
         }
 
         public void IncreaseRaius()
         {
-            _collider.radius += manager.SearchRange;
+            Radius += manager.SearchRange;
         }
 
         public void ResetRadius()
         {
-            _collider.radius = manager.SearchRange;
+            Radius = manager.SearchRange;
         }
         
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Money") && other.gameObject.activeSelf)
+            {
+                manager.CantFindMoney = false;
                 manager.MoneyTransform = other.transform;
+            }
         }
     }
 }

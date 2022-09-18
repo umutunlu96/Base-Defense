@@ -43,7 +43,8 @@ namespace StateMachine.MoneyWorkerAI
         
         private Transform _baseTransform;
         private Transform _outsideTransform;
-        
+
+        private bool _cantFindAnyMoney;
         // private bool _moneyInRange;
         
         #endregion
@@ -51,10 +52,14 @@ namespace StateMachine.MoneyWorkerAI
         #endregion
 
         public float Speed { get { return speed; } private set { speed = value; } }
+        
+        public bool CantFindMoney { get { return _cantFindAnyMoney; } set { _cantFindAnyMoney = value; } }
 
         public Transform BaseTransform { get { return _baseTransform; } private set { _baseTransform = value; } }
         
         public Transform OutsideTransform { get { return _outsideTransform; } private set { _outsideTransform = value; } }
+        
+        
         
         // public bool MoneyInRange { get { return _moneyInRange; } set { _moneyInRange = value; } }
         
@@ -86,9 +91,13 @@ namespace StateMachine.MoneyWorkerAI
             
             var search = new Search(this, moneyFinder);
             
-            At(moveBase, moveOutside, HasAtBase());
-            At(moveOutside, search, HasAtOutside());
-            At(search, moveToMoney, HasFoundMoney());
+            // At(moveBase, moveOutside, HasAtBase());
+            // At(moveOutside, search, HasAtOutside());
+            // At(search, moveToMoney, HasFoundMoney());
+            
+            At(moveBase, search, HasAtBase());
+            At(search, moveOutside, GoOutsideWhenFoundMoney());
+            At(moveOutside, moveToMoney, HasFoundMoney());
             At(moveToMoney, search, HasPickedMoney());
             At(search, moveOutside, IsBackPackFull());
             At(moveOutside, moveBase, HasAtOutsideAndBackPackIsFull());
@@ -96,6 +105,8 @@ namespace StateMachine.MoneyWorkerAI
             _stateMachine.SetState(moveBase);
             
             _stateMachine.AddAnyTransition(moveToMoney, HasFoundMoney());
+            _stateMachine.AddAnyTransition(moveBase, CantFindAnyMoney());
+            
             // _stateMachine.AddAnyTransition(moveOutside, IsBackPackFull());
 
             
@@ -107,6 +118,8 @@ namespace StateMachine.MoneyWorkerAI
             Func<bool> HasPickedMoney() => () => MoneyTransform == null;
             Func<bool> IsBackPackFull() => () => _collectedMoney == capacity;
             Func<bool> HasAtOutsideAndBackPackIsFull () => () => _collectedMoney == capacity && Vector3.Distance(transform.position, OutsideTransform.position) < 1f;
+            Func<bool> GoOutsideWhenFoundMoney () => () => MoneyTransform != null && Vector3.Distance(transform.position, BaseTransform.position) < 1f;
+            Func<bool> CantFindAnyMoney() => () => CantFindMoney == true;
         }
         private void Update() => _stateMachine.Tick();
         
@@ -120,7 +133,7 @@ namespace StateMachine.MoneyWorkerAI
 
         public void DropMoney()
         {
-            if(_collectedMoney != capacity) return;
+            if(_collectedMoney == 0) return;
             stackManager.RemoveStackAll();
             _collectedMoney = 0;
         }
