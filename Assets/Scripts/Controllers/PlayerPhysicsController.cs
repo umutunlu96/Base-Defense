@@ -2,12 +2,11 @@
 using Signals;
 using UnityEngine;
 
-
 namespace Controllers
 {
     public class PlayerPhysicsController : MonoBehaviour
     {
-        [SerializeField] PlayerManager manager;
+        [SerializeField] PlayerManager _manager;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -17,6 +16,7 @@ namespace Controllers
                 StackSignals.Instance.onAddStack?.Invoke(other.transform.parent);
             }
         }
+        
         private void OnTriggerExit(Collider other)
         {
             //

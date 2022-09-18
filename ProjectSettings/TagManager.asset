@@ -12,6 +12,9 @@ TagManager:
   - GateInside
   - AmmoWarehouse
   - PlayerDetection
+  - Money
+  - Worker
+  - Collected
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - UI
   - Player
   - PlayerDetection
-  - 
+  - MoneyDetection
   - 
   - 
   - 

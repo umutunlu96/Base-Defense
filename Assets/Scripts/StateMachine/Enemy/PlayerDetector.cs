@@ -1,10 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace StateMachine.Enemy
 {
+    [RequireComponent(typeof(SphereCollider))]
     public class PlayerDetector : MonoBehaviour
     {
         [SerializeField] private EnemyAI manager;
+
+        private void Awake()
+        {
+            GetComponent<SphereCollider>().radius = manager.ChaseRange;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))

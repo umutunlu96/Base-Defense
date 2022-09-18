@@ -26,6 +26,10 @@ namespace Managers
         [SerializeField] private List<Transform> baseLeftAttackPoints;
         [SerializeField] private List<Transform> baseRighttAttackPoints;
 
+        [SerializeField] private Transform baseTransform;
+        [SerializeField] private Transform inDoorTransform;
+        [SerializeField] private Transform outDoorTransform;
+        
         #endregion
 
         #region Private
@@ -65,12 +69,16 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            AiSignals.Instance.onGetBaseAttackPoint += ReturnBaseAttackPoint;
+            AiSignals.Instance.onGetBaseAttackPoint += OnReturnBaseAttackPoint;
+            AiSignals.Instance.onGetBaseTransform += OnGetBaseTransform;
+            AiSignals.Instance.onGetOutsideTransform += OnGetOutDoorTransform;
         }
         
         private void UnSubscribeEvents()
         {
-            AiSignals.Instance.onGetBaseAttackPoint -= ReturnBaseAttackPoint;
+            AiSignals.Instance.onGetBaseAttackPoint -= OnReturnBaseAttackPoint;
+            AiSignals.Instance.onGetBaseTransform -= OnGetBaseTransform;
+            AiSignals.Instance.onGetOutsideTransform -= OnGetOutDoorTransform;
         }
 
         private void OnDisable()
@@ -82,7 +90,7 @@ namespace Managers
 
         #region Event Functions
         
-        private Transform ReturnBaseAttackPoint(AttackSide attackSide)
+        private Transform OnReturnBaseAttackPoint(AttackSide attackSide)
         {
             switch (attackSide)
             {
@@ -100,7 +108,13 @@ namespace Managers
                     throw new ArgumentOutOfRangeException(nameof(attackSide), attackSide, null);
             }
         }
+
+        private Transform OnGetBaseTransform() => baseTransform;
+
+        private Transform OnGetInDoorTransform() => inDoorTransform;
         
+        private Transform OnGetOutDoorTransform() => outDoorTransform;
+
         #endregion
     }
 }

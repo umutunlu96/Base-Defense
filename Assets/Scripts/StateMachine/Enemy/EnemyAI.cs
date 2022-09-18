@@ -1,4 +1,5 @@
 ﻿using System;
+using Enums;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -13,10 +14,11 @@ namespace StateMachine.Enemy
 
         #region Public
 
+        public EnemyType EnemyType;
         public Transform CurrentTarget;
         public AttackSide _attackSide = AttackSide.Left;
         public int Health;
-        
+        public int ChaseRange = 10;
         #endregion
 
         #region Serialized
@@ -79,7 +81,7 @@ namespace StateMachine.Enemy
             
             _stateMachine.SetState(search);
             
-            void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
+            void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             Func<bool> HasTarget() => () => CurrentTarget != null;
             Func<bool> CanChasePlayer() => () => CanChase;
             Func<bool> IsInAttackRange() => () => Vector3.Distance(transform.position, CurrentTarget.transform.position) < 1
