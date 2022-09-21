@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using Enums;
+using Managers;
 using Signals;
 using UnityEngine;
 
@@ -15,6 +16,12 @@ namespace Controllers
                 other.gameObject.tag = "Rescued";
                 StackSignals.Instance.onAddStack?.Invoke(other.transform.parent);
             }
+
+            if (other.CompareTag("MineArea"))
+            {
+                StackSignals.Instance.onRemoveAllStack?.Invoke(HostageType.Miner);
+            }
+            
         }
         
         private void OnTriggerExit(Collider other)

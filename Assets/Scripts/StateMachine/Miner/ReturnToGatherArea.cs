@@ -9,7 +9,7 @@ namespace StateMachine
         private readonly MinerAI _minerAI;
         private readonly NavMeshAgent _navMeshAgent;
         private readonly Animator _animator;
-        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int Carry = Animator.StringToHash("Carry");
 
         public ReturnToGatherArea(MinerAI minerAI, NavMeshAgent navMeshAgent, Animator animator)
         {
@@ -26,13 +26,13 @@ namespace StateMachine
         {
             _navMeshAgent.enabled = true;
             _navMeshAgent.SetDestination(_minerAI.GatherArea.position);
-            _animator.SetFloat(Speed, 1f);
+            _animator.SetTrigger(Carry);
+            _minerAI.PickAxeTransform.gameObject.SetActive(false);
         }
 
         public void OnExit()
         {
             _navMeshAgent.enabled = false;
-            _animator.SetFloat(Speed, 0f);
         }
     }
 }

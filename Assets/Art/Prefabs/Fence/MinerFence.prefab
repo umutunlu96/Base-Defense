@@ -253,6 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 717430873248901230}
   - component: {fileID: 717430873248901217}
+  - component: {fileID: 4762451814899640735}
   m_Layer: 0
   m_Name: MinerFence
   m_TagString: Untagged
@@ -293,6 +294,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6650842, y: 1.0073134, z: 0.2626648}
   m_Center: {x: -0.69828826, y: 0.49784106, z: 0.0035705566}
+--- !u!114 &4762451814899640735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717430873248901216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1788776789127360000
 GameObject:
   m_ObjectHideFlags: 0

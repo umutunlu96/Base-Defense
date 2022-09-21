@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Commands;
 using Data.UnityObject;
 using Data.ValueObject;
+using Enums;
 using Signals;
+using StateMachine;
+using StateMachine.Exclusive;
 using UnityEngine;
 
 namespace Managers
@@ -41,15 +45,17 @@ namespace Managers
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay += OnPlay;
-            StackSignals.Instance.onAddStack += _addStackCommand.Execute;
-            StackSignals.Instance.onRemoveStack += _removeStackCommand.Execute;
+            StackSignals.Instance.onAddStack += OnAddStack;
+            StackSignals.Instance.onRemoveStack += OnRemoveStack;
+            StackSignals.Instance.onRemoveAllStack += OnRemoveAllStack;
         }
         
         private void UnSubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay -= OnPlay;
-            StackSignals.Instance.onAddStack -= _addStackCommand.Execute;
-            StackSignals.Instance.onRemoveStack -= _removeStackCommand.Execute;
+            StackSignals.Instance.onAddStack -= OnAddStack;
+            StackSignals.Instance.onRemoveStack -= OnRemoveStack;
+            StackSignals.Instance.onRemoveAllStack += OnRemoveAllStack;
         }
 
         private void OnDisable()
@@ -57,6 +63,59 @@ namespace Managers
             UnSubscribeEvents();
         }
 
+        #endregion
+
+        #region Event Functions
+
+        private void OnAddStack(Transform collected)
+        {
+            collected.gameObject.tag = "Rescued";
+            _addStackCommand.Execute(collected);
+        }
+
+        private void OnRemoveStack(Transform collected)
+        {
+            collected.SetParent(AiSignals.Instance.onGetMineBaseArea());
+            _removeStackCommand.Execute(collected);
+        }
+
+        private void OnRemoveAllStack(HostageType hostageType)
+        {
+            switch (hostageType)
+            {
+                case HostageType.Miner:
+
+                    // for (int i = 0; i < hostageList.Count; i++)
+                    // {
+                    //     hostageList[i].SetParent(AiSignals.Instance.onGetMineBaseArea());
+                    //     hostageList[i].TryGetComponent(out HostageManager manager);
+                    //     manager.MakeMeAMiner();
+                    //     _removeStackCommand.Execute(hostageList[i]);
+                    // }
+                    
+                    foreach (var hostage in hostageList)
+                    {
+                        hostage.SetParent(AiSignals.Instance.onGetMineBaseArea());
+                        hostage.TryGetComponent(out HostageManager manager);
+                        manager.MakeMeAMiner();
+                    }
+                    
+                    hostageList.Clear();
+
+                    break;
+                case HostageType.Soldier:
+                    foreach (var hostage in hostageList)
+                    {
+                        hostage.TryGetComponent(out HostageManager manager);
+                        manager.MakeMeASoldier();
+                    }
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(hostageType), hostageType, null);
+            }
+        }
+        
         #endregion
         
         private void Awake()
@@ -67,7 +126,7 @@ namespace Managers
         {
             _transform = this.transform;
             _lerpData = GetLerpData();
-            // _addStackCommand = new AddStackCommand(ref hostageList,transform, ref _transform);
+            _addStackCommand = new AddStackCommand(ref hostageList, ref _transform);
             _removeStackCommand = new RemoveStackCommand(ref hostageList);
         }
         

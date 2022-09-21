@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,30 +7,42 @@ namespace StateMachine.Miner
 {
     public class MinerAI : MonoBehaviour
     {
-        
         [SerializeField] private int _maxCarried = 1;
         private int _gathered;
         
         private StateMachine _stateMachine;
 
         public Transform GatherArea;
-        public Transform ResourceArea;
+        public Transform GemArea;
+        
+        [SerializeField] private Transform _pickAxeTransform;
+        [SerializeField] private Transform _diamondTransform;
+        
+        public bool _isReachedGemArea;
+        public bool _isReachedGatherArea;
+
+        public bool ReachedGemArea { get { return _isReachedGemArea; } set { _isReachedGemArea = value; } }
+        
+        public bool ReachedGatherArea { get { return _isReachedGatherArea; } set { _isReachedGatherArea = value; } }
+        
+        public Transform PickAxeTransform { get { return _pickAxeTransform; } set { _pickAxeTransform = value; } }
+        
+        public Transform DiamondTransform { get { return _diamondTransform; } set { _diamondTransform = value; } }
         
         
         private void Start()
         {
             var navMeshAgent = GetComponent<NavMeshAgent>();
             var animator = GetComponentInChildren<Animator>();
-
             navMeshAgent.enabled = true;
             
             GatherArea = AiSignals.Instance.onGetGatherArea();
-            ResourceArea = AiSignals.Instance.onGetResourceArea();
+            GemArea = AiSignals.Instance.onGetResourceArea();
             
             _stateMachine = new StateMachine();
             
-            var moveToSelectedResource = new MoveToSelectedResource(this, navMeshAgent, animator, ResourceArea);
-            var harvest = new HarvestMine(this, animator);
+            var moveToSelectedResource = new MoveToSelectedResource(this, navMeshAgent, animator, GemArea);
+            var harvest = new HarvestMine(this, animator, GemArea);
             var returnToGatherArea = new ReturnToGatherArea(this, navMeshAgent, animator);
             var placeResourcesInStockpile = new PlaceDiamondToGatherArea(this);
 
@@ -43,11 +56,9 @@ namespace StateMachine.Miner
 
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
-            Func<bool> ReachedResource() => () => ResourceArea != null && 
-                                                  Vector3.Distance(transform.position, ResourceArea.position) < 2f;
+            Func<bool> ReachedResource() => () => GemArea != null && ReachedGemArea;
             Func<bool> InventoryFull() => () => _gathered >= _maxCarried;
-            Func<bool> ReachedStockpile() => () => GatherArea != null && 
-                                                   Vector3.Distance(transform.position, GatherArea.position) < 2f;
+            Func<bool> ReachedStockpile() => () => GatherArea != null && ReachedGatherArea;
         }
         
         private void Update() => _stateMachine.Tick();

@@ -5,23 +5,20 @@ namespace Commands
 {
     public class AddStackCommand
     {
-        private List<Transform> _collected;
+        private List<Transform> _hostages;
         private Transform _transform;
-        private Vector3 _nextPos;
-        
-        public AddStackCommand(ref List<Transform> collected,Transform transform, ref Vector3 nextPos)
+
+        public AddStackCommand(ref List<Transform> hostages, ref Transform transform)
         {
-            _collected = collected;
+            _hostages = hostages;
             _transform = transform;
-            _nextPos = nextPos;
         }
 
-        public void Execute(Transform collected)
+        public void Execute(Transform hostage)
         {
-            collected.SetParent(_transform);
-            
-            _collected.Add(collected);
-            _collected.TrimExcess();
+            hostage.SetParent(_transform);
+            _hostages.Add(hostage);
+            _hostages.TrimExcess();
         }
     }
 }

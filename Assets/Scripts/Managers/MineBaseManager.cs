@@ -24,7 +24,7 @@ namespace Managers
         [SerializeField] private List<Transform> resourceArea;
         [SerializeField] private Transform gatherArea;
         
-        //Controllers
+        
         
         #endregion
 
@@ -95,7 +95,7 @@ namespace Managers
 
         private Transform OnGetResourceArea()
         {
-            int disperseWorker = Data.CurrentWorkerAmount % 3;
+            int disperseWorker = Data.CurrentWorkerAmount % resourceArea.Count;
             Data.CurrentWorkerAmount++;
             return resourceArea[disperseWorker];
         }

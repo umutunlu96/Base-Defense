@@ -14,7 +14,7 @@ namespace Commands
 
         public void Execute(Transform collectable)
         {
-            if(_hostages.Count == 0) return;
+            // if(_hostages.Count == 0) return;
             _hostages.Remove(collectable);
             _hostages.TrimExcess();
         }

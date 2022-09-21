@@ -24,10 +24,10 @@ namespace Managers
 
         [SerializeField] private List<RoomManager> roomManagers;
         [SerializeField] private List<Transform> baseLeftAttackPoints;
-        [SerializeField] private List<Transform> baseRighttAttackPoints;
+        [SerializeField] private List<Transform> baseRightAttackPoints;
 
+        [SerializeField] private Transform mineBaseTransform;
         [SerializeField] private Transform baseTransform;
-        [SerializeField] private Transform inDoorTransform;
         [SerializeField] private Transform outDoorTransform;
         
         #endregion
@@ -69,6 +69,7 @@ namespace Managers
 
         private void SubscribeEvents()
         {
+            AiSignals.Instance.onGetMineBaseArea += OnGetMineBaseTransform;
             AiSignals.Instance.onGetBaseAttackPoint += OnReturnBaseAttackPoint;
             AiSignals.Instance.onGetBaseTransform += OnGetBaseTransform;
             AiSignals.Instance.onGetOutsideTransform += OnGetOutDoorTransform;
@@ -76,6 +77,7 @@ namespace Managers
         
         private void UnSubscribeEvents()
         {
+            AiSignals.Instance.onGetMineBaseArea -= OnGetMineBaseTransform;
             AiSignals.Instance.onGetBaseAttackPoint -= OnReturnBaseAttackPoint;
             AiSignals.Instance.onGetBaseTransform -= OnGetBaseTransform;
             AiSignals.Instance.onGetOutsideTransform -= OnGetOutDoorTransform;
@@ -100,9 +102,9 @@ namespace Managers
                     return baseLeftAttackPoints[randomsLeft];
 
                 case AttackSide.Right:
-                    var enemyAttackTransformCountRight = baseRighttAttackPoints.Count;
+                    var enemyAttackTransformCountRight = baseRightAttackPoints.Count;
                     var randomsRight = Random.Range(0, enemyAttackTransformCountRight);
-                    return baseRighttAttackPoints[randomsRight];
+                    return baseRightAttackPoints[randomsRight];
                 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(attackSide), attackSide, null);
@@ -110,10 +112,10 @@ namespace Managers
         }
 
         private Transform OnGetBaseTransform() => baseTransform;
-
-        private Transform OnGetInDoorTransform() => inDoorTransform;
         
         private Transform OnGetOutDoorTransform() => outDoorTransform;
+
+        private Transform OnGetMineBaseTransform() => mineBaseTransform;
 
         #endregion
     }

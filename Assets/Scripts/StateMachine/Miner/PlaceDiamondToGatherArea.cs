@@ -1,4 +1,5 @@
-﻿using StateMachine.Miner;
+﻿using DG.Tweening;
+using StateMachine.Miner;
 using UnityEngine;
 
 namespace StateMachine
@@ -16,7 +17,7 @@ namespace StateMachine
         {
             if (_minerAI.Take())
                 Debug.Log("DiamondPlacedGatherArea");
-                //Diamond place edilecek.
+            //Diamond place edilecek.
         }
 
         public void OnEnter() { }

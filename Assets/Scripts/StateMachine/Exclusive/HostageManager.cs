@@ -1,6 +1,4 @@
-﻿using Signals;
-using StateMachine.Miner;
-using UnityEditor.Animations;
+﻿using StateMachine.Miner;
 using UnityEngine;
 
 namespace StateMachine.Exclusive
@@ -9,14 +7,31 @@ namespace StateMachine.Exclusive
     {
         [SerializeField] private HostagePhysicController physicController;
         [SerializeField] private Animator animator;
+        [SerializeField] private Transform pickAxeTransform;
+        [SerializeField] private Transform diamondTransform;
         
         public void MakeMeAMiner()
         {
-            // animator.runtimeAnimatorController
-            StackSignals.Instance.onRemoveStack?.Invoke(transform);
-            gameObject.AddComponent<MinerAI>();
+            MinerAI minerAI = gameObject.AddComponent(typeof(MinerAI)) as MinerAI;
+            
+            minerAI.DiamondTransform = diamondTransform;
+            minerAI.PickAxeTransform = pickAxeTransform;
+            
+            MinerPhysicController minerPhysicController = physicController.transform.gameObject.AddComponent(typeof(MinerPhysicController)) as MinerPhysicController;
+            minerPhysicController.manager = minerAI;
+
+            animator.runtimeAnimatorController = (RuntimeAnimatorController) Resources.Load("Animators/MineWorker",
+                typeof(RuntimeAnimatorController ));
+
+            gameObject.name = "Miner";
+            
             Destroy(physicController);
             Destroy(this);
+        }
+
+        public void MakeMeASoldier()
+        {
+
         }
     }
 }
