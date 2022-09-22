@@ -580,7 +580,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 02f2b04d49f98ca49b316e3beaac6418, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: fe0c4b0a04513da42b140afe92f620a8, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &526069043926082265
 GameObject:
@@ -4657,6 +4657,14 @@ PrefabInstance:
     - target: {fileID: 1561903678815623661, guid: 055dc4482e0e7fa45a909d9a4fa86e21, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1717485595424887277, guid: 055dc4482e0e7fa45a909d9a4fa86e21, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 16.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 1717485595424887277, guid: 055dc4482e0e7fa45a909d9a4fa86e21, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.65
       objectReference: {fileID: 0}
     - target: {fileID: 4207022461054972472, guid: 055dc4482e0e7fa45a909d9a4fa86e21, type: 3}
       propertyPath: m_LocalScale.x

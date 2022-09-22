@@ -15,10 +15,10 @@ MonoBehaviour:
   PoolValueDatas:
   - ObjectType: 0
     ObjectLimit: 200
-    PooledObject: {fileID: 379725593890370474, guid: 5af2ad45c65c392438653a29acef5c06, type: 3}
+    PooledObject: {fileID: 6361494993116363728, guid: 8d4db9db0ee642843a89d68130fa9569, type: 3}
   - ObjectType: 1
-    ObjectLimit: 0
-    PooledObject: {fileID: 0}
+    ObjectLimit: 200
+    PooledObject: {fileID: 379725593890370474, guid: 5af2ad45c65c392438653a29acef5c06, type: 3}
   - ObjectType: 6
     ObjectLimit: 20
     PooledObject: {fileID: 7609355640435267706, guid: 7f1ca418394faa74380292cb57d4b865, type: 3}

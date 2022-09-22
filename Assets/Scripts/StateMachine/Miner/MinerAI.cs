@@ -10,16 +10,17 @@ namespace StateMachine.Miner
         [SerializeField] private int _maxCarried = 1;
         private int _gathered;
         
-        private StateMachine _stateMachine;
+        public GameObject Gem;
 
+        private StateMachine _stateMachine;
         public Transform GatherArea;
         public Transform GemArea;
         
         [SerializeField] private Transform _pickAxeTransform;
         [SerializeField] private Transform _diamondTransform;
         
-        public bool _isReachedGemArea;
-        public bool _isReachedGatherArea;
+        private bool _isReachedGemArea;
+        private bool _isReachedGatherArea;
 
         public bool ReachedGemArea { get { return _isReachedGemArea; } set { _isReachedGemArea = value; } }
         
@@ -34,6 +35,8 @@ namespace StateMachine.Miner
         {
             var navMeshAgent = GetComponent<NavMeshAgent>();
             var animator = GetComponentInChildren<Animator>();
+            var navMeshObstacle = GetComponent<NavMeshObstacle>();
+            
             navMeshAgent.enabled = true;
             
             GatherArea = AiSignals.Instance.onGetGatherArea();
@@ -42,7 +45,7 @@ namespace StateMachine.Miner
             _stateMachine = new StateMachine();
             
             var moveToSelectedResource = new MoveToSelectedResource(this, navMeshAgent, animator, GemArea);
-            var harvest = new HarvestMine(this, animator, GemArea);
+            var harvest = new HarvestMine(this, animator, GemArea, navMeshObstacle);
             var returnToGatherArea = new ReturnToGatherArea(this, navMeshAgent, animator);
             var placeResourcesInStockpile = new PlaceDiamondToGatherArea(this);
 
@@ -65,12 +68,12 @@ namespace StateMachine.Miner
 
         public void TakeFromTarget() => _gathered++;
 
-        public bool Take()
+        public void PlaceDiamondToGatherArea()
         {
-            if (_gathered <= 0)
-                return false;
+            if (Gem == null) return;
+            AiSignals.Instance.onPlaceDiamondToGatherArea?.Invoke(Gem);
+            Gem = null;
             _gathered--;
-            return true;
         }
     }
 }

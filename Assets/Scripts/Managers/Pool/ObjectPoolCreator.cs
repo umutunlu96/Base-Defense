@@ -3,6 +3,7 @@ using System.Linq;
 using Data.UnityObject;
 using Enums;
 using Signals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Managers.Pool
@@ -16,7 +17,7 @@ namespace Managers.Pool
         private Transform _objTransformCache;
         public CD_Pool _poolData;
         private int listCache;
-        private List<GameObject> _poolGroup = new List<GameObject>();
+        [ShowInInspector] private List<GameObject> _poolGroup = new List<GameObject>();
 
         #endregion
 
@@ -76,9 +77,10 @@ namespace Managers.Pool
             var obj = ObjectPoolManager.Instance.GetObject<GameObject>(poolType.ToString());
             return obj;
         }
-
+        
         private void OnReleasePoolObject(PoolType poolType, GameObject obj)
         {
+            obj.transform.SetParent(transform.GetChild((int) poolType));
             ObjectPoolManager.Instance.ReturnObject(obj,poolType.ToString());
         }
         

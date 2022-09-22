@@ -12,6 +12,9 @@ namespace StateMachine
         public Func<Transform> onGetMineBaseArea;
         public Func<Transform> onGetResourceArea;
         public Func<Transform> onGetGatherArea;
+
+        public Action<GameObject> onPlaceDiamondToGatherArea;
+
         #endregion
 
         #region Enemy

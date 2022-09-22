@@ -15,12 +15,13 @@ namespace StateMachine
 
         public void Tick()
         {
-            if (_minerAI.Take())
-                Debug.Log("DiamondPlacedGatherArea");
-            //Diamond place edilecek.
+
         }
 
-        public void OnEnter() { }
+        public void OnEnter()
+        {
+            _minerAI.PlaceDiamondToGatherArea();
+        }
 
         public void OnExit() { }
     }

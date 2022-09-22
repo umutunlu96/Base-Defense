@@ -9,5 +9,6 @@ namespace Signals
         public Func<Transform> onGetPlayerTransfrom;
         public Func<float> onGetPlayerSpeed;
         public Func<bool> onIsPlayerMoving;
+        public Action<Transform> onPlayerCollectAllDiamonds;
     }
 }
