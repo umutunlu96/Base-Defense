@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Enums;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace StateMachine.Miner
@@ -8,15 +9,17 @@ namespace StateMachine.Miner
         private readonly MinerAI _minerAI;
         private readonly NavMeshAgent _navMeshAgent;
         private readonly Animator _animator;
+        private readonly MineWorkerType _mineWorkerType;
         private readonly Transform _resourceArea;
         private static readonly int Walk = Animator.StringToHash("Walk");
         
-        public MoveToSelectedResource(MinerAI minerAI, NavMeshAgent navMeshAgent, Animator animator, Transform resourceArea)
+        public MoveToSelectedResource(MinerAI minerAI, NavMeshAgent navMeshAgent, Animator animator, MineWorkerType workerType, Transform resourceArea)
         {
             _minerAI = minerAI;
             _navMeshAgent = navMeshAgent;
             _animator = animator;
             _resourceArea = resourceArea;
+            _mineWorkerType = workerType;
         }
         
         public void Tick()

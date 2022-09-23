@@ -1,25 +1,28 @@
 ﻿using System;
+using Enums;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace StateMachine.Miner
 {
     public class MinerAI : MonoBehaviour
     {
-        [SerializeField] private int _maxCarried = 1;
-        private int _gathered;
         
         public GameObject Gem;
 
-        private StateMachine _stateMachine;
         public Transform StockpileArea;
         public Transform GemArea;
         
         [SerializeField] private Transform _pickAxeTransform;
         [SerializeField] private Transform _diamondTransform;
-        
+
+        [ShowInInspector] private MineWorkerType _workerType;
+        private StateMachine _stateMachine;
         private bool _isReachedGemArea;
         private bool _isReachedStockpileArea;
+        private int _gathered;
 
         public bool ReachedGemArea { get { return _isReachedGemArea; } set { _isReachedGemArea = value; } }
         
@@ -35,16 +38,18 @@ namespace StateMachine.Miner
             var navMeshAgent = GetComponent<NavMeshAgent>();
             var animator = GetComponentInChildren<Animator>();
             var navMeshObstacle = GetComponent<NavMeshObstacle>();
+
+            RandomMineWorkerType();
             
             navMeshAgent.enabled = true;
             
             StockpileArea = AiSignals.Instance.onGetGatherArea();
-            GemArea = AiSignals.Instance.onGetResourceArea();
+            GemArea = AiSignals.Instance.onGetResourceArea(_workerType);
             
             _stateMachine = new StateMachine();
             
-            var moveToSelectedResource = new MoveToSelectedResource(this, navMeshAgent, animator, GemArea);
-            var harvest = new HarvestMine(this, animator, GemArea, navMeshObstacle);
+            var moveToSelectedResource = new MoveToSelectedResource(this, navMeshAgent, animator, _workerType, GemArea);
+            var harvest = new HarvestMine(this, animator, _workerType, GemArea, navMeshObstacle);
             var returnToGatherArea = new ReturnToStockpileArea(this, navMeshAgent, animator);
             var placeResourcesInStockpile = new PlaceDiamondToStockpileArea(this);
 
@@ -59,10 +64,18 @@ namespace StateMachine.Miner
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
             Func<bool> ReachedResource() => () => GemArea != null && ReachedGemArea;
-            Func<bool> InventoryFull() => () => _gathered >= _maxCarried;
+            Func<bool> InventoryFull() => () => _gathered == 1;
             Func<bool> ReachedStockpile() => () => StockpileArea != null && ReachedStockpileArea;
         }
-        
+
+        private void RandomMineWorkerType()
+        {
+            int randomMinerType = Random.Range(0, 4);
+            if (randomMinerType == 0)
+                _workerType = MineWorkerType.Gatherer;
+            else
+                _workerType = MineWorkerType.Miner;
+        }
         private void Update() => _stateMachine.Tick();
 
         public void TakeFromTarget() => _gathered++;

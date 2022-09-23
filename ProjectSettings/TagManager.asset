@@ -16,7 +16,7 @@ TagManager:
   - Worker
   - Collected
   - GemSpot
-  - GatherSpot
+  - StockpileSpot
   layers:
   - Default
   - TransparentFX

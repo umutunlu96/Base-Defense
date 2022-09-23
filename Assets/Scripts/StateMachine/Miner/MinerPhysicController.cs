@@ -13,8 +13,8 @@ namespace StateMachine.Miner
             {
                 manager.ReachedGemArea = true;
             }
-
-            if (other.CompareTag("GatherSpot"))
+            
+            if (other.CompareTag("StockpileSpot"))
             {
                 manager.ReachedStockpileArea = true;
             }
@@ -26,8 +26,8 @@ namespace StateMachine.Miner
             {
                 manager.ReachedGemArea = false;
             }
-
-            if (other.CompareTag("GatherSpot"))
+            
+            if (other.CompareTag("StockpileSpot"))
             {
                 manager.ReachedStockpileArea = false;
             }

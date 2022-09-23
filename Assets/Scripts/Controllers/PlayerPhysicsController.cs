@@ -23,7 +23,7 @@ namespace Controllers
                 // StackSignals.Instance.onRemoveAllStack?.Invoke(HostageType.Miner);
             }
 
-            if (other.CompareTag("GatherSpot"))
+            if (other.CompareTag("StockpileSpot"))
             {
                 PlayerSignals.Instance.onPlayerEnterDiamondArea?.Invoke(_manager.transform);
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Enums;
 using Extentions;
 using StateMachine.Enemy;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace StateMachine
         #region Miner
         
         public Func<Transform> onGetMineBaseArea;
-        public Func<Transform> onGetResourceArea;
+        public Func<MineWorkerType,Transform> onGetResourceArea;
         public Func<Transform> onGetGatherArea;
 
         public Action<GameObject> onPlaceDiamondToGatherArea;

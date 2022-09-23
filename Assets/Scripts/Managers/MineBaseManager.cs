@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Abstract;
 using Controllers;
 using Data.UnityObject;
@@ -9,6 +10,7 @@ using Signals;
 using Sirenix.OdinInspector;
 using StateMachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -125,13 +127,22 @@ namespace Managers
 
         private int OnGetMineBaseEmptySlotCount() => Data.MaxWorkerAmount - Data.CurrentWorkerAmount;
 
-        private Transform OnGetResourceArea()
+        private Transform OnGetResourceArea(MineWorkerType workerType)
         {
             if (Data.CurrentWorkerAmount == Data.MaxWorkerAmount) return null;
-            int disperseWorker = Data.CurrentWorkerAmount % resourceAreaTransforms.Count;
+            
+            if (workerType == MineWorkerType.Miner)
+            {
+                int disperseResourceArea = Data.CurrentWorkerAmount % resourceAreaTransforms.Count;
+                Data.CurrentWorkerAmount++;
+                SetText();
+                return resourceAreaTransforms[disperseResourceArea];
+            }
+            
+            int disperseGatherArea = Data.CurrentWorkerAmount % gatherAreaTransforms.Count;
             Data.CurrentWorkerAmount++;
             SetText();
-            return resourceAreaTransforms[disperseWorker];
+            return gatherAreaTransforms[disperseGatherArea];
         }
 
         private Transform OnGetGatherArea() => stockpileAreaTransform;
