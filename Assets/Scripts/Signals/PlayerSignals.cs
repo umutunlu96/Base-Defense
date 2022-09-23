@@ -1,4 +1,5 @@
 ﻿using System;
+using Enums;
 using Extentions;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ namespace Signals
         public Func<Transform> onGetPlayerTransfrom;
         public Func<float> onGetPlayerSpeed;
         public Func<bool> onIsPlayerMoving;
-        public Action<Transform> onPlayerCollectAllDiamonds;
+        
+        public Action onPlayerEnterMineArea;
+        public Action onPlayerEnterSoldierArea;
+        public Action<Transform> onPlayerEnterDiamondArea;
     }
 }

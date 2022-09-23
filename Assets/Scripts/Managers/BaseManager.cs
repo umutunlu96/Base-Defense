@@ -5,6 +5,7 @@ using Data.ValueObject.Base;
 using Signals;
 using StateMachine;
 using StateMachine.Enemy;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -26,6 +27,7 @@ namespace Managers
         [SerializeField] private List<Transform> baseLeftAttackPoints;
         [SerializeField] private List<Transform> baseRightAttackPoints;
 
+        [SerializeField] private TextMeshPro baseText;
         [SerializeField] private Transform mineBaseTransform;
         [SerializeField] private Transform baseTransform;
         [SerializeField] private Transform outDoorTransform;
@@ -50,6 +52,7 @@ namespace Managers
         {
             GetBaseData();
             SetDataToManagers();
+            baseText.text = $"Base {GetLevelID}";
         }
         
         private void SetDataToManagers()

@@ -23,6 +23,7 @@ namespace Managers
 
         #region Private
         
+        List<Transform> _tempList = new List<Transform>();
         private Transform _transform;
         private LerpData _lerpData;
         private Transform _playerTransform;
@@ -47,7 +48,6 @@ namespace Managers
             CoreGameSignals.Instance.onPlay += OnPlay;
             StackSignals.Instance.onAddStack += OnAddStack;
             StackSignals.Instance.onRemoveStack += OnRemoveStack;
-            StackSignals.Instance.onRemoveAllStack += OnRemoveAllStack;
         }
         
         private void UnSubscribeEvents()
@@ -55,7 +55,6 @@ namespace Managers
             CoreGameSignals.Instance.onPlay -= OnPlay;
             StackSignals.Instance.onAddStack -= OnAddStack;
             StackSignals.Instance.onRemoveStack -= OnRemoveStack;
-            StackSignals.Instance.onRemoveAllStack += OnRemoveAllStack;
         }
 
         private void OnDisable()
@@ -66,7 +65,7 @@ namespace Managers
         #endregion
 
         #region Event Functions
-
+        
         private void OnAddStack(Transform collected)
         {
             collected.gameObject.tag = "Rescued";
@@ -75,45 +74,7 @@ namespace Managers
 
         private void OnRemoveStack(Transform collected)
         {
-            collected.SetParent(AiSignals.Instance.onGetMineBaseArea());
             _removeStackCommand.Execute(collected);
-        }
-
-        private void OnRemoveAllStack(HostageType hostageType)
-        {
-            switch (hostageType)
-            {
-                case HostageType.Miner:
-
-                    // for (int i = 0; i < hostageList.Count; i++)
-                    // {
-                    //     hostageList[i].SetParent(AiSignals.Instance.onGetMineBaseArea());
-                    //     hostageList[i].TryGetComponent(out HostageManager manager);
-                    //     manager.MakeMeAMiner();
-                    //     _removeStackCommand.Execute(hostageList[i]);
-                    // }
-                    
-                    foreach (var hostage in hostageList)
-                    {
-                        hostage.SetParent(AiSignals.Instance.onGetMineBaseArea());
-                        hostage.TryGetComponent(out HostageManager manager);
-                        manager.MakeMeAMiner();
-                    }
-                    
-                    hostageList.Clear();
-
-                    break;
-                case HostageType.Soldier:
-                    foreach (var hostage in hostageList)
-                    {
-                        hostage.TryGetComponent(out HostageManager manager);
-                        manager.MakeMeASoldier();
-                    }
-                    break;
-                
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(hostageType), hostageType, null);
-            }
         }
         
         #endregion
@@ -132,7 +93,7 @@ namespace Managers
         
         private void FixedUpdate()
         {
-            if(_playerTransform == null) return;
+            if(_playerTransform == null && hostageList.Count == 0) return;
             _stackLerpMoveCommand.Execute();
         }
 

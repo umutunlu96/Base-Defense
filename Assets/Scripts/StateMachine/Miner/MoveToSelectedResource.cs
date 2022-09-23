@@ -1,8 +1,7 @@
-﻿using StateMachine.Miner;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace StateMachine
+namespace StateMachine.Miner
 {
     public class MoveToSelectedResource : IState
     {

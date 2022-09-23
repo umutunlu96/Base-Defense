@@ -19,12 +19,13 @@ namespace Controllers
 
             if (other.CompareTag("MineArea"))
             {
-                StackSignals.Instance.onRemoveAllStack?.Invoke(HostageType.Miner);
+                PlayerSignals.Instance.onPlayerEnterMineArea?.Invoke();
+                // StackSignals.Instance.onRemoveAllStack?.Invoke(HostageType.Miner);
             }
 
             if (other.CompareTag("GatherSpot"))
             {
-                PlayerSignals.Instance.onPlayerCollectAllDiamonds?.Invoke(_manager.transform);
+                PlayerSignals.Instance.onPlayerEnterDiamondArea?.Invoke(_manager.transform);
             }
         }
         

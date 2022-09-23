@@ -1,14 +1,10 @@
-﻿using DG.Tweening;
-using StateMachine.Miner;
-using UnityEngine;
-
-namespace StateMachine
+﻿namespace StateMachine.Miner
 {
-    public class PlaceDiamondToGatherArea : IState
+    public class PlaceDiamondToStockpileArea : IState
     {
         private readonly MinerAI _minerAI;
 
-        public PlaceDiamondToGatherArea(MinerAI minerAI)
+        public PlaceDiamondToStockpileArea(MinerAI minerAI)
         {
             _minerAI = minerAI;
         }

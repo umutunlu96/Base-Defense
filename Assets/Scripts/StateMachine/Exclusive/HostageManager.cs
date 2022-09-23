@@ -1,4 +1,5 @@
-﻿using StateMachine.Miner;
+﻿using Signals;
+using StateMachine.Miner;
 using UnityEngine;
 
 namespace StateMachine.Exclusive
@@ -12,6 +13,13 @@ namespace StateMachine.Exclusive
         
         public void MakeMeAMiner()
         {
+            int mineBaseEmptySlotCount = BaseSignals.Instance.onGetMineBaseEmptySlotCount();
+            if(mineBaseEmptySlotCount == 0) return;
+            
+            StackSignals.Instance.onRemoveStack?.Invoke(transform);
+            
+            transform.SetParent(AiSignals.Instance.onGetMineBaseArea());
+            
             MinerAI minerAI = gameObject.AddComponent(typeof(MinerAI)) as MinerAI;
             
             minerAI.DiamondTransform = diamondTransform;

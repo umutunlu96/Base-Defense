@@ -1,17 +1,16 @@
-﻿using StateMachine.Miner;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace StateMachine
+namespace StateMachine.Miner
 {
-    public class ReturnToGatherArea : IState
+    public class ReturnToStockpileArea : IState
     {
         private readonly MinerAI _minerAI;
         private readonly NavMeshAgent _navMeshAgent;
         private readonly Animator _animator;
         private static readonly int Carry = Animator.StringToHash("Carry");
 
-        public ReturnToGatherArea(MinerAI minerAI, NavMeshAgent navMeshAgent, Animator animator)
+        public ReturnToStockpileArea(MinerAI minerAI, NavMeshAgent navMeshAgent, Animator animator)
         {
             _minerAI = minerAI;
             _navMeshAgent = navMeshAgent;
@@ -25,7 +24,7 @@ namespace StateMachine
         public void OnEnter()
         {
             _navMeshAgent.enabled = true;
-            _navMeshAgent.SetDestination(_minerAI.GatherArea.position);
+            _navMeshAgent.SetDestination(_minerAI.StockpileArea.position);
             _animator.SetTrigger(Carry);
             _minerAI.PickAxeTransform.gameObject.SetActive(false);
         }

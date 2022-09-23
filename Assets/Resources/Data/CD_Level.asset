@@ -50,9 +50,9 @@ MonoBehaviour:
             AmmoCapacity: 50
             AmmoDamage: 5
       MineBaseData:
-        MaxWorkerAmount: 0
+        MaxWorkerAmount: 10
         CurrentWorkerAmount: 0
-        DiamondCapacity: 0
+        DiamondCapacity: 50
         CurrentDiamondAmount: 0
         MineCardCapacity: 0
         Key: MineBaseData

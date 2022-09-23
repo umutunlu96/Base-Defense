@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace StateMachine.Miner
 {
@@ -17,7 +16,7 @@ namespace StateMachine.Miner
 
             if (other.CompareTag("GatherSpot"))
             {
-                manager.ReachedGatherArea = true;
+                manager.ReachedStockpileArea = true;
             }
         }
 
@@ -30,7 +29,7 @@ namespace StateMachine.Miner
 
             if (other.CompareTag("GatherSpot"))
             {
-                manager.ReachedGatherArea = false;
+                manager.ReachedStockpileArea = false;
             }
         }
     }

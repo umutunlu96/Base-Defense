@@ -17,6 +17,13 @@ namespace StateMachine
 
         #endregion
 
+        #region Soldier
+
+        public Func<Transform> onGetSoldierTentArea;
+        public Func<Transform> onGetWaitSlotArea;
+
+        #endregion
+
         #region Enemy
 
         public Func<AttackSide, Transform> onGetBaseAttackPoint;

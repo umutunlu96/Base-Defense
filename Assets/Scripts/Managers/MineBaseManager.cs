@@ -7,7 +7,6 @@ using DG.Tweening;
 using Enums;
 using Signals;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using StateMachine;
 using UnityEngine;
 
@@ -24,13 +23,19 @@ namespace Managers
         #endregion
 
         #region Serialized
+
+        [SerializeField] private MineBaseTextController textController;
+        
         [SerializeField] private int Identifier = 0;
         [Header("Resource and Gather Areas")]
         
         [SerializeField] private List<Transform> resourceAreaTransforms;
-        [SerializeField] private Transform gatherAreaTransform;
+
+        [SerializeField] private List<Transform> gatherAreaTransforms;
+
+        [SerializeField] private Transform stockpileAreaTransform;
         
-        [Header("Gem Placement Settings")]
+        [Header("Gem Placement Settings")]//Datalastir
         
         [SerializeField] private Transform gemPlaceTransform;
         [SerializeField] private int maxLineAmount = 5;
@@ -59,6 +64,7 @@ namespace Managers
         private void Start()
         {
             SetData();
+            SetText();
             _initialGemPlacePosition = gemPlaceTransform.localPosition;
         }
         
@@ -80,6 +86,9 @@ namespace Managers
             // SetDataToControllers();
         }
         
+        private void SetText() => textController.SetText(Data.CurrentWorkerAmount,Data.MaxWorkerAmount);
+
+        
         #region EventSubscription
 
         private void OnEnable()
@@ -92,7 +101,8 @@ namespace Managers
             AiSignals.Instance.onGetResourceArea += OnGetResourceArea;
             AiSignals.Instance.onGetGatherArea += OnGetGatherArea;
             AiSignals.Instance.onPlaceDiamondToGatherArea += OnPlaceDiamondToGatherArea;
-            PlayerSignals.Instance.onPlayerCollectAllDiamonds += OnPlayerCollectAllDiamonds;
+            PlayerSignals.Instance.onPlayerEnterDiamondArea += OnPlayerCollectAllDiamonds;
+            BaseSignals.Instance.onGetMineBaseEmptySlotCount += OnGetMineBaseEmptySlotCount;
         }
         
         private void UnSubscribeEvents()
@@ -100,7 +110,8 @@ namespace Managers
             AiSignals.Instance.onGetResourceArea -= OnGetResourceArea;
             AiSignals.Instance.onGetGatherArea -= OnGetGatherArea;
             AiSignals.Instance.onPlaceDiamondToGatherArea -= OnPlaceDiamondToGatherArea;
-            PlayerSignals.Instance.onPlayerCollectAllDiamonds -= OnPlayerCollectAllDiamonds;
+            PlayerSignals.Instance.onPlayerEnterDiamondArea -= OnPlayerCollectAllDiamonds;
+            BaseSignals.Instance.onGetMineBaseEmptySlotCount -= OnGetMineBaseEmptySlotCount;
         }
 
         private void OnDisable()
@@ -112,19 +123,23 @@ namespace Managers
 
         #region Event Functions
 
+        private int OnGetMineBaseEmptySlotCount() => Data.MaxWorkerAmount - Data.CurrentWorkerAmount;
+
         private Transform OnGetResourceArea()
         {
+            if (Data.CurrentWorkerAmount == Data.MaxWorkerAmount) return null;
             int disperseWorker = Data.CurrentWorkerAmount % resourceAreaTransforms.Count;
             Data.CurrentWorkerAmount++;
+            SetText();
             return resourceAreaTransforms[disperseWorker];
         }
 
-        private Transform OnGetGatherArea() => gatherAreaTransform;
+        private Transform OnGetGatherArea() => stockpileAreaTransform;
 
         private void OnPlaceDiamondToGatherArea(GameObject diamond)
         {
             _placedGemCount++;
-            diamond.transform.SetParent(gatherAreaTransform);
+            diamond.transform.SetParent(stockpileAreaTransform);
             diamond.transform.rotation = Quaternion.Euler(180, 0, 0);
             var position = gemPlaceTransform.localPosition;
             collectedGemsList.Add(diamond.transform);
@@ -167,7 +182,8 @@ namespace Managers
         }
         
         #endregion
-        
+
+
         #region Save-Load
 
         private void OnSave()

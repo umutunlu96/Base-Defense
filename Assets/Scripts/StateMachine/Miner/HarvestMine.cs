@@ -1,10 +1,9 @@
 ﻿using Enums;
 using Signals;
-using StateMachine.Miner;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace StateMachine
+namespace StateMachine.Miner
 {
     public class HarvestMine : IState
     {

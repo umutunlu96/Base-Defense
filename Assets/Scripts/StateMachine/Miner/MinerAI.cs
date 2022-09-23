@@ -1,5 +1,4 @@
 ﻿using System;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,18 +12,18 @@ namespace StateMachine.Miner
         public GameObject Gem;
 
         private StateMachine _stateMachine;
-        public Transform GatherArea;
+        public Transform StockpileArea;
         public Transform GemArea;
         
         [SerializeField] private Transform _pickAxeTransform;
         [SerializeField] private Transform _diamondTransform;
         
         private bool _isReachedGemArea;
-        private bool _isReachedGatherArea;
+        private bool _isReachedStockpileArea;
 
         public bool ReachedGemArea { get { return _isReachedGemArea; } set { _isReachedGemArea = value; } }
         
-        public bool ReachedGatherArea { get { return _isReachedGatherArea; } set { _isReachedGatherArea = value; } }
+        public bool ReachedStockpileArea { get { return _isReachedStockpileArea; } set { _isReachedStockpileArea = value; } }
         
         public Transform PickAxeTransform { get { return _pickAxeTransform; } set { _pickAxeTransform = value; } }
         
@@ -39,15 +38,15 @@ namespace StateMachine.Miner
             
             navMeshAgent.enabled = true;
             
-            GatherArea = AiSignals.Instance.onGetGatherArea();
+            StockpileArea = AiSignals.Instance.onGetGatherArea();
             GemArea = AiSignals.Instance.onGetResourceArea();
             
             _stateMachine = new StateMachine();
             
             var moveToSelectedResource = new MoveToSelectedResource(this, navMeshAgent, animator, GemArea);
             var harvest = new HarvestMine(this, animator, GemArea, navMeshObstacle);
-            var returnToGatherArea = new ReturnToGatherArea(this, navMeshAgent, animator);
-            var placeResourcesInStockpile = new PlaceDiamondToGatherArea(this);
+            var returnToGatherArea = new ReturnToStockpileArea(this, navMeshAgent, animator);
+            var placeResourcesInStockpile = new PlaceDiamondToStockpileArea(this);
 
             
             At(moveToSelectedResource, harvest, ReachedResource());
@@ -61,7 +60,7 @@ namespace StateMachine.Miner
 
             Func<bool> ReachedResource() => () => GemArea != null && ReachedGemArea;
             Func<bool> InventoryFull() => () => _gathered >= _maxCarried;
-            Func<bool> ReachedStockpile() => () => GatherArea != null && ReachedGatherArea;
+            Func<bool> ReachedStockpile() => () => StockpileArea != null && ReachedStockpileArea;
         }
         
         private void Update() => _stateMachine.Tick();
