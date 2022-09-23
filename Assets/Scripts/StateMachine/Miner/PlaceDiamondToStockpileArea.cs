@@ -11,12 +11,13 @@
 
         public void Tick()
         {
-
+            if(_minerAI.CanPlaceDiamondToStockpile)
+                _minerAI.PlaceDiamondToGatherArea();
         }
 
         public void OnEnter()
         {
-            _minerAI.PlaceDiamondToGatherArea();
+            // _minerAI.PlaceDiamondToGatherArea();
         }
 
         public void OnExit() { }

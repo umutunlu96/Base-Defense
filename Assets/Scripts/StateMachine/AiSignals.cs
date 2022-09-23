@@ -15,7 +15,7 @@ namespace StateMachine
         public Func<Transform> onGetGatherArea;
         public Func<bool> onCanPlaceDiamondToStockpileArea;
         public Action<GameObject> onPlaceDiamondToStockpileArea;
-
+        public Action onPlayerCollectedAllGems;
         #endregion
 
         #region Soldier

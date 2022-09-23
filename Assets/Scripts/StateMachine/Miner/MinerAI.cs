@@ -1,5 +1,6 @@
 ﻿using System;
 using Enums;
+using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,11 +24,13 @@ namespace StateMachine.Miner
         private bool _isReachedGemArea;
         private bool _isReachedStockpileArea;
         private int _gathered;
+        private bool _canPlaceDiamondToStockpile = true;
 
         public bool ReachedGemArea { get { return _isReachedGemArea; } set { _isReachedGemArea = value; } }
         
         public bool ReachedStockpileArea { get { return _isReachedStockpileArea; } set { _isReachedStockpileArea = value; } }
-        
+        public bool CanPlaceDiamondToStockpile { get { return _canPlaceDiamondToStockpile; } set { _canPlaceDiamondToStockpile = value; } }
+
         public Transform PickAxeTransform { get { return _pickAxeTransform; } set { _pickAxeTransform = value; } }
         
         public Transform DiamondTransform { get { return _diamondTransform; } set { _diamondTransform = value; } }
@@ -82,10 +85,23 @@ namespace StateMachine.Miner
 
         public void PlaceDiamondToGatherArea()
         {
-            if (Gem == null || !AiSignals.Instance.onCanPlaceDiamondToStockpileArea()) return;
+            CheckPlaceState();
+            if (Gem == null || !CanPlaceDiamondToStockpile) return;
             AiSignals.Instance.onPlaceDiamondToStockpileArea?.Invoke(Gem);
             Gem = null;
             _gathered--;
+        }
+
+        private void CheckPlaceState() => CanPlaceDiamondToStockpile = AiSignals.Instance.onCanPlaceDiamondToStockpileArea();
+        
+        private void OnEnable()
+        {
+            AiSignals.Instance.onPlayerCollectedAllGems += ()=> CanPlaceDiamondToStockpile = true;
+        }
+
+        private void OnDisable()
+        {
+            AiSignals.Instance.onPlayerCollectedAllGems -= ()=> CanPlaceDiamondToStockpile = true;
         }
     }
 }

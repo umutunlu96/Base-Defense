@@ -214,6 +214,8 @@ namespace Managers
                         collectedGemsList.TrimExcess();
                     });
             }
+            
+            AiSignals.Instance.onPlayerCollectedAllGems?.Invoke();
         }
         
         #endregion
