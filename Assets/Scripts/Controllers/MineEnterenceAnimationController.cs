@@ -16,9 +16,9 @@ namespace Controllers
 
         private void OnEnable()
         {
-            _sequence.Append(mineCart.DOLocalMoveZ(6, 2.5f).SetEase(Ease.InOutBack).SetDelay(3));
-            _sequence.Append(mineCart.DOLocalMoveZ(1, 2.5f).SetEase(Ease.InOutBack).SetDelay(3));
-            _sequence.Restart();
+            _sequence.Append(mineCart.DOLocalMoveZ(5.5f, 2.5f).SetEase(Ease.InOutBack).SetDelay(3));
+            _sequence.Append(mineCart.DOLocalMoveZ(1.5f, 2.5f).SetEase(Ease.InOutBack).SetDelay(3));
+            _sequence.SetLoops(-1);
         }
         
         private void OnDisable()
