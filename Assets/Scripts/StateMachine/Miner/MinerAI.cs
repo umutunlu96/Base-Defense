@@ -82,8 +82,8 @@ namespace StateMachine.Miner
 
         public void PlaceDiamondToGatherArea()
         {
-            if (Gem == null) return;
-            AiSignals.Instance.onPlaceDiamondToGatherArea?.Invoke(Gem);
+            if (Gem == null || !AiSignals.Instance.onCanPlaceDiamondToStockpileArea()) return;
+            AiSignals.Instance.onPlaceDiamondToStockpileArea?.Invoke(Gem);
             Gem = null;
             _gathered--;
         }

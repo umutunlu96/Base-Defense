@@ -6,5 +6,6 @@ namespace Signals
     public class BaseSignals : MonoSingleton<BaseSignals>
     {
         public Func<int> onGetMineBaseEmptySlotCount;
+        public Action onSaveMineBase;
     }
 }

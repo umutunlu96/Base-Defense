@@ -13,8 +13,8 @@ namespace StateMachine
         public Func<Transform> onGetMineBaseArea;
         public Func<MineWorkerType,Transform> onGetResourceArea;
         public Func<Transform> onGetGatherArea;
-
-        public Action<GameObject> onPlaceDiamondToGatherArea;
+        public Func<bool> onCanPlaceDiamondToStockpileArea;
+        public Action<GameObject> onPlaceDiamondToStockpileArea;
 
         #endregion
 

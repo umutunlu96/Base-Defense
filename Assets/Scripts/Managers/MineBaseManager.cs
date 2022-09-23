@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Abstract;
 using Controllers;
 using Data.UnityObject;
@@ -52,8 +51,10 @@ namespace Managers
         [ShowInInspector] private List<Transform> collectedGemsList = new List<Transform>();
         private int _levelID;
         private int _uniqueId;
-        private int _placedGemCount;
         private Vector3 _initialGemPlacePosition;
+        private int _gathererCount;
+        private int _minerCount;
+        
         #endregion
 
         #endregion
@@ -66,6 +67,7 @@ namespace Managers
         private void Start()
         {
             SetData();
+            CheckData();
             SetText();
             _initialGemPlacePosition = gemPlaceTransform.localPosition;
         }
@@ -87,9 +89,18 @@ namespace Managers
             Load(_uniqueId);
             // SetDataToControllers();
         }
-        
-        private void SetText() => textController.SetText(Data.CurrentWorkerAmount,Data.MaxWorkerAmount);
 
+        private void SetText() => textController.SetText(_minerCount + _gathererCount, Data.MaxWorkerAmount);
+
+        private void CheckData()
+        {
+            for (int i = 0; i < Data.CurrentWorkerAmount; i++)
+            {
+                print("CheckData");
+                GameObject miner = PoolSignals.Instance.onGetPoolObject?.Invoke(PoolType.Miner, stockpileAreaTransform);
+                miner.transform.SetParent(transform);
+            }
+        }
         
         #region EventSubscription
 
@@ -102,18 +113,22 @@ namespace Managers
         {
             AiSignals.Instance.onGetResourceArea += OnGetResourceArea;
             AiSignals.Instance.onGetGatherArea += OnGetGatherArea;
-            AiSignals.Instance.onPlaceDiamondToGatherArea += OnPlaceDiamondToGatherArea;
+            AiSignals.Instance.onPlaceDiamondToStockpileArea += OnPlaceDiamondToGatherArea;
             PlayerSignals.Instance.onPlayerEnterDiamondArea += OnPlayerCollectAllDiamonds;
             BaseSignals.Instance.onGetMineBaseEmptySlotCount += OnGetMineBaseEmptySlotCount;
+            BaseSignals.Instance.onSaveMineBase += OnSave;
+            AiSignals.Instance.onCanPlaceDiamondToStockpileArea += OnCanPlaceDiamondToStockpileArea;
         }
         
         private void UnSubscribeEvents()
         {
             AiSignals.Instance.onGetResourceArea -= OnGetResourceArea;
             AiSignals.Instance.onGetGatherArea -= OnGetGatherArea;
-            AiSignals.Instance.onPlaceDiamondToGatherArea -= OnPlaceDiamondToGatherArea;
+            AiSignals.Instance.onPlaceDiamondToStockpileArea -= OnPlaceDiamondToGatherArea;
             PlayerSignals.Instance.onPlayerEnterDiamondArea -= OnPlayerCollectAllDiamonds;
             BaseSignals.Instance.onGetMineBaseEmptySlotCount -= OnGetMineBaseEmptySlotCount;
+            BaseSignals.Instance.onSaveMineBase -= OnSave;
+            AiSignals.Instance.onCanPlaceDiamondToStockpileArea -= OnCanPlaceDiamondToStockpileArea;
         }
 
         private void OnDisable()
@@ -127,29 +142,38 @@ namespace Managers
 
         private int OnGetMineBaseEmptySlotCount() => Data.MaxWorkerAmount - Data.CurrentWorkerAmount;
 
+        private bool OnCanPlaceDiamondToStockpileArea() => Data.CurrentDiamondAmount < Data.DiamondCapacity;
+        
         private Transform OnGetResourceArea(MineWorkerType workerType)
         {
-            if (Data.CurrentWorkerAmount == Data.MaxWorkerAmount) return null;
-            
-            if (workerType == MineWorkerType.Miner)
+            // if (Data.CurrentWorkerAmount == Data.MaxWorkerAmount) return null;
+            switch (workerType)
             {
-                int disperseResourceArea = Data.CurrentWorkerAmount % resourceAreaTransforms.Count;
-                Data.CurrentWorkerAmount++;
-                SetText();
-                return resourceAreaTransforms[disperseResourceArea];
+                case MineWorkerType.Miner:
+                {
+                    _minerCount++;
+                    int disperseResourceArea = _minerCount % resourceAreaTransforms.Count;
+                    SetText();
+                    return resourceAreaTransforms[disperseResourceArea];
+                }
+                case MineWorkerType.Gatherer:
+                {
+                    _gathererCount++;
+                    int disperseGatherArea = _gathererCount % gatherAreaTransforms.Count;
+                    SetText();
+                    return gatherAreaTransforms[disperseGatherArea];
+                }
+                default:
+                    return null;
             }
-            
-            int disperseGatherArea = Data.CurrentWorkerAmount % gatherAreaTransforms.Count;
-            Data.CurrentWorkerAmount++;
-            SetText();
-            return gatherAreaTransforms[disperseGatherArea];
         }
 
         private Transform OnGetGatherArea() => stockpileAreaTransform;
 
         private void OnPlaceDiamondToGatherArea(GameObject diamond)
         {
-            _placedGemCount++;
+            if(!OnCanPlaceDiamondToStockpileArea()) return;
+            Data.CurrentDiamondAmount++;
             diamond.transform.SetParent(stockpileAreaTransform);
             diamond.transform.rotation = Quaternion.Euler(180, 0, 0);
             var position = gemPlaceTransform.localPosition;
@@ -157,9 +181,9 @@ namespace Managers
             diamond.transform.DOLocalMove(position, placementDuration);
             
             gemPlaceTransform.localPosition = new Vector3(position.x + placementDistanceXZ, position.y, position.z);
-            if (_placedGemCount % maxLineAmount != 0) return;
+            if (Data.CurrentDiamondAmount % maxLineAmount != 0) return;
             gemPlaceTransform.localPosition = new Vector3(_initialGemPlacePosition.x, position.y, position.z + placementDistanceXZ);
-            if (_placedGemCount % Mathf.Pow(maxLineAmount, 2) != 0) return;
+            if (Data.CurrentDiamondAmount % Mathf.Pow(maxLineAmount, 2) != 0) return;
             gemPlaceTransform.localPosition = new Vector3(_initialGemPlacePosition.x, _initialGemPlacePosition.y + placementDistanceY,
                 _initialGemPlacePosition.z);
         }
@@ -170,7 +194,7 @@ namespace Managers
 
             ScoreSignals.Instance.onSetDiamondAmount?.Invoke(collectedGemsList.Count);
 
-            _placedGemCount = 0;
+            Data.CurrentDiamondAmount = 0;
             gemPlaceTransform.localPosition = _initialGemPlacePosition;
             
             for (int i = 0; i < collectedGemsList.Count; i++)
@@ -209,6 +233,7 @@ namespace Managers
 
         public void Save(int uniqueId)
         {
+            Data.CurrentWorkerAmount = _minerCount + _gathererCount;
             Data = new MineBaseData(Data.MaxWorkerAmount,Data.CurrentWorkerAmount,Data.DiamondCapacity,Data.CurrentDiamondAmount,Data.MineCardCapacity);
             
             SaveLoadSignals.Instance.onSaveMineBaseData?.Invoke(Data, uniqueId);
