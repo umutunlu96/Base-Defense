@@ -94,12 +94,15 @@ namespace Managers
 
         private void CheckData()
         {
-            for (int i = 0; i < Data.CurrentWorkerAmount; i++)
+            int instantiateAmount = Data.CurrentWorkerAmount;
+            Data.CurrentWorkerAmount = 0;
+            
+            for (int i = 0; i < instantiateAmount; i++)
             {
-                print("CheckData");
                 GameObject miner = PoolSignals.Instance.onGetPoolObject?.Invoke(PoolType.Miner, stockpileAreaTransform);
                 miner.transform.SetParent(transform);
             }
+            
         }
         
         #region EventSubscription
@@ -152,6 +155,7 @@ namespace Managers
                 case MineWorkerType.Miner:
                 {
                     _minerCount++;
+                    Data.CurrentWorkerAmount++;
                     int disperseResourceArea = _minerCount % resourceAreaTransforms.Count;
                     SetText();
                     return resourceAreaTransforms[disperseResourceArea];
@@ -159,12 +163,13 @@ namespace Managers
                 case MineWorkerType.Gatherer:
                 {
                     _gathererCount++;
+                    Data.CurrentWorkerAmount++;
                     int disperseGatherArea = _gathererCount % gatherAreaTransforms.Count;
                     SetText();
                     return gatherAreaTransforms[disperseGatherArea];
                 }
                 default:
-                    return null;
+                    return resourceAreaTransforms[0];
             }
         }
 
