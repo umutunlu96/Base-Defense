@@ -1,8 +1,10 @@
-﻿using Signals;
+﻿using System;
+using Keys;
+using Signals;
 using StateMachine.Miner;
 using UnityEngine;
 
-namespace StateMachine.Exclusive
+namespace StateMachine.Hostage
 {
     public class HostageManager : MonoBehaviour
     {
@@ -10,6 +12,53 @@ namespace StateMachine.Exclusive
         [SerializeField] private Animator animator;
         [SerializeField] private Transform pickAxeTransform;
         [SerializeField] private Transform diamondTransform;
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        
+
+        private bool isRescued;
+        public bool IsRescued { get { return isRescued;} set { isRescued = value; } }
+        
+        #region EventSubscription
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            InputSignals.Instance.onInputDragged += OnInputDragged;
+            InputSignals.Instance.onInputReleased += OnInputReleased;
+        }
+        
+        private void UnSubscribeEvents()
+        {
+            InputSignals.Instance.onInputDragged -= OnInputDragged;
+            InputSignals.Instance.onInputReleased -= OnInputReleased;
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
+        #endregion
+
+        #region Event Functions
+
+        private void OnInputDragged(InputParams inputParams)
+        {
+            if(!isRescued) return;
+            animator.SetFloat(Speed,inputParams.movementVector.magnitude);
+        }
+
+        private void OnInputReleased()
+        {
+            if (!isRescued) return;
+            animator.SetFloat(Speed,0);
+        }
+        
+        #endregion
         
         public void MakeMeAMiner()
         {

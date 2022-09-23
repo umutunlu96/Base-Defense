@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Commands;
 using Data.UnityObject;
 using Data.ValueObject;
-using Enums;
 using Signals;
-using StateMachine;
-using StateMachine.Exclusive;
 using UnityEngine;
 
 namespace Managers

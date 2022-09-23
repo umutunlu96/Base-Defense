@@ -3119,6 +3119,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3893478555135621139, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5176906568002486816, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
       propertyPath: m_TagString
       value: GemSpot
