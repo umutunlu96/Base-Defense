@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using Abstract;
 using Data.UnityObject;
 using Data.ValueObject;
 using Enums;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-//delete movetofrontyard
 namespace StateMachine.MoneyWorkerAI
 {
-    public class MoneyWorkerAI : MonoBehaviour
+    public class MoneyWorkerAI : Worker
     {
         #region Variables
 
         #region Public
 
+        public bool isBougth;
         public StackType StackType;
         public List<Transform> collectedMoneyList;
 
@@ -47,7 +47,15 @@ namespace StateMachine.MoneyWorkerAI
         #endregion
 
         #endregion
-
+        
+        public MoneyWorkerAI(float speed, int capacity) : base(speed, capacity)
+        {
+            this.speed = speed;
+            this.capacity = capacity;
+        }
+        
+        public bool IsBougth { get { return isBougth; } set { isBougth = value; } }
+        
         public float Speed { get { return speed; } private set { speed = value; } }
         
         public bool CantFindMoney { get { return _cantFindAnyMoney; } set { _cantFindAnyMoney = value; } }
@@ -74,22 +82,25 @@ namespace StateMachine.MoneyWorkerAI
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _stateMachine = new StateMachine();
 
+            var stationary = new Stationary(this, _animator, _navMeshAgent);
             var moveBase = new MoveToBase(this, _animator, _navMeshAgent, _baseTransform);
             var moveToMoney = new MoveToMoney(this, _animator, _navMeshAgent);
             var search = new Search(this, moneyFinder);
-            
+
+            At(stationary, moveBase, HasBougth());
             At(moveBase, search, HasAtBase());
             At(search, moveToMoney, HasFoundMoney());
             At(moveToMoney, search, HasPickedMoney());
             At(search, moveBase, IsBackPackFull());
 
-            _stateMachine.SetState(moveBase);
+            _stateMachine.SetState(stationary);
             
             _stateMachine.AddAnyTransition(moveToMoney, HasFoundMoney());
             _stateMachine.AddAnyTransition(moveBase, CantFindAnyMoney());
             
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
-            
+
+            Func<bool> HasBougth() => () => IsBougth;
             Func<bool> HasAtBase() => () => Vector3.Distance(transform.position, BaseTransform.position) < 1f;
             Func<bool> HasFoundMoney() => () => _collectedMoney < capacity && MoneyTransform != null;
             Func<bool> HasPickedMoney() => () => MoneyTransform == null;

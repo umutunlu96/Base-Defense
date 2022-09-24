@@ -1,6 +1,8 @@
-﻿namespace Abstract
+﻿using UnityEngine;
+
+namespace Abstract
 {
-    public abstract class Worker
+    public abstract class Worker : MonoBehaviour
     {
         public int Capacity;
 

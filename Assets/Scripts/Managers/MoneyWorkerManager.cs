@@ -4,6 +4,7 @@ using Data.ValueObject.Base;
 using DG.Tweening;
 using Enums;
 using Signals;
+using StateMachine.MoneyWorkerAI;
 using TMPro;
 using UnityEngine;
 
@@ -26,8 +27,10 @@ namespace Managers
         #endregion
 
         #region Serialized
-        
+
         [Header("Referances")]
+        
+        [SerializeField] private MoneyWorkerAI moneyWorkerAI;
         
         [SerializeField] private TextMeshPro payedAmountText;
         
@@ -159,6 +162,7 @@ namespace Managers
         private void CheckBougthState(BuyState buyState)
         {
             if(buyState == BuyState.NotBought) return;
+            moneyWorkerAI.IsBougth = true;
             buyPart.SetActive(false);
         }
 
