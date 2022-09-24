@@ -1,3 +1,4 @@
+using System;
 using Enums;
 using Extentions;
 using UnityEngine.Events;
@@ -10,5 +11,7 @@ namespace Signals
         public UnityAction<UIPanels> onClosePanel;
         public UnityAction<int> onUpdateStageData;
         public UnityAction<int> onSetLevelText;
+
+        public Action onUpdateScore;
     }
 }

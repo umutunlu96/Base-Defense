@@ -31,9 +31,17 @@ namespace Managers
         
         private int OnGetMoney() => _money;
         private int OnGetDiamond() => _diamond;
-        private void OnSetMoney(int value) => _money += value;
-        private void OnSetDiamond(int value) => _diamond += value;
-        
+        private void OnSetMoney(int value)
+        {
+            _money += value;
+            UISignals.Instance.onUpdateScore?.Invoke();
+        }
+
+        private void OnSetDiamond(int value)
+        {
+            _diamond += value;
+            UISignals.Instance.onUpdateScore?.Invoke();
+        }
         
         private void Start()
         {
@@ -60,6 +68,8 @@ namespace Managers
                 }
             }
             Load(_uniqueId);
+            
+            UISignals.Instance.onUpdateScore?.Invoke();
         }
 
 

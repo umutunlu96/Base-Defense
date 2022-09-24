@@ -11,7 +11,7 @@ namespace Managers
 
         #region Serialized Variables
 
-        [SerializeField] private UIPanelController uiPanelController;
+        // [SerializeField] private UIPanelController uiPanelController;
         [SerializeField] private LevelPanelController levelPanelController;
 
         #endregion
@@ -33,6 +33,8 @@ namespace Managers
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
             CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
+
+            UISignals.Instance.onUpdateScore += OnUpdateScore;
         }
 
         private void UnsubscribeEvents()
@@ -43,6 +45,8 @@ namespace Managers
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
             CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
+            
+            UISignals.Instance.onUpdateScore -= OnUpdateScore;
         }
 
         private void OnDisable()
@@ -52,14 +56,20 @@ namespace Managers
 
         #endregion
 
+        private void OnUpdateScore()
+        {
+            levelPanelController.SetMoneyText(ScoreSignals.Instance.onGetMoneyAmount());
+            levelPanelController.SetGemText(ScoreSignals.Instance.onGetDiamondAmount());
+        }
+        
         private void OnOpenPanel(UIPanels panelParam)
         {
-            uiPanelController.OpenPanel(panelParam);
+            // uiPanelController.OpenPanel(panelParam);
         }
 
         private void OnClosePanel(UIPanels panelParam)
         {
-            uiPanelController.ClosePanel(panelParam);
+            // uiPanelController.ClosePanel(panelParam);
         }
         
         private void OnSetLevelText(int value)
