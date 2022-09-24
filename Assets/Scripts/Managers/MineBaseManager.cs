@@ -189,7 +189,7 @@ namespace Managers
             if (Data.CurrentDiamondAmount % maxLineAmount != 0) return;
             gemPlaceTransform.localPosition = new Vector3(_initialGemPlacePosition.x, position.y, position.z + placementDistanceXZ);
             if (Data.CurrentDiamondAmount % Mathf.Pow(maxLineAmount, 2) != 0) return;
-            gemPlaceTransform.localPosition = new Vector3(_initialGemPlacePosition.x, _initialGemPlacePosition.y + placementDistanceY,
+            gemPlaceTransform.localPosition = new Vector3(_initialGemPlacePosition.x, _initialGemPlacePosition.y + placementDistanceY * Data.CurrentDiamondAmount / Mathf.Pow(maxLineAmount, 2),
                 _initialGemPlacePosition.z);
         }
 
