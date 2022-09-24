@@ -15,7 +15,7 @@ namespace Controllers
             if (other.CompareTag("Player"))
             {
                 if (PlayerSignals.Instance.onIsPlayerMoving()) return;
-                if (ScoreSignals.Instance.onGetMoneyAmount() > manager.Data.MoneyWorkerCost) return;
+                if (ScoreSignals.Instance.onGetMoneyAmount() < manager.Data.MoneyWorkerCost) return;
                 
                 _timer -= Time.deltaTime;
 

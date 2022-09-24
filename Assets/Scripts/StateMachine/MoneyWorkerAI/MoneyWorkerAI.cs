@@ -41,13 +41,9 @@ namespace StateMachine.MoneyWorkerAI
         private StateMachine _stateMachine;
         private NavMeshAgent _navMeshAgent;
         private Animator _animator;
-        
         private Transform _baseTransform;
-        // private Transform _outsideTransform;
-
         private bool _cantFindAnyMoney;
-        // private bool _moneyInRange;
-        
+
         #endregion
 
         #endregion
@@ -58,20 +54,12 @@ namespace StateMachine.MoneyWorkerAI
 
         public Transform BaseTransform { get { return _baseTransform; } private set { _baseTransform = value; } }
         
-        // public Transform OutsideTransform { get { return _outsideTransform; } private set { _outsideTransform = value; } }
-        
-        
-        
-        // public bool MoneyInRange { get { return _moneyInRange; } set { _moneyInRange = value; } }
-        
-        
         private StackData GetStackData() => Resources.Load<CD_StackData>("Data/CD_StackData").StackDatas[(int)StackType];
         
         private void SetReferances()
         {
             StackData = GetStackData();
             BaseTransform = AiSignals.Instance.onGetBaseTransform();
-            // OutsideTransform = AiSignals.Instance.onGetOutsideTransform();
         }
         
         private void Start()
@@ -87,30 +75,18 @@ namespace StateMachine.MoneyWorkerAI
             _stateMachine = new StateMachine();
 
             var moveBase = new MoveToBase(this, _animator, _navMeshAgent, _baseTransform);
-            // var moveOutside = new MoveToFrontyard(this, _animator, _navMeshAgent, _outsideTransform);
             var moveToMoney = new MoveToMoney(this, _animator, _navMeshAgent);
-            
             var search = new Search(this, moneyFinder);
             
-            // At(moveBase, moveOutside, HasAtBase());
-            // At(moveOutside, search, HasAtOutside());
-            // At(search, moveToMoney, HasFoundMoney());
-            
             At(moveBase, search, HasAtBase());
-            // At(search, moveOutside, GoOutsideWhenFoundMoney());
-            // At(moveOutside, moveToMoney, HasFoundMoney());
             At(search, moveToMoney, HasFoundMoney());
             At(moveToMoney, search, HasPickedMoney());
             At(search, moveBase, IsBackPackFull());
-            // At(moveOutside, moveBase, HasAtOutsideAndBackPackIsFull());
-            
+
             _stateMachine.SetState(moveBase);
             
             _stateMachine.AddAnyTransition(moveToMoney, HasFoundMoney());
             _stateMachine.AddAnyTransition(moveBase, CantFindAnyMoney());
-            
-            // _stateMachine.AddAnyTransition(moveOutside, IsBackPackFull());
-
             
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
             
