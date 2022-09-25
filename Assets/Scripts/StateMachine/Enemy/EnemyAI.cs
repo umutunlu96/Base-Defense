@@ -16,7 +16,6 @@ namespace StateMachine.Enemy
 
         public EnemyType EnemyType;
         public Transform CurrentTarget;
-        public AttackSide _attackSide = AttackSide.Left;
         public int Health;
         public int ChaseRange = 10;
         #endregion
@@ -33,6 +32,7 @@ namespace StateMachine.Enemy
 
         private StateMachine _stateMachine;
         private NavMeshAgent _navMeshAgent;
+        private NavMeshObstacle _navMeshObstacle;
         private Animator _animator;
         private Transform _baseTarget;
         private bool _canChase;
@@ -61,14 +61,13 @@ namespace StateMachine.Enemy
         {
             _animator = GetComponentInChildren<Animator>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _attackSide = (AttackSide)Random.Range(0,1);
-            
+            _navMeshObstacle = GetComponent<NavMeshObstacle>();
             _stateMachine = new StateMachine();
 
-            var search = new Search(this, _attackSide);
+            var search = new Search(this);
             var move = new Move(this, _animator, _navMeshAgent);
             var chase = new Chase(this, _animator, _navMeshAgent, chaseUpdateSpeed);
-            var attack = new Attack(this,_animator);
+            var attack = new Attack(this, _animator, _navMeshAgent, _navMeshObstacle);
             var death = new Death(this, _animator);
             
             At(search,move,HasTarget());

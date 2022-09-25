@@ -27,7 +27,7 @@ namespace StateMachine
 
         #region Enemy
 
-        public Func<AttackSide, Transform> onGetBaseAttackPoint;
+        public Func<Transform> onGetBaseAttackPoint;
 
         #endregion
 

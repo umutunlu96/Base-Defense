@@ -8,7 +8,7 @@
         
         RedEnemy,
         OrangeEnemy,
-        BigEnemy,
+        BigRedEnemy,
         
         Miner,
         Hostage

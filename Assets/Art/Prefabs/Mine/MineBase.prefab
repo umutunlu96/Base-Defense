@@ -661,7 +661,7 @@ MonoBehaviour:
   gemPlaceTransform: {fileID: 2520684050198698682}
   maxLineAmount: 5
   placementDistanceXZ: 0.5
-  placementDistanceY: 0.2
+  placementDistanceY: 0.4
   placementDuration: 0.5
 --- !u!114 &8878316036255783341
 MonoBehaviour:

@@ -5,6 +5,7 @@ using Enums;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using System;
 
 namespace Managers.Pool
 {
@@ -16,7 +17,8 @@ namespace Managers.Pool
 
         private Transform _objTransformCache;
         public CD_Pool _poolData;
-        private int listCache;
+        private int _listCache;
+        private PoolType _poolCache;
         [ShowInInspector] private List<GameObject> _poolGroup = new List<GameObject>();
 
         #endregion
@@ -55,12 +57,16 @@ namespace Managers.Pool
         {
             PoolSignals.Instance.onGetPoolObject += OnGetPoolObject;
             PoolSignals.Instance.onReleasePoolObject += OnReleasePoolObject;
+            PoolSignals.Instance.onGetPoolObjectWithString += OnGetPoolObject;
+            PoolSignals.Instance.onReleasePoolObjectWitString += OnReleasePoolObject;
         }
 
         private void UnsubscribeEvents()
         {
             PoolSignals.Instance.onGetPoolObject -= OnGetPoolObject;
             PoolSignals.Instance.onReleasePoolObject -= OnReleasePoolObject;
+            PoolSignals.Instance.onGetPoolObjectWithString -= OnGetPoolObject;
+            PoolSignals.Instance.onReleasePoolObjectWitString -= OnReleasePoolObject;
         }
 
         private void OnDisable()
@@ -72,7 +78,7 @@ namespace Managers.Pool
 
         private GameObject OnGetPoolObject(PoolType poolType,Transform objTransform)
         {
-            listCache = (int)poolType;
+            _listCache = (int)poolType;
             _objTransformCache = objTransform;
             var obj = ObjectPoolManager.Instance.GetObject<GameObject>(poolType.ToString());
             return obj;
@@ -84,13 +90,27 @@ namespace Managers.Pool
             ObjectPoolManager.Instance.ReturnObject(obj,poolType.ToString());
         }
         
+        private GameObject OnGetPoolObject(string poolType,Transform objTransform)
+        {
+            _poolCache = (PoolType)Enum.Parse(typeof(PoolType), poolType);
+            _objTransformCache = objTransform;
+            var obj = ObjectPoolManager.Instance.GetObject<GameObject>(poolType.ToString());
+            return obj;
+        }
+        
+        private void OnReleasePoolObject(string poolType, GameObject obj)
+        {
+            _poolCache = (PoolType)Enum.Parse(typeof(PoolType), poolType);
+            ObjectPoolManager.Instance.ReturnObject(obj,poolType.ToString());
+        }
+        
         #region Pool Initialization
         
         private void InitPool()
         {
             for (int i = 0; i < _poolData.PoolValueDatas.Count; i++)
             {
-                listCache = i;
+                _listCache = i;
                 ObjectPoolManager.Instance.AddObjectPool<GameObject>(FabricateGameObject, TurnOnGameObject, TurnOffGameObject,
                     _poolData.PoolValueDatas[i].ObjectType.ToString(), _poolData.PoolValueDatas[i].ObjectLimit, true);
             }
@@ -110,8 +130,8 @@ namespace Managers.Pool
         
         private GameObject FabricateGameObject()
         {
-            return Instantiate(_poolData.PoolValueDatas[listCache].PooledObject,Vector3.zero,
-                Quaternion.identity,_poolGroup[listCache].transform);
+            return Instantiate(_poolData.PoolValueDatas[_listCache].PooledObject,Vector3.zero,
+                Quaternion.identity,_poolGroup[_listCache].transform);
         }
         
         #endregion

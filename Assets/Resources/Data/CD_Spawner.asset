@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc7b6c31cc84a05af6583c605c6680e, type: 3}
+  m_Name: CD_Spawner
+  m_EditorClassIdentifier: 
+  SpawnDatas:
+  - EnemySpawnDelay: 0.2
+    EnemySpawnDatas:
+    - EnemyType: 0
+      MaxSpawnAmount: 10
+      CurrentSpawnAmount: 10
+    - EnemyType: 1
+      MaxSpawnAmount: 5
+      CurrentSpawnAmount: 5
+    - EnemyType: 2
+      MaxSpawnAmount: 1
+      CurrentSpawnAmount: 1
+    HostageSpawnDatas:
+    - maxSpawnAmount: 10
+      currentSpawnAmount: 0

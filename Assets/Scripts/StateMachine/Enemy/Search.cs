@@ -6,12 +6,10 @@ namespace StateMachine.Enemy
     public class Search : IState
     {
         private readonly EnemyAI _enemyAI;
-        private readonly AttackSide _attackSide;
-        
-        public Search(EnemyAI enemyAI, AttackSide attackSide)
+
+        public Search(EnemyAI enemyAI)
         {
             _enemyAI = enemyAI;
-            _attackSide = attackSide;
         }
         
         public void Tick()
@@ -20,7 +18,7 @@ namespace StateMachine.Enemy
 
         public void OnEnter()
         {
-            Transform target = AiSignals.Instance.onGetBaseAttackPoint(_attackSide);
+            Transform target = AiSignals.Instance.onGetBaseAttackPoint();
             _enemyAI.BaseTarget = target;
             _enemyAI.CurrentTarget = target;
         }

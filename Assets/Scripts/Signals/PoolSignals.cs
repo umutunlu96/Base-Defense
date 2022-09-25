@@ -9,5 +9,9 @@ namespace Signals
     {
         public Func<PoolType, Transform, GameObject> onGetPoolObject;
         public Action<PoolType, GameObject> onReleasePoolObject;
+
+
+        public Func<string, Transform, GameObject> onGetPoolObjectWithString;
+        public Action<string, GameObject> onReleasePoolObjectWitString;
     }
 }

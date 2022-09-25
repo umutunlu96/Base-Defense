@@ -2,9 +2,9 @@
 {
     public enum EnemyType
     {
-        Easy,
-        Medium,
-        Hard,
+        RedEnemy,
+        OrangeEnemy,
+        BigRedEnemy,
         Boss
     }
 }

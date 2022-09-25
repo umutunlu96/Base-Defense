@@ -25,3 +25,12 @@ MonoBehaviour:
   - ObjectType: 7
     ObjectLimit: 0
     PooledObject: {fileID: 1294032278345427918, guid: 85571eb6dcc77964f9d0ec6e4de0111e, type: 3}
+  - ObjectType: 3
+    ObjectLimit: 10
+    PooledObject: {fileID: 5704263201531388656, guid: 59bfada97e1b6dc46876b565168c1648, type: 3}
+  - ObjectType: 4
+    ObjectLimit: 10
+    PooledObject: {fileID: 5704263201531388656, guid: 94ea0ec104d46f347a59b2dcdda8618c, type: 3}
+  - ObjectType: 5
+    ObjectLimit: 10
+    PooledObject: {fileID: 5704263201531388656, guid: c8583ca77d6aa33408fd3d4fad1a3a55, type: 3}

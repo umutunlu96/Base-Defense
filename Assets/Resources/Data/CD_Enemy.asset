@@ -12,47 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fecc45415224abbbf43fb051b8583c2, type: 3}
   m_Name: CD_Enemy
   m_EditorClassIdentifier: 
-  AIAmmoWorkerData:
-    Capacity: 0
-    Speed: 0
-  AIMoneyWorkerData:
-    Speed: 0
-    Capacity: 0
-  AIMineWorkerData:
-    Capacity: 0
-    Speed: 0
-  AISoldierData:
-    Damage: 0
-    Health: 0
-    Speed: 0
-    AttackRate: 0
   EnemyAIData:
     EnemyDatas:
-    - Health: 0
-      Damage: 0
-      AttackRange: 0
-      Speed: 0
-      ChaseSpeed: 0
-      Chase: 0
-      EnemyType: 0
-    - Health: 0
-      Damage: 0
-      AttackRange: 0
-      Speed: 0
-      ChaseSpeed: 0
-      Chase: 0
-      EnemyType: 1
-    - Health: 0
-      Damage: 0
-      AttackRange: 0
-      Speed: 0
-      ChaseSpeed: 0
-      Chase: 0
-      EnemyType: 2
-    - Health: 0
-      Damage: 0
-      AttackRange: 0
-      Speed: 0
-      ChaseSpeed: 0
-      Chase: 0
-      EnemyType: 3
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}

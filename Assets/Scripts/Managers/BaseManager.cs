@@ -24,9 +24,8 @@ namespace Managers
         #region Serialized
 
         [SerializeField] private List<RoomManager> roomManagers;
-        [SerializeField] private List<Transform> baseLeftAttackPoints;
-        [SerializeField] private List<Transform> baseRightAttackPoints;
-
+        [SerializeField] private List<Transform> baseAttackPoints;
+        
         [SerializeField] private TextMeshPro baseText;
         [SerializeField] private Transform mineBaseTransform;
         [SerializeField] private Transform baseTransform;
@@ -95,23 +94,10 @@ namespace Managers
 
         #region Event Functions
         
-        private Transform OnReturnBaseAttackPoint(AttackSide attackSide)
+        private Transform OnReturnBaseAttackPoint()
         {
-            switch (attackSide)
-            {
-                case AttackSide.Left:
-                    var enemyAttackTransformCountLeft = baseLeftAttackPoints.Count;
-                    var randomsLeft = Random.Range(0, enemyAttackTransformCountLeft);
-                    return baseLeftAttackPoints[randomsLeft];
-
-                case AttackSide.Right:
-                    var enemyAttackTransformCountRight = baseRightAttackPoints.Count;
-                    var randomsRight = Random.Range(0, enemyAttackTransformCountRight);
-                    return baseRightAttackPoints[randomsRight];
-                
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(attackSide), attackSide, null);
-            }
+            int randomAttackPointIndex = Random.Range(0, baseAttackPoints.Count);
+            return baseAttackPoints[randomAttackPointIndex];
         }
 
         private Transform OnGetBaseTransform() => baseTransform;

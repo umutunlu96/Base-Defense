@@ -57,9 +57,9 @@ GameObject:
   - component: {fileID: 6835565559669453091}
   - component: {fileID: 5704263201531388659}
   - component: {fileID: 4255279260966684481}
-  - component: {fileID: 2716516609493755859}
+  - component: {fileID: 2775619433514345524}
   m_Layer: 0
-  m_Name: RedEnemy
+  m_Name: OrangeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +96,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &5704263201531388659
 MonoBehaviour:
@@ -139,7 +139,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
---- !u!208 &2716516609493755859
+--- !u!208 &2775619433514345524
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -518,7 +518,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd8e9b2970dd51142af12e7e29ee77f5, type: 2}
+  - {fileID: 2100000, guid: 2437cd7d6a530f441a663d3643496bb9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
