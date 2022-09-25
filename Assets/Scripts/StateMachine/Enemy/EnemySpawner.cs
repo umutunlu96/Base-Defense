@@ -59,7 +59,6 @@ namespace StateMachine.Enemy
             {
                 _spawnLimit += _enemySpawnDatas[i].MaxSpawnAmount;
             }
-
             StartCoroutine(SpawnController());
         }
 
