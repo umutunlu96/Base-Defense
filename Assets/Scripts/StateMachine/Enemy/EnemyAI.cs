@@ -39,7 +39,7 @@ namespace StateMachine.Enemy
         private bool _canChase;
         private bool _canAttack;
         private bool _reachedAtTheBase;
-
+        
         #endregion
         
         #endregion
