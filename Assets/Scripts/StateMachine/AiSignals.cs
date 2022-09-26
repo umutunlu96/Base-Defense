@@ -8,6 +8,12 @@ namespace StateMachine
 {
     public class AiSignals : MonoSingleton<AiSignals>
     {
+        #region Hostage
+
+        public Action<Transform> onHostageRescued;
+
+        #endregion
+        
         #region Miner
         
         public Func<Transform> onGetMineBaseArea;
@@ -27,6 +33,7 @@ namespace StateMachine
 
         #region Enemy
 
+        public Action<Transform> onEnemyDead;
         public Func<Transform> onGetBaseAttackPoint;
 
         #endregion

@@ -8,6 +8,7 @@ namespace Data.ValueObject
     {
         public float EnemySpawnDelay;
         public List<EnemySpawnData> EnemySpawnDatas;
-        public List<HostageSpawnData> HostageSpawnDatas;
+        public HostageSpawnData HostageSpawnDatas;
+        public BombSpawnData BombSpawnData;
     }
 }

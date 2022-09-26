@@ -84,6 +84,7 @@ MonoBehaviour:
   physicsController: {fileID: 5448402810838680784}
   meshController: {fileID: 0}
   animationController: {fileID: 8585115634855167785}
+  playerDetection: {fileID: 2814272367156119699}
 --- !u!114 &1892333598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2814272367156119699}
   - component: {fileID: 7205353975087122299}
-  m_Layer: 6
+  m_Layer: 19
   m_Name: PlayerDetection
   m_TagString: Player
   m_Icon: {fileID: 0}

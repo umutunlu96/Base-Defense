@@ -17,7 +17,8 @@ namespace StateMachine.Enemy
         public EnemyType EnemyType;
         public Transform CurrentTarget;
         public int Health;
-        public int ChaseRange = 10;
+        public float ChaseRange = 5f;
+        public float AttackRange = 2.5f;
         #endregion
 
         #region Serialized
@@ -36,12 +37,18 @@ namespace StateMachine.Enemy
         private Animator _animator;
         private Transform _baseTarget;
         private bool _canChase;
+        private bool _canAttack;
+        private bool _reachedAtTheBase;
 
         #endregion
         
         #endregion
         
         public bool CanChase { get { return _canChase; } set { _canChase = value; } }
+        
+        public bool CanAttack { get { return _canAttack; } set { _canAttack = value; } }
+        
+        public bool ReachedAtBase { get { return _reachedAtTheBase; } set { _reachedAtTheBase = value; } }
         
         public Transform BaseTarget { get { return _baseTarget; } set { _baseTarget = value; } }
         
@@ -68,6 +75,7 @@ namespace StateMachine.Enemy
             var move = new Move(this, _animator, _navMeshAgent);
             var chase = new Chase(this, _animator, _navMeshAgent, chaseUpdateSpeed);
             var attack = new Attack(this, _animator, _navMeshAgent, _navMeshObstacle);
+            var reachAtBase = new ReachAtBase(this, _animator, _navMeshAgent, _navMeshObstacle);
             var death = new Death(this, _animator);
             
             At(search,move,HasTarget());
@@ -75,18 +83,21 @@ namespace StateMachine.Enemy
             At(chase,attack, IsInAttackRange());
             At(attack,chase, IsNotInAttackRange());
             At(chase,search, CantChasePlayer());
-            
-            _stateMachine.AddAnyTransition(death,IsDeath());
+            At(move, reachAtBase, ReachedBase());
+
+            _stateMachine.AddAnyTransition(death, IsDeath());
+            _stateMachine.AddAnyTransition(chase, CantChasePlayer());
+            _stateMachine.AddAnyTransition(attack, IsInAttackRange());
             
             _stateMachine.SetState(search);
             
             void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             Func<bool> HasTarget() => () => CurrentTarget != null;
             Func<bool> CanChasePlayer() => () => CanChase;
-            Func<bool> IsInAttackRange() => () => Vector3.Distance(transform.position, CurrentTarget.transform.position) < 1
-                                                  && Vector3.Distance(transform.position, CurrentTarget.transform.position) > .5f;
-            Func<bool> IsNotInAttackRange() => () => Vector3.Distance(transform.position, CurrentTarget.transform.position) > 1;
+            Func<bool> IsInAttackRange() => () => CanAttack;
+            Func<bool> IsNotInAttackRange() => () => !CanAttack;
             Func<bool> CantChasePlayer() => () => !CanChase;
+            Func<bool> ReachedBase() => () => ReachedAtBase;
             Func<bool> IsDeath() => () => Health <= 0;
         }
 

@@ -3,9 +3,9 @@
 namespace Data.ValueObject
 {
     [Serializable]
-    public class HostageSpawnData
+    public class BombSpawnData
     {
-        public float SpawnDelay;
+        public float BombSpawnDelay;
         public int MaxSpawnAmount;
         public int CurrentSpawnAmount;
     }

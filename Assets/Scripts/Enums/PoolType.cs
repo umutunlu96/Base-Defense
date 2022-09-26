@@ -5,6 +5,7 @@
         Money,
         Gem,
         Ammo,
+        Bomb,
         
         RedEnemy,
         OrangeEnemy,

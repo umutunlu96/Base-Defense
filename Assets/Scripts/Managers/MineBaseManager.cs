@@ -36,6 +36,8 @@ namespace Managers
 
         [SerializeField] private Transform stockpileAreaTransform;
         
+        [SerializeField] private Transform groundTransform;
+        
         [Header("Gem Placement Settings")]//Datalastir
         
         [SerializeField] private Transform gemPlaceTransform;
@@ -99,7 +101,7 @@ namespace Managers
             
             for (int i = 0; i < instantiateAmount; i++)
             {
-                GameObject miner = PoolSignals.Instance.onGetPoolObject?.Invoke(PoolType.Miner, stockpileAreaTransform);
+                GameObject miner = PoolSignals.Instance.onGetPoolObject?.Invoke(PoolType.Miner, groundTransform);
                 miner.transform.SetParent(transform);
             }
             
@@ -149,7 +151,6 @@ namespace Managers
         
         private Transform OnGetResourceArea(MineWorkerType workerType)
         {
-            // if (Data.CurrentWorkerAmount == Data.MaxWorkerAmount) return null;
             switch (workerType)
             {
                 case MineWorkerType.Miner:

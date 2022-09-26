@@ -16,13 +16,15 @@ namespace Managers
         [SerializeField] private PlayerPhysicsController physicsController;
         [SerializeField] private PlayerMeshController meshController;
         [SerializeField] private PlayerAnimationController animationController;
-
+        [SerializeField] private Transform playerDetection;
+        
         #endregion Seriliazed Field
 
         #region Private
 
         private PlayerData _playerData;
         private bool _isPlayerMoving;
+        private bool _isAtOutside;
         #endregion Private
 
         
@@ -115,6 +117,19 @@ namespace Managers
         //     animationController.TranslatePlayerAnimationState(state);
         // }
 
+        public void OnEnterGate()
+        {
+            _isAtOutside = !_isAtOutside;
+            if (_isAtOutside)
+            {
+                int layerIgnoreRaycastInside = LayerMask.NameToLayer("PlayerDetection");
+                playerDetection.gameObject.layer = layerIgnoreRaycastInside;
+                return;
+            }
+            int layerIgnoreRaycastOutside = LayerMask.NameToLayer("Empty");
+            playerDetection.gameObject.layer = layerIgnoreRaycastOutside;
+        }
+        
         private Transform OnGetPlayerTransform() => transform;
 
         private float OnGetPlayerSpeed() => rigidBody.velocity.magnitude;

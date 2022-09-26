@@ -12,6 +12,7 @@ namespace StateMachine.Enemy
         private readonly NavMeshObstacle _navMeshObstacle;
         
         private static readonly int attack = Animator.StringToHash("Attack");
+        private static readonly int Run = Animator.StringToHash("Run");
         private float _timer;
 
         public Attack(EnemyAI enemyAI, Animator animator, NavMeshAgent navMeshAgent, NavMeshObstacle navMeshObstacle)
@@ -25,12 +26,12 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
-            _timer += Time.deltaTime;
-
-            if (_timer >= 5)
-            {
-                AttackToTarget();
-            }
+            // _timer += Time.deltaTime;
+            //
+            // if (_timer >= .5f)
+            // {
+            //     AttackToTarget();
+            // }
         }
 
         public void OnEnter()
@@ -40,19 +41,15 @@ namespace StateMachine.Enemy
 
         public void OnExit()
         {
-            
+            _animator.SetTrigger(Run);
         }
 
         private void AttackToTarget()
         {
-            _navMeshObstacle.enabled = false;
-            _navMeshAgent.enabled = true;
             _animator.SetTrigger(attack);
             Debug.Log("Attack");
             //Playersignals.instance.onPlayerGetDamage?.Invoke(_enemyAi.Damage);
-            _navMeshAgent.enabled = false;
-            _navMeshObstacle.enabled = true;
-            _timer = 0;
+            // _timer = 0;
         }
     }
 }

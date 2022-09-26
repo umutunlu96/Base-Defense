@@ -10,7 +10,7 @@ namespace StateMachine.Enemy
         private readonly NavMeshAgent _navMeshAgent;
         
         private static readonly int Speed = Animator.StringToHash("Speed");
-        private static readonly int Walk = Animator.StringToHash("Walk");
+        private static readonly int Run = Animator.StringToHash("Run");
         
         public Move(EnemyAI enemyAI,Animator animator, NavMeshAgent agent)
         {
@@ -28,7 +28,7 @@ namespace StateMachine.Enemy
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _enemyAI.WalkSpeed;
             _navMeshAgent.SetDestination(_enemyAI.CurrentTarget.position);
-            _animator.SetTrigger(Walk);
+            _animator.SetTrigger(Run);
         }
 
         public void OnExit()

@@ -23,7 +23,7 @@ MonoBehaviour:
     ObjectLimit: 20
     PooledObject: {fileID: 7609355640435267706, guid: 7f1ca418394faa74380292cb57d4b865, type: 3}
   - ObjectType: 7
-    ObjectLimit: 0
+    ObjectLimit: 15
     PooledObject: {fileID: 1294032278345427918, guid: 85571eb6dcc77964f9d0ec6e4de0111e, type: 3}
   - ObjectType: 3
     ObjectLimit: 10

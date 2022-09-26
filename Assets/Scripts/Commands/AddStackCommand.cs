@@ -16,7 +16,7 @@ namespace Commands
 
         public void Execute(Transform hostage)
         {
-            hostage.SetParent(_transform);
+            // hostage.SetParent(_transform);
             _hostages.Add(hostage);
             _hostages.TrimExcess();
         }

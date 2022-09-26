@@ -4,7 +4,7 @@ using UnityEngine;
 namespace StateMachine.Enemy
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class PlayerDetector : MonoBehaviour
+    public class EnemyLongRangeDetector : MonoBehaviour
     {
         [SerializeField] private EnemyAI manager;
 
@@ -20,6 +20,7 @@ namespace StateMachine.Enemy
                 manager.CurrentTarget = other.transform;
                 manager.CanChase = true;
             }
+            
         }
 
         private void OnTriggerExit(Collider other)

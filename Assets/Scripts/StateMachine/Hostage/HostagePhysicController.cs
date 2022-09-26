@@ -1,4 +1,5 @@
 ﻿using System;
+using Signals;
 using UnityEngine;
 
 namespace StateMachine.Hostage
@@ -10,7 +11,10 @@ namespace StateMachine.Hostage
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
+            {
                 _manager.IsRescued = true;
+                AiSignals.Instance.onHostageRescued?.Invoke(transform);
+            }
             if (other.CompareTag("MineArea"))
             {
                 _manager.MakeMeAMiner();
