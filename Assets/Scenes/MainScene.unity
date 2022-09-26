@@ -3067,7 +3067,9 @@ MonoBehaviour:
   - {fileID: 1649897288}
   - {fileID: 1264033024}
   - {fileID: 1104707468}
-  bombSpawnPoints: []
+  bombSpawnPoints:
+  - {fileID: 1162059212}
+  - {fileID: 464223643}
 --- !u!4 &2112228479
 Transform:
   m_ObjectHideFlags: 0
@@ -3188,10 +3190,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2103810060184807856, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3498095791762621902, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
       propertyPath: m_NavMeshData
       value: 
       objectReference: {fileID: 23800000, guid: eb2717e42ca4b4143b8fcacc2a219e53, type: 2}
+    - target: {fileID: 4246615252139806074, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5242407862014424604, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
       propertyPath: m_IsActive
       value: 1
