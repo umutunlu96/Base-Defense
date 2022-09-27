@@ -17,17 +17,17 @@ namespace StateMachine.Enemy
         {
             if (other.CompareTag("Player"))
             {
-                manager.CurrentTarget = other.transform;
-                manager.CanChase = true;
+                // Debug.Log("PlayerEnteredAtLongRange");
+                manager.PlayerTarget = other.transform.parent;
             }
-            
         }
 
         private void OnTriggerExit(Collider other)
         {
             if(other.CompareTag("Player"))
             {
-                manager.CanChase = false;
+                // Debug.Log("PlayerExitedAtLongRange");
+                manager.PlayerTarget = null;
             }
         }
     }

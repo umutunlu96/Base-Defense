@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace StateMachine.Enemy
 {
-    public class ReachAtBase : IState
+    public class ReachedBase : IState
     {
         private readonly EnemyAI _enemyAI;
         private readonly Animator _animator;
@@ -12,7 +12,7 @@ namespace StateMachine.Enemy
         
         private static readonly int Idle = Animator.StringToHash("Idle");
         
-        public ReachAtBase(EnemyAI enemyAI, Animator animator, NavMeshAgent navMeshAgent, NavMeshObstacle navMeshObstacle)
+        public ReachedBase(EnemyAI enemyAI, Animator animator, NavMeshAgent navMeshAgent, NavMeshObstacle navMeshObstacle)
         {
             _enemyAI = enemyAI;
             _animator = animator;
@@ -28,6 +28,7 @@ namespace StateMachine.Enemy
         public void OnEnter()
         {
             _animator.SetTrigger(Idle);
+            _navMeshAgent.speed = 0;
             _navMeshAgent.enabled = false;
             _navMeshObstacle.enabled = true;
         }

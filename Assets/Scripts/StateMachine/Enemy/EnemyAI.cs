@@ -36,21 +36,28 @@ namespace StateMachine.Enemy
         private NavMeshObstacle _navMeshObstacle;
         private Animator _animator;
         private Transform _baseTarget;
-        private bool _canChase;
+        private Transform _playerTarget;
+        
+        // private bool _canChase;
         private bool _canAttack;
         private bool _reachedAtTheBase;
-        
+        private bool _attacked;
+        private bool _attackAnimEnded;
         #endregion
         
         #endregion
-        
-        public bool CanChase { get { return _canChase; } set { _canChase = value; } }
-        
+
         public bool CanAttack { get { return _canAttack; } set { _canAttack = value; } }
+        
+        public bool Attacked { get { return _attacked; } set { _attacked = value; } }
+        
+        public bool AttackAnimEnded { get { return _attackAnimEnded; } set { _attackAnimEnded = value; } }
         
         public bool ReachedAtBase { get { return _reachedAtTheBase; } set { _reachedAtTheBase = value; } }
         
         public Transform BaseTarget { get { return _baseTarget; } set { _baseTarget = value; } }
+        
+        public Transform PlayerTarget { get { return _playerTarget; } set { _playerTarget = value; } }
         
         //Datalastir bunleri
         
@@ -70,37 +77,46 @@ namespace StateMachine.Enemy
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _navMeshObstacle = GetComponent<NavMeshObstacle>();
             _stateMachine = new StateMachine();
+            BaseTarget = AiSignals.Instance.onGetBaseAttackPoint();
 
-            var search = new Search(this);
-            var move = new Move(this, _animator, _navMeshAgent);
-            var chase = new Chase(this, _animator, _navMeshAgent, chaseUpdateSpeed);
+            var moveToBase = new MoveToBase(this, _animator, _navMeshAgent, BaseTarget);
+            var chasePlayer = new Chase(this, _animator, _navMeshAgent, chaseUpdateSpeed);
             var attack = new Attack(this, _animator, _navMeshAgent, _navMeshObstacle);
-            var reachAtBase = new ReachAtBase(this, _animator, _navMeshAgent, _navMeshObstacle);
+            var reachedBase = new ReachedBase(this, _animator, _navMeshAgent, _navMeshObstacle);
             var death = new Death(this, _animator);
-            
-            At(search,move,HasTarget());
-            At(move,chase,CanChasePlayer());
-            At(chase,attack, IsInAttackRange());
-            At(attack,chase, IsNotInAttackRange());
-            At(chase,search, CantChasePlayer());
-            At(move, reachAtBase, ReachedBase());
+
+            At(moveToBase, chasePlayer, CanChasePlayer());
+            At(chasePlayer, attack, IsInAttackRange());
+            At(attack, chasePlayer, CanChasePlayer());
+            At(chasePlayer, moveToBase, GoBase());
+            At(moveToBase, reachedBase, ReachedBase());
 
             _stateMachine.AddAnyTransition(death, IsDeath());
-            _stateMachine.AddAnyTransition(chase, CantChasePlayer());
+            _stateMachine.AddAnyTransition(chasePlayer, CanChasePlayer());
             _stateMachine.AddAnyTransition(attack, IsInAttackRange());
             
-            _stateMachine.SetState(search);
+            _stateMachine.SetState(moveToBase);
             
             void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
-            Func<bool> HasTarget() => () => CurrentTarget != null;
-            Func<bool> CanChasePlayer() => () => CanChase;
-            Func<bool> IsInAttackRange() => () => CanAttack;
-            Func<bool> IsNotInAttackRange() => () => !CanAttack;
-            Func<bool> CantChasePlayer() => () => !CanChase;
-            Func<bool> ReachedBase() => () => ReachedAtBase;
+            
+            Func<bool> GoBase() => () => PlayerTarget == null && !CanAttack && !ReachedAtBase && _baseTarget != null;
+            Func<bool> CanChasePlayer() => () => PlayerTarget != null && !CanAttack;
+            Func<bool> IsInAttackRange() => () => PlayerTarget != null && CanAttack;
+            Func<bool> ReachedBase() => () => ReachedAtBase && _baseTarget != null && PlayerTarget == null;
             Func<bool> IsDeath() => () => Health <= 0;
         }
 
         private void Update() => _stateMachine.Tick();
+
+        public void AttackedToPlayer()
+        {
+            if (Attacked == true)
+            {
+                //PlayerTakeDamage
+                Debug.Log("PlayerTookDamage");
+                Attacked = false;
+            }
+        }
+        
     }
 }

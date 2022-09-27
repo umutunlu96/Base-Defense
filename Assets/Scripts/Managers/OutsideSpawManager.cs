@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Data.UnityObject;
 using Data.ValueObject;
@@ -52,8 +53,6 @@ namespace Managers
         private List<Transform> _bombSpawnPointsCache = new List<Transform>();
         private float _bombSpawnDelay;
         
-        //Enemy List olusturmaya gerek var mi? Bence yok hiamina Ama oladabilir
-        
         #endregion
         
         #endregion
@@ -71,8 +70,8 @@ namespace Managers
         {
             _spawnData = GetSpawnData();
             InitEnemy();
-            InitHostage();
-            InitBomb();
+            // InitHostage();
+            // InitBomb();
         }
 
         #region EventSubscription
@@ -141,24 +140,25 @@ namespace Managers
         
         private bool CheckIfEnemyCanSpawn(int enemyType)
         {
-            return _enemySpawnDatas[(int) enemyType].CurrentSpawnAmount < _enemySpawnDatas[(int) enemyType].MaxSpawnAmount;
+            return _enemySpawnDatas[enemyType].CurrentSpawnAmount < _enemySpawnDatas[enemyType].MaxSpawnAmount;
         }
         
         private void GetEnemy(string enemyName, Transform spawnPoint)
         {
-            GameObject enemy = PoolSignals.Instance.onGetPoolObjectWithString?.Invoke(enemyName, spawnPoint);
+            PoolType poolType = (PoolType) Enum.Parse(typeof(PoolType), enemyName, true);
+            GameObject enemy = PoolSignals.Instance.onGetPoolObject?.Invoke(poolType, spawnPoint);
             enemy.transform.SetParent(transform);
         }
         
         private void SpawnEnemy()
         {
-            string enemyName = "";
             int randomEnemy = Random.Range(0, _enemySpawnDatas.Count);
             int randomSpawnPoint = Random.Range(0, enemySpawnPoints.Count);
             
             if (CheckIfEnemyCanSpawn(randomEnemy))
             {
-                enemyName = _enemySpawnDatas[randomEnemy].EnemyType.ToString();
+                print("EnemySpawned");
+                var enemyName = _enemySpawnDatas[randomEnemy].EnemyType.ToString();
                 GetEnemy(enemyName, enemySpawnPoints[randomSpawnPoint]);
                 _enemySpawnDatas[randomEnemy].CurrentSpawnAmount++;
                 _enemySpawnedCount++;
@@ -208,6 +208,7 @@ namespace Managers
             {
                 if (!_hostageSpawnPointsCache.Contains(t))
                 {
+                    print("Hostage Spawned");
                     _hostageSpawnedCount++;
                     _hostageSpawnPointsCache.Add(t);
                     GetHostage(PoolType.Hostage, t);

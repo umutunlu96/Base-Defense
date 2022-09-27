@@ -27,21 +27,22 @@ namespace StateMachine.Enemy
             _timer += Time.deltaTime;
             if (_timer >= _chaseUpdateSpeed)
             {
-                _navMeshAgent.SetDestination(_enemyAI.CurrentTarget.position);
+                _navMeshAgent.SetDestination(_enemyAI.PlayerTarget.position);
                 _timer = 0;
             }
         }
         
         public void OnEnter()
         {
+            // Debug.Log("Chasing Player");
             _animator.SetTrigger(Run);
-            _navMeshAgent.SetDestination(_enemyAI.CurrentTarget.position);
+            _navMeshAgent.SetDestination(_enemyAI.PlayerTarget.position);
             _navMeshAgent.speed = _enemyAI.RunSpeed;
         }
 
         public void OnExit()
         {
-            Debug.Log("Player Exit Range");
+            // Debug.Log("Chase End");
         }
     }
 }
