@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Data.UnityObject;
 using Data.ValueObject;
@@ -70,8 +69,8 @@ namespace Managers
         {
             _spawnData = GetSpawnData();
             InitEnemy();
-            // InitHostage();
-            // InitBomb();
+            InitHostage();
+            InitBomb();
         }
 
         #region EventSubscription
@@ -147,6 +146,7 @@ namespace Managers
         {
             GameObject enemy = PoolSignals.Instance.onGetPoolObject?.Invoke(enemyName, spawnPoint);
             enemy.transform.SetParent(transform);
+            enemy.transform.rotation = Quaternion.Euler(0, -180, 0);
         }
         
         private void SpawnEnemy()
@@ -156,7 +156,6 @@ namespace Managers
             
             if (CheckIfEnemyCanSpawn(randomEnemy))
             {
-                print("EnemySpawned");
                 var enemyName = _enemySpawnDatas[randomEnemy].EnemyType.ToString();
                 GetEnemy(enemyName, enemySpawnPoints[randomSpawnPoint]);
                 _enemySpawnDatas[randomEnemy].CurrentSpawnAmount++;

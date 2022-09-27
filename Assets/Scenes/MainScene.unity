@@ -2016,7 +2016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7b1263068951e49be1d0aae7eb0c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolData: {fileID: 11400000, guid: b3655b6c25872e64899ef86e3718193a, type: 2}
 --- !u!114 &1646909306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3039,6 +3038,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 95540423, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 94d5c97e8e828784ca154d6b06336a55, type: 2}
+    - target: {fileID: 981439887, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 2a664e05887b34d4a97fee4169a93153, type: 2}
     - target: {fileID: 383140818337527643, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
       propertyPath: m_Name
       value: Base 0
@@ -3085,6 +3092,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1016371127477710305, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2206392261206898124, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2206392261206898124, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_OverrideArea
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

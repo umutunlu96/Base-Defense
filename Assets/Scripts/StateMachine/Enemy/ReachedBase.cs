@@ -29,14 +29,14 @@ namespace StateMachine.Enemy
         {
             _animator.SetTrigger(Idle);
             _navMeshAgent.speed = 0;
-            _navMeshAgent.enabled = false;
-            _navMeshObstacle.enabled = true;
+            // _navMeshAgent.enabled = false;
+            // _navMeshObstacle.enabled = true;
         }
 
         public void OnExit()
         {
-            _navMeshObstacle.enabled = false;
-            _navMeshAgent.enabled = true;
+            // _navMeshObstacle.enabled = false;
+            // _navMeshAgent.enabled = true;
         }
     }
 }

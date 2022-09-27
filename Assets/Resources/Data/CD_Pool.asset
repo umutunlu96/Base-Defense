@@ -13,27 +13,23 @@ MonoBehaviour:
   m_Name: CD_Pool
   m_EditorClassIdentifier: 
   PoolValueDatas:
-  - ObjectType: 0
-    ObjectLimit: 200
-    PooledObject: {fileID: 6361494993116363728, guid: 8d4db9db0ee642843a89d68130fa9569, type: 3}
-  - ObjectType: 1
-    ObjectLimit: 200
-    PooledObject: {fileID: 379725593890370474, guid: 5af2ad45c65c392438653a29acef5c06, type: 3}
-  - ObjectType: 3
-    ObjectLimit: 2
-    PooledObject: {fileID: 3401912314130587590, guid: df63ee1d097feaa4cad002ff22bb9f8e, type: 3}
-  - ObjectType: 7
-    ObjectLimit: 20
-    PooledObject: {fileID: 7609355640435267706, guid: 7f1ca418394faa74380292cb57d4b865, type: 3}
-  - ObjectType: 8
-    ObjectLimit: 15
-    PooledObject: {fileID: 1294032278345427918, guid: 85571eb6dcc77964f9d0ec6e4de0111e, type: 3}
-  - ObjectType: 4
-    ObjectLimit: 10
-    PooledObject: {fileID: 5704263201531388656, guid: 59bfada97e1b6dc46876b565168c1648, type: 3}
-  - ObjectType: 5
-    ObjectLimit: 10
-    PooledObject: {fileID: 5704263201531388656, guid: 94ea0ec104d46f347a59b2dcdda8618c, type: 3}
-  - ObjectType: 6
-    ObjectLimit: 10
-    PooledObject: {fileID: 5704263201531388656, guid: c8583ca77d6aa33408fd3d4fad1a3a55, type: 3}
+    m_Keys: 000000000100000002000000030000000400000005000000070000000800000006000000
+    m_Values:
+    - ObjectLimit: 200
+      PooledObject: {fileID: 6361494993116363728, guid: 8d4db9db0ee642843a89d68130fa9569, type: 3}
+    - ObjectLimit: 200
+      PooledObject: {fileID: 379725593890370474, guid: 5af2ad45c65c392438653a29acef5c06, type: 3}
+    - ObjectLimit: 100
+      PooledObject: {fileID: 6361494993116363728, guid: 8d4db9db0ee642843a89d68130fa9569, type: 3}
+    - ObjectLimit: 10
+      PooledObject: {fileID: 3401912314130587590, guid: df63ee1d097feaa4cad002ff22bb9f8e, type: 3}
+    - ObjectLimit: 100
+      PooledObject: {fileID: 5704263201531388656, guid: 59bfada97e1b6dc46876b565168c1648, type: 3}
+    - ObjectLimit: 50
+      PooledObject: {fileID: 5704263201531388656, guid: 94ea0ec104d46f347a59b2dcdda8618c, type: 3}
+    - ObjectLimit: 25
+      PooledObject: {fileID: 7609355640435267706, guid: 7f1ca418394faa74380292cb57d4b865, type: 3}
+    - ObjectLimit: 10
+      PooledObject: {fileID: 1294032278345427918, guid: 85571eb6dcc77964f9d0ec6e4de0111e, type: 3}
+    - ObjectLimit: 25
+      PooledObject: {fileID: 5704263201531388656, guid: c8583ca77d6aa33408fd3d4fad1a3a55, type: 3}
