@@ -62,7 +62,7 @@ namespace StateMachine.Miner
             _minerAI.PickAxeTransform.gameObject.SetActive(true);
             _navMeshObstacle.enabled = false;
             _timer = 0;
-            _minerAI.Gem = PoolSignals.Instance.onGetPoolObject?.Invoke(PoolType.Gem, _minerAI.DiamondTransform);
+            _minerAI.Gem = PoolSignals.Instance.onGetPoolObject?.Invoke("Gem", _minerAI.DiamondTransform);
             if (_minerAI.Gem == null) return;
             _minerAI.Gem.transform.SetParent(_minerAI.DiamondTransform);
             _minerAI.Gem.transform.rotation = Quaternion.identity;

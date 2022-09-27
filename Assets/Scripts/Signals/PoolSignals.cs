@@ -1,17 +1,15 @@
 ﻿using System;
-using Enums;
 using Extentions;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Signals
 {
     public class PoolSignals : MonoSingleton<PoolSignals>
     {
-        public Func<PoolType, Transform, GameObject> onGetPoolObject;
-        public Action<PoolType, GameObject> onReleasePoolObject;
-
-
-        public Func<string, Transform, GameObject> onGetPoolObjectWithString;
-        public Action<string, GameObject> onReleasePoolObjectWitString;
+        public Func<string,Transform,GameObject> onGetPoolObject = delegate(string s, Transform transform1)
+        {
+            return default;};
+        public UnityAction<string,GameObject> onReleasePoolObject = delegate {  };
     }
 }

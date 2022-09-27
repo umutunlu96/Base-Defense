@@ -101,7 +101,7 @@ namespace Managers
             
             for (int i = 0; i < instantiateAmount; i++)
             {
-                GameObject miner = PoolSignals.Instance.onGetPoolObject?.Invoke(PoolType.Miner, groundTransform);
+                GameObject miner = PoolSignals.Instance.onGetPoolObject?.Invoke("Miner", groundTransform);
                 miner.transform.SetParent(transform);
             }
             
@@ -215,7 +215,7 @@ namespace Managers
                 
                 gem.DOLocalMove(Vector3.zero, placementDuration).SetDelay(.2f).OnComplete(()=>
                     {
-                        PoolSignals.Instance.onReleasePoolObject?.Invoke(PoolType.Gem, gem.gameObject);
+                        PoolSignals.Instance.onReleasePoolObject?.Invoke("Gem", gem.gameObject);
                         collectedGemsList.Remove(gem);
                         collectedGemsList.TrimExcess();
                     });

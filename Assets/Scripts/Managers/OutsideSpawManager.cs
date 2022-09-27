@@ -108,7 +108,7 @@ namespace Managers
             {
                 EnemyType enemyType = enemyAI.EnemyType;
                 string enemyName = enemyType.ToString();
-                PoolSignals.Instance.onReleasePoolObjectWitString?.Invoke(enemyName, enemyTransform.gameObject);
+                PoolSignals.Instance.onReleasePoolObject?.Invoke(enemyName, enemyTransform.gameObject);
                 _enemySpawnDatas[(int)enemyType].CurrentSpawnAmount--;
                 _enemySpawnedCount--;
             }
@@ -145,8 +145,7 @@ namespace Managers
         
         private void GetEnemy(string enemyName, Transform spawnPoint)
         {
-            PoolType poolType = (PoolType) Enum.Parse(typeof(PoolType), enemyName, true);
-            GameObject enemy = PoolSignals.Instance.onGetPoolObject?.Invoke(poolType, spawnPoint);
+            GameObject enemy = PoolSignals.Instance.onGetPoolObject?.Invoke(enemyName, spawnPoint);
             enemy.transform.SetParent(transform);
         }
         
@@ -193,7 +192,7 @@ namespace Managers
             return _hostageSpawnedCount <= _hostageSpawnLimit;
         }
         
-        private void GetHostage(PoolType poolType, Transform spawnPoint)
+        private void GetHostage(string poolType, Transform spawnPoint)
         {
             Vector3 randomRotate = new Vector3(0, Random.Range(0, 359), 0);
             GameObject hostage = PoolSignals.Instance.onGetPoolObject?.Invoke(poolType, spawnPoint);
@@ -211,7 +210,7 @@ namespace Managers
                     print("Hostage Spawned");
                     _hostageSpawnedCount++;
                     _hostageSpawnPointsCache.Add(t);
-                    GetHostage(PoolType.Hostage, t);
+                    GetHostage("Hostage", t);
                     break;
                 }
             }
@@ -243,7 +242,7 @@ namespace Managers
             return _bombSpawnedCount <= _bombSpawnLimit;
         }
         
-        private void GetBomb(PoolType poolType, Transform spawnPoint)
+        private void GetBomb(string poolType, Transform spawnPoint)
         {
             GameObject bomb = PoolSignals.Instance.onGetPoolObject?.Invoke(poolType, spawnPoint);
             if(bomb==null) return;
@@ -258,7 +257,7 @@ namespace Managers
                 {
                     _bombSpawnedCount++;
                     _bombSpawnPointsCache.Add(t);
-                    GetBomb(PoolType.Bomb, t);
+                    GetBomb("Bomb", t);
                     break;
                 }
             }
