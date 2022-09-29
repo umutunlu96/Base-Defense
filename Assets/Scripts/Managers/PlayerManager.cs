@@ -1,4 +1,5 @@
 using Controllers;
+using Enums;
 using Keys;
 using Signals;
 using UnityEngine;
@@ -96,14 +97,14 @@ namespace Managers
         {
             ActivateMovement();
             _isPlayerMoving = true;
-            //animation controller set run animation
+            animationController.TranslatePlayerAnimationState(PlayerAnimationState.Run);
         }
 
         private void OnInputReleased()
         {
             DeactivateMovement();
             _isPlayerMoving = false;
-            //animation controller set idle animation
+            animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
         }
 
         private void OnInputDragged(InputParams inputParams) => movementController.UpdateInputValue(inputParams);
