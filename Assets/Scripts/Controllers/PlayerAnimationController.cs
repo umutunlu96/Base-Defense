@@ -25,6 +25,10 @@ namespace Controllers
         #endregion
 
         #endregion
+
+        public void EnableAimLayer() => animator.SetLayerWeight(1, 1);
+        
+        public void DisableAimLayer() => animator.SetLayerWeight(1, 0);
         
         public void TranslatePlayerAnimationState(PlayerAnimationState state)
         {

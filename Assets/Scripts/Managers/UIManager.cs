@@ -112,5 +112,11 @@ namespace Managers
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.FailPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
         }
+
+        public void OnPlayerWeaponChange(int order)
+        {
+            PlayerWeaponType weaponType = (PlayerWeaponType) order;
+            PlayerSignals.Instance.onPlayerWeaponTypeChanged?.Invoke(weaponType);
+        }
     }
 }

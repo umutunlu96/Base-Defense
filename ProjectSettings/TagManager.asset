@@ -17,6 +17,7 @@ TagManager:
   - Collected
   - GemSpot
   - StockpileSpot
+  - Enemy
   layers:
   - Default
   - TransparentFX

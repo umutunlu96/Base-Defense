@@ -24,12 +24,11 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
+            if(_enemyAI.PlayerTarget == null) return;
             _timer += Time.deltaTime;
-            if (_timer >= _chaseUpdateSpeed)
-            {
-                _navMeshAgent.SetDestination(_enemyAI.PlayerTarget.position);
-                _timer = 0;
-            }
+            if (!(_timer >= _chaseUpdateSpeed)) return;
+            _navMeshAgent.SetDestination(_enemyAI.PlayerTarget.position);
+            _timer = 0;
         }
         
         public void OnEnter()

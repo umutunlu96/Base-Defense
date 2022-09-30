@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Controllers;
 using Enums;
 using Keys;
@@ -16,6 +18,7 @@ namespace Managers
         [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private PlayerPhysicsController physicsController;
         [SerializeField] private PlayerMeshController meshController;
+        [SerializeField] private PlayerAimController aimController;
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private Transform playerDetection;
         
@@ -26,6 +29,8 @@ namespace Managers
         private PlayerData _playerData;
         private bool _isPlayerMoving;
         private bool _isAtOutside;
+        [HideInInspector] public List<Transform> enemyTransformList = new List<Transform>();
+
         #endregion Private
 
         
@@ -58,6 +63,7 @@ namespace Managers
             PlayerSignals.Instance.onIsPlayerMoving += OnCanBuy;
             PlayerSignals.Instance.onGetPlayerTransfrom += OnGetPlayerTransform;
             PlayerSignals.Instance.onGetPlayerSpeed += OnGetPlayerSpeed;
+            PlayerSignals.Instance.onPlayerWeaponTypeChanged += OnWeaponTypeChanged;
         }
 
         private void UnsubscribeEvents()
@@ -72,6 +78,7 @@ namespace Managers
             PlayerSignals.Instance.onIsPlayerMoving -= OnCanBuy;
             PlayerSignals.Instance.onGetPlayerTransfrom -= OnGetPlayerTransform;
             PlayerSignals.Instance.onGetPlayerSpeed -= OnGetPlayerSpeed;
+            PlayerSignals.Instance.onPlayerWeaponTypeChanged -= OnWeaponTypeChanged;
         }
 
         private void OnDisable()
@@ -125,13 +132,32 @@ namespace Managers
             {
                 int layerIgnoreRaycastInside = LayerMask.NameToLayer("PlayerDetection");
                 playerDetection.gameObject.layer = layerIgnoreRaycastInside;
+                animationController.EnableAimLayer();
+                aimController.EnableAimRig(true);
                 return;
             }
             int layerIgnoreRaycastOutside = LayerMask.NameToLayer("Empty");
             playerDetection.gameObject.layer = layerIgnoreRaycastOutside;
+            animationController.DisableAimLayer();
+            aimController.EnableAimRig(false);
         }
         
         private Transform OnGetPlayerTransform() => transform;
+
+        public void UpdateEnemyList(Transform enemyTransform)
+        {
+            if (enemyTransformList.Contains(enemyTransform))
+            {
+                enemyTransformList.Remove(enemyTransform);
+                enemyTransformList.TrimExcess();
+                return;
+            }
+            
+            if (!enemyTransformList.Contains(enemyTransform));
+                enemyTransformList.Add(enemyTransform);
+        }
+
+        private void OnWeaponTypeChanged(PlayerWeaponType weaponType) => aimController.ChangeWeaponRigPos(weaponType);
 
         private float OnGetPlayerSpeed() => rigidBody.velocity.magnitude;
         
