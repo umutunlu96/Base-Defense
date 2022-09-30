@@ -20,7 +20,8 @@ namespace Managers
         [SerializeField] private PlayerMeshController meshController;
         [SerializeField] private PlayerAimController aimController;
         [SerializeField] private PlayerAnimationController animationController;
-        [SerializeField] private Transform playerDetection;
+        [SerializeField] private Transform playerSelfDetection;
+        [SerializeField] private Transform enemyDetection;
         
         #endregion Seriliazed Field
 
@@ -29,7 +30,7 @@ namespace Managers
         private PlayerData _playerData;
         private bool _isPlayerMoving;
         private bool _isAtOutside;
-        [HideInInspector] public List<Transform> enemyTransformList = new List<Transform>();
+        public List<Transform> enemyTransformList = new List<Transform>();
 
         #endregion Private
 
@@ -131,31 +132,22 @@ namespace Managers
             if (_isAtOutside)
             {
                 int layerIgnoreRaycastInside = LayerMask.NameToLayer("PlayerDetection");
-                playerDetection.gameObject.layer = layerIgnoreRaycastInside;
+                playerSelfDetection.gameObject.layer = layerIgnoreRaycastInside;
+                enemyDetection.gameObject.layer = layerIgnoreRaycastInside;
                 animationController.EnableAimLayer();
                 aimController.EnableAimRig(true);
                 return;
             }
             int layerIgnoreRaycastOutside = LayerMask.NameToLayer("Empty");
-            playerDetection.gameObject.layer = layerIgnoreRaycastOutside;
+            playerSelfDetection.gameObject.layer = layerIgnoreRaycastOutside;
+            enemyDetection.gameObject.layer = layerIgnoreRaycastOutside;
             animationController.DisableAimLayer();
             aimController.EnableAimRig(false);
         }
         
         private Transform OnGetPlayerTransform() => transform;
 
-        public void UpdateEnemyList(Transform enemyTransform)
-        {
-            if (enemyTransformList.Contains(enemyTransform))
-            {
-                enemyTransformList.Remove(enemyTransform);
-                enemyTransformList.TrimExcess();
-                return;
-            }
-            
-            if (!enemyTransformList.Contains(enemyTransform));
-                enemyTransformList.Add(enemyTransform);
-        }
+
 
         private void OnWeaponTypeChanged(PlayerWeaponType weaponType) => aimController.ChangeWeaponRigPos(weaponType);
 

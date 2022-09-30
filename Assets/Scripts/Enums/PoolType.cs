@@ -5,6 +5,7 @@
         Money,
         Gem,
         Ammo,
+        Bullet,
         Bomb,
         
         RedEnemy,

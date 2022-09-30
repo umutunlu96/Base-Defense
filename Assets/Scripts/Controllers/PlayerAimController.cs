@@ -16,22 +16,30 @@ namespace Controllers
         [SerializeField] private RigBuilder rigBuilder;
         [SerializeField] private Transform targetTransform;
         [SerializeField] private List<GameObject> guns;
-        [SerializeField] private List<Transform> enemyTargetList;    //set to private after see if its working
-
-        private void Awake()
-        {
-            enemyTargetList = manager.enemyTransformList;
-        }
-
+        public List<Transform> enemyTargetList = new List<Transform>();
+        
         private void Start()
         {
             StartCoroutine(Shoot());
         }
 
+        public void UpdateEnemyList(Transform enemyTransform)
+        {
+            if (enemyTargetList.Contains(enemyTransform))
+            {
+                enemyTargetList.Remove(enemyTransform);
+                enemyTargetList.TrimExcess();
+                return;
+            }
+            
+            if (!enemyTargetList.Contains(enemyTransform));
+            enemyTargetList.Add(enemyTransform);
+        }
+        
         public void SetTarget()
         {
             if(enemyTargetList == null) return;
-            targetTransform = enemyTargetList[0].transform;
+            targetTransform.position = enemyTargetList[0].transform.position;
         }
 
         public void EnableAimRig(bool isEnabled) => rigBuilder.layers[0].active = isEnabled;
@@ -41,6 +49,7 @@ namespace Controllers
             for (int i = 1; i < rigBuilder.layers.Count; i++)
             {
                 rigBuilder.layers[i].active = false;
+                guns[i-1].SetActive(false);
             }
             
             int weaponTypeIndex = (int)weaponType;
