@@ -206,7 +206,7 @@ namespace Managers
             {
                 if (!_hostageSpawnPointsCache.Contains(t))
                 {
-                    print("Hostage Spawned");
+                    // print("Hostage Spawned");
                     _hostageSpawnedCount++;
                     _hostageSpawnPointsCache.Add(t);
                     GetHostage("Hostage", t);

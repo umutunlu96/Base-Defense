@@ -5,7 +5,6 @@
         Money,
         Gem,
         Ammo,
-        Bullet,
         Bomb,
         
         RedEnemy,
@@ -13,6 +12,13 @@
         BigRedEnemy,
         
         Miner,
-        Hostage
+        Hostage,
+        
+        PistolBullet,
+        ShotgunBullet,
+        SmgBullet,
+        RifleBullet,
+        GrenadeLauncherBullet,
+        MiniGunBullet
     }
 }

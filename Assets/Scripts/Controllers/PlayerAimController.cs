@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DG.Tweening;
 using Enums;
 using Managers;
@@ -12,36 +13,54 @@ namespace Controllers
 {
     public class PlayerAimController : MonoBehaviour
     {
+        public List<Transform> enemyTargetList = new List<Transform>();
+
+        [SerializeField] private float bulletSpeed = 10;
         [SerializeField] private PlayerManager manager;
         [SerializeField] private RigBuilder rigBuilder;
         [SerializeField] private Transform targetTransform;
-        [SerializeField] private List<GameObject> guns;
-        public List<Transform> enemyTargetList = new List<Transform>();
+        [SerializeField] private Transform targetInitialTransform;
         
+        [SerializeField] private List<GameObject> guns;
+        [SerializeField] private List<Transform> muzzleTransform;
+        [SerializeField] private PlayerWeaponType playerWeaponType;
+        private float _elapsedTime;
         private void Start()
         {
-            StartCoroutine(Shoot());
+            Shoot();
         }
 
-        public void UpdateEnemyList(Transform enemyTransform)
+        private void Update()
         {
-            if (enemyTargetList.Contains(enemyTransform))
+            SetTarget();
+        }
+
+        public void UpdateEnemyList(Transform enemyTransform, bool isAdd)
+        {
+            if (!isAdd)
             {
                 enemyTargetList.Remove(enemyTransform);
                 enemyTargetList.TrimExcess();
+                print("Removed Enemy List");
+                return;
+            }
+            enemyTargetList.Add(enemyTransform);
+            print("Added Enemy List");
+        }
+        
+        private void SetTarget()
+        {
+            if (enemyTargetList.Count == 0)
+            {
+                targetTransform.localPosition = Vector3.Lerp(targetTransform.localPosition,
+                    targetInitialTransform.localPosition, Mathf.SmoothStep(0, 1, Time.deltaTime * 4));
                 return;
             }
             
-            if (!enemyTargetList.Contains(enemyTransform));
-            enemyTargetList.Add(enemyTransform);
+            targetTransform.position = Vector3.Lerp(targetTransform.position,
+                enemyTargetList[0].transform.position, Mathf.SmoothStep(0, 1, Time.deltaTime * 12));
         }
         
-        public void SetTarget()
-        {
-            if(enemyTargetList == null) return;
-            targetTransform.position = enemyTargetList[0].transform.position;
-        }
-
         public void EnableAimRig(bool isEnabled) => rigBuilder.layers[0].active = isEnabled;
 
         public void ChangeWeaponRigPos(PlayerWeaponType weaponType)
@@ -56,17 +75,31 @@ namespace Controllers
             guns[weaponTypeIndex].SetActive(true);
             rigBuilder.layers[weaponTypeIndex + 1].active = true;
         }
-        
-        private IEnumerator Shoot()
+
+        private GameObject GetBullet(PlayerWeaponType weaponType) => 
+            PoolSignals.Instance.onGetPoolObject?.Invoke($"{weaponType}Bullet", muzzleTransform[(int) weaponType]);
+
+        private async void Shoot()
         {
+            if (enemyTargetList.Count == 0)
+            {
+                await Task.Delay(25);
+                Shoot();
+                return;
+            }
+            
             while (enemyTargetList.Count > 0)
             {
-                SetTarget();
-                GameObject bullet = PoolSignals.Instance.onGetPoolObject?.Invoke("Bullet", transform);
+                GameObject bullet = GetBullet(playerWeaponType);
+                bullet.transform.position = muzzleTransform[(int) playerWeaponType].position;
+                float distance = Vector3.Distance(muzzleTransform[(int) playerWeaponType].position,
+                    enemyTargetList[0].position);
 
-                bullet.transform.DOMove(targetTransform.position, .25f);
-
-                yield return new WaitForSeconds(.15f);
+                bullet.transform.DOMove(Vector3.forward, distance / bulletSpeed).SetDelay(.15f).OnComplete(() =>
+                {
+                    PoolSignals.Instance.onReleasePoolObject?.Invoke($"{playerWeaponType}Bullet".ToString(), bullet);
+                });
+                await Task.Delay(25);
             }
         }
     }

@@ -5,6 +5,8 @@
         Pistol,
         Shotgun,
         Smg,
-        Rifle
+        Rifle,
+        GrenadeLauncher,
+        MiniGun
     }
 }

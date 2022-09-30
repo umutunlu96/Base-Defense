@@ -113,7 +113,7 @@ namespace StateMachine.Enemy
             if (Attacked == true)
             {
                 //PlayerTakeDamage
-                Debug.Log("PlayerTookDamage");
+                // Debug.Log("PlayerTookDamage");
                 Attacked = false;
             }
         }

@@ -10,7 +10,7 @@ Material:
   m_Name: Mat_ActionPropsPack_stylizedToonyShader
   m_Shader: {fileID: 4800000, guid: 733fefdcde0d35f4b822d2935d5a22f4, type: 3}
   m_ShaderKeywords: _MK_ALBEDO_MAP _MK_ARTISTIC_PROJECTION_SCREEN_SPACE _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
-    _MK_LIGHT_CEL _MK_RECEIVE_SHADOWS _MK_WRAPPED_DIFFUSE _RECEIVESHADOWS_ON _WRAPPEDLIGHTING_ON
+    _MK_LIGHT_CEL _MK_WRAPPED_DIFFUSE _WRAPPEDLIGHTING_ON
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -194,7 +194,7 @@ Material:
     - _Parallax: 0.02
     - _RampSmooth: 0.187
     - _RampThreshold: 0.472
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
     - _RenderFace: 2
     - _RenderPriority: 0
     - _Rim: 0
