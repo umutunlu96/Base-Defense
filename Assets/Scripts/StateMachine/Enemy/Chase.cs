@@ -24,6 +24,8 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
+            Debug.Log("Chase");
+
             if(_enemyAI.PlayerTarget == null) return;
             _timer += Time.deltaTime;
             if (!(_timer >= _chaseUpdateSpeed)) return;

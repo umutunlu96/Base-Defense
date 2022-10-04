@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 54267869}
   - component: {fileID: 55023441528094940}
-  m_Layer: 7
+  m_Layer: 14
   m_Name: GameObject (2)
   m_TagString: GateOutside
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 217991159}
   - component: {fileID: 6121520264462351008}
-  m_Layer: 7
+  m_Layer: 14
   m_Name: GameObject (3)
   m_TagString: GateOutside
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1511050233}
   - component: {fileID: 7660068054487885921}
-  m_Layer: 7
+  m_Layer: 14
   m_Name: GameObject (1)
   m_TagString: GateOutside
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2112670291}
   - component: {fileID: 1721228121353618623}
-  m_Layer: 7
+  m_Layer: 14
   m_Name: GameObject
   m_TagString: GateOutside
   m_Icon: {fileID: 0}
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.13333334
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 72923ea527bbfda48bf043f337fe014b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2a664e05887b34d4a97fee4169a93153, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &95540423
 MonoBehaviour:
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.13333334
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: b3257acf00355634a8cd468ab8d811bb, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 94d5c97e8e828784ca154d6b06336a55, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &526069043926082265
 GameObject:
@@ -4380,6 +4380,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1016371127477710305}
     m_Modifications:
+    - target: {fileID: 1999510842, guid: c67930148a11ca545b358529071a1b79, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1999510842, guid: c67930148a11ca545b358529071a1b79, type: 3}
+      propertyPath: m_OverrideArea
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1999510842, guid: c67930148a11ca545b358529071a1b79, type: 3}
       propertyPath: m_AffectedAgents.Array.size
       value: 0

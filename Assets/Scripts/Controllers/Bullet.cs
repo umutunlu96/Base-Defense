@@ -35,13 +35,19 @@ namespace Controllers
         }
         
         private BulletData GetData() => Resources.Load<CD_Bullet>("Data/CD_Bullet").BulletDatas[WeaponType];
-
+        
         private void OnEnable()
         {
             CancelInvoke(DisableMethodName);
             Invoke(DisableMethodName, _autoDestroyTime);
         }
 
+        public void Shoot(Quaternion muzzleRotation)
+        {
+            transform.rotation = muzzleRotation;
+            _rigidBody.AddForce(transform.forward * _moveSpeed, ForceMode.VelocityChange);
+        }
+        
         private void OnTriggerEnter(Collider other)
         {
             IDamageable damageable;

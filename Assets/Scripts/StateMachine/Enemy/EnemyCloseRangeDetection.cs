@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace StateMachine.Enemy
 {
@@ -19,12 +21,11 @@ namespace StateMachine.Enemy
             if (other.CompareTag("Player"))
             {
                 manager.CanAttack = true;
-                // Debug.Log("PlayerEnteredAtCloseRange");
             }
+            
             if (other.CompareTag("GateOutside"))
             {
-                // Debug.Log("EnemyEnteredAtGate");
-                StartCoroutine(ChangeReachedBaseState(true));
+                ChangeReachedBaseState(true);
             }
         }
         
@@ -32,20 +33,18 @@ namespace StateMachine.Enemy
         {
             if (other.CompareTag("Player"))
             {
-                // Debug.Log("PlayerExitedAtCloseRange");
                 manager.CanAttack = false;
             }
             
             if (other.CompareTag("GateOutside"))
             {
-                // Debug.Log("EnemyExitedAtGate");
-                StartCoroutine(ChangeReachedBaseState(false));
+                ChangeReachedBaseState(false);
             }
         }
 
-        private IEnumerator ChangeReachedBaseState(bool value)
+        private async void ChangeReachedBaseState(bool value)
         {
-            yield return new WaitForSeconds(.5f);
+            await Task.Delay(Random.Range(50,250));
             manager.ReachedAtBase = value;
         }
     }

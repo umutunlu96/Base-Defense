@@ -10,14 +10,14 @@ namespace Controllers
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Enemy")) return;
-            aimController.UpdateEnemyList(other.transform.parent, true);
+            // aimController.UpdateEnemyList(other.transform.parent, true);
             // print("Enemy Detected");
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (!other.CompareTag("Enemy")) return;
-            aimController.UpdateEnemyList(other.transform.parent, false);
+            // aimController.UpdateEnemyList(other.transform.parent, false);
             // print("Enemy Removed from sight");
         }
     }

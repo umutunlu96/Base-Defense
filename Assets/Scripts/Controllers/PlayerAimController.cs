@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Abstract;
 using DG.Tweening;
 using Enums;
 using Managers;
 using Signals;
+using StateMachine;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -13,9 +15,11 @@ namespace Controllers
 {
     public class PlayerAimController : MonoBehaviour
     {
-        public List<Transform> enemyTargetList = new List<Transform>();
+        public float AttackDelay = 0.2f;
 
-        [SerializeField] private float bulletSpeed = 10;
+        public List<IDamageable> Damageables = new List<IDamageable>();
+        private Coroutine AttackCoroutine;
+
         [SerializeField] private PlayerManager manager;
         [SerializeField] private RigBuilder rigBuilder;
         [SerializeField] private Transform targetTransform;
@@ -24,41 +28,66 @@ namespace Controllers
         [SerializeField] private List<GameObject> guns;
         [SerializeField] private List<Transform> muzzleTransform;
         [SerializeField] private PlayerWeaponType playerWeaponType;
-        private float _elapsedTime;
-        private void Start()
-        {
-            Shoot();
-        }
 
+        private IDamageable _closestDamageable;
+        
         private void Update()
         {
             SetTarget();
         }
+        
+        #region EventSubscription
 
-        public void UpdateEnemyList(Transform enemyTransform, bool isAdd)
+        private void OnEnable()
         {
-            if (!isAdd)
-            {
-                enemyTargetList.Remove(enemyTransform);
-                enemyTargetList.TrimExcess();
-                print("Removed Enemy List");
-                return;
-            }
-            enemyTargetList.Add(enemyTransform);
-            print("Added Enemy List");
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            AiSignals.Instance.onEnemyAIDead += OnEnemyAIDead;
         }
         
+        private void UnSubscribeEvents()
+        {
+            AiSignals.Instance.onEnemyAIDead -= OnEnemyAIDead;
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
+        #endregion
+
+        private void OnEnemyAIDead(IDamageable damageable)
+        {
+            Damageables.Remove(damageable);
+            Damageables.TrimExcess();
+            _closestDamageable = null;
+        }
+
         private void SetTarget()
         {
-            if (enemyTargetList.Count == 0)
+            if (_closestDamageable == null)
             {
                 targetTransform.localPosition = Vector3.Lerp(targetTransform.localPosition,
-                    targetInitialTransform.localPosition, Mathf.SmoothStep(0, 1, Time.deltaTime * 4));
+                    targetInitialTransform.localPosition, Mathf.SmoothStep(0, 1, Time.deltaTime * 12));
                 return;
             }
             
+            if(_closestDamageable == null) return;
+            if (_closestDamageable.AmIDeath()) return;
             targetTransform.position = Vector3.Lerp(targetTransform.position,
-                enemyTargetList[0].transform.position, Mathf.SmoothStep(0, 1, Time.deltaTime * 12));
+                Damageables[0].GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 24));
+
+            //RotatePlayerSlowly(Damageables[0].GetTransform());
+        }
+
+        private void RotatePlayerSlowly(Transform target)
+        {
+            Vector3 rotateTo = (target.position - transform.position).normalized;
+            manager.transform.Rotate(rotateTo * Time.deltaTime);
         }
         
         public void EnableAimRig(bool isEnabled) => rigBuilder.layers[0].active = isEnabled;
@@ -76,31 +105,97 @@ namespace Controllers
             rigBuilder.layers[weaponTypeIndex + 1].active = true;
         }
 
-        private GameObject GetBullet(PlayerWeaponType weaponType) => 
-            PoolSignals.Instance.onGetPoolObject?.Invoke($"{weaponType}Bullet", muzzleTransform[(int) weaponType]);
-
-        private async void Shoot()
+        private GameObject GetBullet()
         {
-            if (enemyTargetList.Count == 0)
+            Transform muzzle = muzzleTransform[(int) playerWeaponType];
+            return PoolSignals.Instance.onGetPoolObject?.Invoke($"{playerWeaponType}Bullet", muzzle);
+        }
+
+
+        #region Trigger
+
+        private void OnTriggerEnter(Collider other)
+        {
+            IDamageable damageable = other.GetComponent<IDamageable>();
+            if (damageable != null)
             {
-                await Task.Delay(25);
-                Shoot();
-                return;
+                Damageables.Add(damageable);
+                if (AttackCoroutine == null)
+                {
+                    AttackCoroutine = StartCoroutine(Attack());
+                }
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            IDamageable damageable = other.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                Damageables.Remove(damageable);
+                if (Damageables.Count == 0)
+                {
+                    StopCoroutine(AttackCoroutine);
+                    AttackCoroutine = null;
+                }
+            }
+        }
+        #endregion
+
+        private IDamageable GetClosestDamageable()
+        {
+            
+            float closestDistance = float.MaxValue;
+
+            IDamageable closestDamageable = null;
+            
+            for (int i = 0; i < Damageables.Count; i++)
+            {
+                Transform damageableTransform = Damageables[i].GetTransform();
+                float distance = Vector3.Distance(transform.position, damageableTransform.position);
+
+                if (distance < closestDistance)
+                {
+                    closestDamageable = Damageables[i];
+                }
             }
             
-            while (enemyTargetList.Count > 0)
-            {
-                GameObject bullet = GetBullet(playerWeaponType);
-                bullet.transform.position = muzzleTransform[(int) playerWeaponType].position;
-                float distance = Vector3.Distance(muzzleTransform[(int) playerWeaponType].position,
-                    enemyTargetList[0].position);
+            return closestDamageable;
+        }
+        
+        
+        private IEnumerator Attack()
+        {
+            WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
-                bullet.transform.DOMove(Vector3.forward, distance / bulletSpeed).SetDelay(.15f).OnComplete(() =>
+            yield return Wait;
+            
+            while (Damageables.Count > 0)
+            {
+                _closestDamageable = GetClosestDamageable();
+                
+                if (_closestDamageable != null && !_closestDamageable.AmIDeath())
                 {
-                    PoolSignals.Instance.onReleasePoolObject?.Invoke($"{playerWeaponType}Bullet".ToString(), bullet);
-                });
-                await Task.Delay(25);
+                    GameObject bullet = GetBullet();
+                    if (bullet != null)
+                    {
+                        bullet.GetComponent<Bullet>().Shoot(muzzleTransform[(int) playerWeaponType].rotation);
+                    }
+                }
+
+                // _closestDamageable = null;
+
+                yield return Wait;
+
+                Damageables.RemoveAll(DisabledDamageables);
             }
+
+            AttackCoroutine = null;
+        }
+
+        protected  bool DisabledDamageables(IDamageable Damageable)
+        {
+            return Damageable != null && !Damageable.GetTransform().gameObject.activeSelf;
         }
     }
 }

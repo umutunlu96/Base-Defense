@@ -20,7 +20,6 @@ namespace Managers
         [SerializeField] private PlayerMeshController meshController;
         [SerializeField] private PlayerAimController aimController;
         [SerializeField] private PlayerAnimationController animationController;
-        [SerializeField] private Transform playerSelfDetection;
         [SerializeField] private Transform enemyDetection;
         
         #endregion Seriliazed Field
@@ -131,15 +130,16 @@ namespace Managers
             _isAtOutside = !_isAtOutside;
             if (_isAtOutside)
             {
-                int layerIgnoreRaycastInside = LayerMask.NameToLayer("PlayerDetection");
-                playerSelfDetection.gameObject.layer = layerIgnoreRaycastInside;
-                enemyDetection.gameObject.layer = layerIgnoreRaycastInside;
+                int layerIgnoreRaycastInsidePlayer = LayerMask.NameToLayer("Player");
+                int layerIgnoreRaycastInsideAttackRadius = LayerMask.NameToLayer("PlayerAttackRadius");
+                transform.gameObject.layer = layerIgnoreRaycastInsidePlayer;
+                enemyDetection.gameObject.layer = layerIgnoreRaycastInsideAttackRadius;
                 animationController.EnableAimLayer();
                 aimController.EnableAimRig(true);
                 return;
             }
             int layerIgnoreRaycastOutside = LayerMask.NameToLayer("Empty");
-            playerSelfDetection.gameObject.layer = layerIgnoreRaycastOutside;
+            transform.gameObject.layer = layerIgnoreRaycastOutside;
             enemyDetection.gameObject.layer = layerIgnoreRaycastOutside;
             animationController.DisableAimLayer();
             aimController.EnableAimRig(false);

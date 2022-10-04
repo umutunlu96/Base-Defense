@@ -23,6 +23,7 @@ namespace StateMachine.Enemy
         }
         public void Tick()
         {
+            Debug.Log("MoveTobase");
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
         }
 

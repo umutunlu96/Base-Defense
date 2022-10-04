@@ -18,6 +18,7 @@ TagManager:
   - GemSpot
   - StockpileSpot
   - Enemy
+  - BombMine
   layers:
   - Default
   - TransparentFX
@@ -26,20 +27,20 @@ TagManager:
   - Water
   - UI
   - Player
-  - PlayerDetection
-  - MoneyDetection
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerAttackRadius
+  - Enemy
+  - EnemyAttackRadius
   - Empty
+  - Money
+  - MoneyDetection
   - Hostage
+  - GateRadius
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

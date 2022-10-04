@@ -12,8 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fecc45415224abbbf43fb051b8583c2, type: 3}
   m_Name: CD_Enemy
   m_EditorClassIdentifier: 
-  EnemyAIData:
-    EnemyDatas:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+  EnemyDatas:
+    m_Keys: 00000000010000000200000003000000
+    m_Values:
+    - Health: 6
+      Damage: 2
+      AttackRange: 1
+      ChaseRange: 5
+      ChaseUpdateSpeed: 0.2
+      WalkSpeed: 5
+      RunSpeed: 7
+    - Health: 10
+      Damage: 4
+      AttackRange: 1
+      ChaseRange: 4
+      ChaseUpdateSpeed: 0.2
+      WalkSpeed: 4
+      RunSpeed: 6
+    - Health: 16
+      Damage: 6
+      AttackRange: 1
+      ChaseRange: 3
+      ChaseUpdateSpeed: 0.2
+      WalkSpeed: 3
+      RunSpeed: 5
+    - Health: 20
+      Damage: 10
+      AttackRange: 10
+      ChaseRange: 0
+      ChaseUpdateSpeed: 0.2
+      WalkSpeed: 0
+      RunSpeed: 0

@@ -5,10 +5,14 @@ using Enums;
 namespace Data.ValueObject
 {   
     [Serializable]
-    public class EnemyData : Enemy
+    public class EnemyData
     {
-        public EnemyData(int health, int damage, float attackRange, float speed, float chaseSpeed, int chase, EnemyType enemyType) : base(health, damage, attackRange, speed, chaseSpeed, chase, enemyType)
-        {
-        }
+        public int Health;
+        public int Damage;
+        public float AttackRange;
+        public float ChaseRange;
+        public float ChaseUpdateSpeed = .2f;
+        public float WalkSpeed;
+        public float RunSpeed;
     }
 }

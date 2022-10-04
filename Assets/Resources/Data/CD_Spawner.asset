@@ -26,7 +26,7 @@ MonoBehaviour:
       CurrentSpawnAmount: 0
     HostageSpawnDatas:
       SpawnDelay: 15
-      MaxSpawnAmount: 0
+      MaxSpawnAmount: 5
       CurrentSpawnAmount: 0
     BombSpawnData:
       BombSpawnDelay: 1

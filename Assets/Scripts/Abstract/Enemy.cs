@@ -1,50 +1,38 @@
-﻿using Enums;
+﻿using Signals;
 using UnityEngine;
 
 namespace Abstract
 {
     public abstract class Enemy : MonoBehaviour
     {
-        public Enemy prefab;
-        
         public int Health;
-
         public int Damage;
-
         public float AttackRange;
-
-        public float Speed;
-
-        public float ChaseSpeed;
-
-        public int Chase;
+        public float ChaseRange;
+        public float ChaseUpdateSpeed = .2f;
+        public float WalkSpeed;
+        public float RunSpeed;
         
-        public EnemyType EnemyType;
-
-        protected Enemy EnemyFactoryMethod()
+        protected void TurnOnEnemy()
         {
-            return Instantiate(prefab);
-        }
-
-        protected void TurnOnEnemy(Enemy enemy)
-        {
-            enemy.gameObject.SetActive(true);
+            gameObject.SetActive(true);
         }
         
-        protected void TurnOffEnemy(Enemy enemy)
+        protected void TurnOffEnemy()
         {
-            enemy.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
         
-        protected Enemy(int health, int damage, float attackRange, float speed, float chaseSpeed, int chase, EnemyType enemyType)
-        {
-            Health = health;
-            Damage = damage;
-            AttackRange = attackRange;
-            Speed = speed;
-            ChaseSpeed = chaseSpeed;
-            Chase = chase;
-            EnemyType = enemyType;
-        }
+        // protected Enemy(int health, int damage, float attackRange, float chaseRange, float chaseUpdateSpeed,
+        //     float walkSpeed, float runSpeed)
+        // {
+        //     Health = health;
+        //     Damage = damage;
+        //     AttackRange = attackRange;
+        //     ChaseRange = chaseRange;
+        //     ChaseUpdateSpeed = chaseUpdateSpeed;
+        //     WalkSpeed = walkSpeed;
+        //     RunSpeed = runSpeed;
+        // }
     }
 }

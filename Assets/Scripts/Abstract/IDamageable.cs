@@ -7,5 +7,7 @@ namespace Abstract
         void TakeDamage(int damage);
 
         Transform GetTransform();
+
+        bool AmIDeath();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Abstract;
 using Enums;
 using Extentions;
 using StateMachine.Enemy;
@@ -35,6 +36,7 @@ namespace StateMachine
 
         public Action<Transform> onEnemyDead;
         public Func<Transform> onGetBaseAttackPoint;
+        public Action<IDamageable> onEnemyAIDead;
 
         #endregion
 

@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 3927869125418948765}
   - component: {fileID: 8471539991797527172}
   - component: {fileID: 5140999712965089936}
-  m_Layer: 20
+  m_Layer: 13
   m_Name: PhysicController
   m_TagString: Hostage
   m_Icon: {fileID: 0}

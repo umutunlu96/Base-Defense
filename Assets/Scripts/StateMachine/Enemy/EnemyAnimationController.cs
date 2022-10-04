@@ -9,5 +9,6 @@ namespace StateMachine.Enemy
 
         public void Attacked() => manager.Attacked = true;
         public void AttackAnimEnded() => manager.AttackAnimEnded = true;
+        public void DeathAnimEnd() => manager.Death();
     }
 }

@@ -17,7 +17,6 @@ namespace StateMachine.Enemy
         {
             if (other.CompareTag("Player"))
             {
-                // Debug.Log("PlayerEnteredAtLongRange");
                 manager.PlayerTarget = other.transform.parent;
             }
         }
@@ -26,7 +25,6 @@ namespace StateMachine.Enemy
         {
             if(other.CompareTag("Player"))
             {
-                // Debug.Log("PlayerExitedAtLongRange");
                 manager.PlayerTarget = null;
             }
         }

@@ -24,8 +24,6 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
-            _enemyAI.AttackedToPlayer();
-            
             if (_enemyAI.AttackAnimEnded)
             {
                 AttackToTarget();
@@ -40,11 +38,12 @@ namespace StateMachine.Enemy
 
         public void OnExit()
         {
-            
+            // _navMeshAgent.isStopped = false;
         }
 
         private void AttackToTarget()
         {
+            // _navMeshAgent.isStopped = true;
             _animator.SetTrigger(attack);
             // Debug.Log("Attack");
         }

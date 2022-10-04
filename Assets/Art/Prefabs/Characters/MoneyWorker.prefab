@@ -88,6 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47372fb8fc3d42db81d658a475aaf400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Capacity: 0
+  Speed: 0
+  isBougth: 0
   StackType: 1
   collectedMoneyList: []
   StackData:
@@ -2552,7 +2555,7 @@ GameObject:
   - component: {fileID: 1975176221958600663}
   - component: {fileID: 1975176221958600661}
   - component: {fileID: 1975176221958600662}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MoneyFinder
   m_TagString: Worker
   m_Icon: {fileID: 0}
@@ -2655,7 +2658,7 @@ GameObject:
   - component: {fileID: 1975176223423814631}
   - component: {fileID: 1975176223423814630}
   - component: {fileID: 1975176223423814629}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MoneyCollector
   m_TagString: Worker
   m_Icon: {fileID: 0}

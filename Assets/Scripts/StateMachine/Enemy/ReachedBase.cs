@@ -22,7 +22,7 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
-            
+            Debug.Log("Reached Base");
         }
 
         public void OnEnter()
