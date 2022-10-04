@@ -29,7 +29,6 @@ namespace StateMachine.MoneyWorkerAI
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _moneyWorkerAI.Speed;
             _navMeshAgent.SetDestination(_moneyWorkerAI.MoneyTransform.position);
-            _animator.SetTrigger(Walk);
         }
 
         public void OnExit()

@@ -143,8 +143,6 @@ namespace StateMachine.Enemy
         {
             if(_isDeath) return;
                 _stateMachine.Tick();
-                
-            print(AmIDeath());
         }
 
         public void AttackedToPlayer()
@@ -161,6 +159,7 @@ namespace StateMachine.Enemy
         {
             _isDeath = true;
             AiSignals.Instance.onEnemyDead?.Invoke(transform);
+            PoolSignals.Instance.onGetPoolObject?.Invoke("Money", transform);
         }
         
         private void OnEnable()

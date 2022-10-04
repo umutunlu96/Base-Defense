@@ -2,7 +2,8 @@
 {
     public enum StackType
     {
-        Player,
+        PlayerMoney,
+        PlayerAmmo,
         MoneyWorker,
         AmmoWorker
     }

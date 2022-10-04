@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Commands;
 using Data.UnityObject;
 using Data.ValueObject;
@@ -15,8 +16,7 @@ namespace StateMachine
         #region Variables
 
         #region Serialized
-
-        [SerializeField] private StackType stackType;
+        
         [SerializeField] private List<Transform> collectableList = new List<Transform>();
         
         #endregion
@@ -25,63 +25,68 @@ namespace StateMachine
         
         private StackData _stackData;
         private Vector3 _nextPos;
-        
+        private int _collectedAmount; 
+            
         #endregion
         
         #endregion
         
-        private StackData GetStackData() => Resources.Load<CD_StackData>("Data/CD_StackData").StackDatas[(int)stackType];
-        
-        private void Awake()
+        public void SetStackData(StackData stackData)
         {
-            Initialize();
+            _stackData = stackData;
+            InitializeStackPos();
         }
         
-        private void Initialize()
+        private void InitializeStackPos()
         {
-            _stackData = GetStackData();
-            _nextPos = new Vector3(0, 0, 0);
+            _nextPos = new Vector3(0, -_stackData.OffsetY, 0);
         }
         
         public void AddStack(Transform collectable)
         {
+            _collectedAmount++;
+            if (_collectedAmount % _stackData.MaxHeight != 0)
+            {
+                _nextPos += new Vector3(0, _stackData.OffsetY, 0);
+            }
+            else if (_collectedAmount % _stackData.MaxHeight == 0)
+            {
+                _nextPos = Vector3.zero;
+                _nextPos += new Vector3(0, _stackData.OffsetY, -_stackData.OffsetZ);
+            }
+            
             collectable.SetParent(transform);
-            collectable.DOLocalMove(_nextPos, 1).OnComplete(()=> collectable.localPosition = _nextPos).SetEase(Ease.InOutBack);
+            collectable.DOLocalMove(_nextPos, 1).SetEase(Ease.InOutBack);
             collectable.transform.localRotation = Quaternion.Euler(0,0,0);
             collectableList.Add(collectable);
             
-            _nextPos += new Vector3(0, _stackData.OffsetY, 0);
             collectable.gameObject.tag = "Collected";
         }
-
-        public void RemoveStackAll()
-        {
-            StartCoroutine(RemoveStackCoroutine());
-        }
         
-        public IEnumerator RemoveStackCoroutine()
+        public async void RemoveStackAll()
         {
             for (int i = 0; i < collectableList.Count; i++)
             {
-                Vector3 pos1 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-4, 4), collectableList[i].transform.localPosition.y + 10, collectableList[i].transform.localPosition.z + Random.Range(-4, 4));
-                Vector3 pos2 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-4, 4), collectableList[i].transform.localPosition.y - 30, collectableList[i].transform.localPosition.z + Random.Range(-4, 4));
+                Vector3 pos1 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-2, 2), collectableList[i].transform.localPosition.y + 3, collectableList[i].transform.localPosition.z + Random.Range(-2, 2));
+                Vector3 pos2 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-2, 2), collectableList[i].transform.localPosition.y - 5, collectableList[i].transform.localPosition.z + Random.Range(-2, 2));
                 collectableList[i].transform.DOLocalPath(new Vector3[2] { pos1, pos2 }, 0.5f);
-                yield return new WaitForSeconds(.1f);
+                await Task.Delay(100);
             }
-            yield return new WaitForSeconds(.2f);
+            await Task.Delay(200);
             RemoveAllList();
         }
 
         private void RemoveAllList()
         {
-            for (int i = 0; i < collectableList.Count; i++)
+            foreach (var money in collectableList)
             {
-                collectableList[i].gameObject.SetActive(false);
-                collectableList.RemoveAt(i);
-                collectableList.TrimExcess();
+                var o = money.gameObject;
+                o.tag = "Money";
+                PoolSignals.Instance.onReleasePoolObject?.Invoke("Money", o);
             }
-            //Return To Pool
+            collectableList.Clear();
+            _collectedAmount = 0;
+            InitializeStackPos();
         }
-        
     }
 }

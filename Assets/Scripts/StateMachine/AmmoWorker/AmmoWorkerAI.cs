@@ -17,16 +17,13 @@ namespace StateMachine.AmmoWorker
 
         public StackType StackType;
         public List<Transform> collectedAmmoList;
-
-        public StackData StackData;
         
         #endregion
 
         #region Serialized
         
         [SerializeField] private CollectableStackManager stackManager;
-        [SerializeField] private float speed = 2f;
-        [SerializeField] private int capacity = 10;
+        [SerializeField] private float walkSpeed = 2f;
         [SerializeField] private int _collectedAmmo = 0;
         
         #endregion
@@ -43,16 +40,13 @@ namespace StateMachine.AmmoWorker
 
         #endregion
 
-        public float Speed { get { return speed; } private set { speed = value; } }
+        public float WalkSpeed { get { return walkSpeed; } private set { walkSpeed = value; } }
         
         public Transform BaseTransform { get { return _baseTransform; } private set { _baseTransform = value; } }
         
-        
-        private StackData GetStackData() => Resources.Load<CD_StackData>("Data/CD_StackData").StackDatas[(int)StackType];
-        
+
         private void SetReferances()
         {
-            StackData = GetStackData();
             BaseTransform = AiSignals.Instance.onGetBaseTransform();
         }
         

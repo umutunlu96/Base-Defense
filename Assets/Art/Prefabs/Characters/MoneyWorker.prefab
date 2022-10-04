@@ -100,7 +100,7 @@ MonoBehaviour:
     OffsetZ: 0
   MoneyTransform: {fileID: 0}
   SearchRange: 5
-  CollectRange: 2
+  CollectRange: 0.5
   moneyFinder: {fileID: 1975176221958600662}
   stackManager: {fileID: 1975176222387314677}
   speed: 5
@@ -2555,7 +2555,7 @@ GameObject:
   - component: {fileID: 1975176221958600663}
   - component: {fileID: 1975176221958600661}
   - component: {fileID: 1975176221958600662}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MoneyFinder
   m_TagString: Worker
   m_Icon: {fileID: 0}
@@ -2658,7 +2658,7 @@ GameObject:
   - component: {fileID: 1975176223423814631}
   - component: {fileID: 1975176223423814630}
   - component: {fileID: 1975176223423814629}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MoneyCollector
   m_TagString: Worker
   m_Icon: {fileID: 0}
@@ -2690,7 +2690,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1975176223423814629
 MonoBehaviour:

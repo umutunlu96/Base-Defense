@@ -4529,11 +4529,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2489814386518560035, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
       propertyPath: m_Name
-      value: WorkerAreas
+      value: WorkerBuyAreas
       objectReference: {fileID: 0}
     - target: {fileID: 2489814386518560035, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489814387727363260, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
+      propertyPath: m_Name
+      value: AmmoWorkerBuyArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489814387834233520, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
+      propertyPath: m_Name
+      value: MoneyWorkerBuyArea
       objectReference: {fileID: 0}
     - target: {fileID: 7526959382499234953, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
       propertyPath: m_LocalPosition.x

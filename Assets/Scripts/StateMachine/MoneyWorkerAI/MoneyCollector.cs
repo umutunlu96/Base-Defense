@@ -15,11 +15,7 @@ namespace StateMachine.MoneyWorkerAI
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Money"))
-            {
-                other.tag = "Collected";
-                manager.TakeMoney(other.transform);
-            }
+            if (other.CompareTag("Money")) manager.TakeMoney(other.transform);
         }
     }
 }

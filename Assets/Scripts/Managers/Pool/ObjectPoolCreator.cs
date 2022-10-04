@@ -82,6 +82,8 @@ namespace Managers
         private void OnReleasePoolObject(string poolType, GameObject obj)
         {
             _listCache = (PoolType)Enum.Parse(typeof(PoolType), poolType);
+            obj.transform.SetParent(transform.GetChild((int)_listCache));
+            obj.transform.localPosition = Vector3.zero;
             ObjectPoolManager.Instance.ReturnObject(obj,poolType.ToString());
         }
         
