@@ -133,7 +133,7 @@ namespace Controllers
             if (damageable != null)
             {
                 Damageables.Remove(damageable);
-                if (Damageables.Count == 0)
+                if (Damageables.Count == 0 && AttackCoroutine != null)
                 {
                     StopCoroutine(AttackCoroutine);
                     AttackCoroutine = null;

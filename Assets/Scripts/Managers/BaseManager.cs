@@ -30,6 +30,7 @@ namespace Managers
         [SerializeField] private Transform mineBaseTransform;
         [SerializeField] private Transform baseTransform;
         [SerializeField] private Transform outDoorTransform;
+        [SerializeField] private Transform ammoWarehouse;
         
         #endregion
 
@@ -75,6 +76,7 @@ namespace Managers
             AiSignals.Instance.onGetBaseAttackPoint += OnReturnBaseAttackPoint;
             AiSignals.Instance.onGetBaseTransform += OnGetBaseTransform;
             AiSignals.Instance.onGetOutsideTransform += OnGetOutDoorTransform;
+            AiSignals.Instance.onGetAmmoWarehouseTransform += OnGetAmmoWarehouseTransform;
         }
         
         private void UnSubscribeEvents()
@@ -83,6 +85,7 @@ namespace Managers
             AiSignals.Instance.onGetBaseAttackPoint -= OnReturnBaseAttackPoint;
             AiSignals.Instance.onGetBaseTransform -= OnGetBaseTransform;
             AiSignals.Instance.onGetOutsideTransform -= OnGetOutDoorTransform;
+            AiSignals.Instance.onGetAmmoWarehouseTransform -= OnGetAmmoWarehouseTransform;
         }
 
         private void OnDisable()
@@ -105,6 +108,8 @@ namespace Managers
         private Transform OnGetOutDoorTransform() => outDoorTransform;
 
         private Transform OnGetMineBaseTransform() => mineBaseTransform;
+
+        private Transform OnGetAmmoWarehouseTransform() => ammoWarehouse;
 
         #endregion
     }

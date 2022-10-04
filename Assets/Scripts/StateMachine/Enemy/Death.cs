@@ -23,7 +23,6 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
-            Debug.Log("Death");
         }
 
         public void OnEnter()

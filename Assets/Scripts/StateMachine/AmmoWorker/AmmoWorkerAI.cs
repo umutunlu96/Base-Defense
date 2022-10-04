@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Data.UnityObject;
-using Data.ValueObject;
 using Enums;
-using StateMachine.MoneyWorkerAI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,8 +13,7 @@ namespace StateMachine.AmmoWorker
         #region Public
 
         public StackType StackType;
-        public List<Transform> collectedAmmoList;
-        
+
         #endregion
 
         #region Serialized
@@ -35,6 +31,10 @@ namespace StateMachine.AmmoWorker
         private Animator _animator;
         
         private Transform _baseTransform;
+        
+        private int _capacity;
+        private bool _isAtBase = true;
+        private bool _isFull = false;
         
         #endregion
 
@@ -68,10 +68,16 @@ namespace StateMachine.AmmoWorker
         }
         private void Update() => _stateMachine.Tick();
         
-        public void TakeMoney(Transform money)
+        public void TakeAmmo(Transform ammo)
         {
-            stackManager.AddStack(money);
-            collectedAmmoList.Add(money);
+            for (int i = 0; i < _capacity; i++)
+            {
+                
+            }
+            
+            if(_collectedAmmo == _capacity) return;
+            
+            stackManager.AddStack(ammo);
             _collectedAmmo++;
         }
 

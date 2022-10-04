@@ -47,6 +47,10 @@ namespace StateMachine
 
         #endregion
 
+        #region AmmoWorker
 
+        public Func<Transform> onGetAmmoWarehouseTransform;
+
+        #endregion
     }
 }

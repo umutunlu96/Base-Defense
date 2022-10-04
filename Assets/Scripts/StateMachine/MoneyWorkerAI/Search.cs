@@ -28,7 +28,6 @@ namespace StateMachine.MoneyWorkerAI
         public void Tick()
         {
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
-            Debug.Log("Searching");
             _timer += Time.deltaTime;
             if (_moneyWorkerAI.MoneyTransform == null && _timer > _delay)
             {
