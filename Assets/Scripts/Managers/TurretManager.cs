@@ -1,10 +1,17 @@
-﻿using System.Collections;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Abstract;
 using Controllers;
+using Data.UnityObject;
+using Data.ValueObject;
 using Data.ValueObject.Base;
+using DG.Tweening;
+using Enums;
 using Signals;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -12,23 +19,29 @@ namespace Managers
     {
         #region Variables
 
+        [SerializeField] private Transform ammoPlacerTransform;
         [SerializeField] private RoomManager roomManager;
         [SerializeField] private TurretAreaPhysicController buyAreaController;
         [SerializeField] private GameObject soldier;
+        [SerializeField] private Transform ammoHolderTransform;
         [SerializeField] private float buyDelay = 0.05f;
-
+        
         public TurretData Data;
         
         #endregion
         
         #region Private
 
-        private int _levelID;
+        private List<Transform> ammos;
+        private Vector3 _ammoPlacerInitialPos;
+        private StackType _stackType = StackType.TurretAmmmoHolder;
+        private StackData _stackData;
         private int _uniqueID;
         private bool _playerEntered;
-
+        private int _currentAmmoAmount;
+        
         #endregion
-
+        
         public void SetData()
         {
             _uniqueID = roomManager.ReturnUniqueId();
@@ -42,6 +55,10 @@ namespace Managers
             }
             Load(_uniqueID);
             CheckData();
+            
+            var localPosition = ammoPlacerTransform.localPosition;
+            _ammoPlacerInitialPos = new Vector3(localPosition.x, localPosition.y, localPosition.z);
+            _stackData = Resources.Load<CD_StackData>("Data/CD_StackData").StackDatas[_stackType];
         }
         
         
@@ -92,11 +109,44 @@ namespace Managers
             roomManager.OnSave(Data);
         }
 
+        public int GetCurrentEmptyAmmoCount() => _stackData.Capacity - _currentAmmoAmount;
+
+        public int CurrentAmmoAmount { get => _currentAmmoAmount; set => _currentAmmoAmount += value; }
+        
+        public Transform AmmoHolderTransform { get => ammoHolderTransform; private set => ammoHolderTransform = value; }
+
+        public void PlaceAmmoToGround(Transform ammo)
+        {
+            ammo.SetParent(ammoHolderTransform);
+            ammo.transform.localRotation = Quaternion.Euler(-90,0,0);
+            ammo.DOLocalMove(ammoPlacerTransform.localPosition, _stackData.LerpSpeed).SetDelay(.1f);
+            ammoPlacerTransform.localPosition = new Vector3(ammoPlacerTransform.localPosition.x - _stackData.OffsetY, ammoPlacerTransform.localPosition.y, 0);
+            _currentAmmoAmount++;
+            if (_currentAmmoAmount % 3 == 0)
+            {
+                ammoPlacerTransform.localPosition = new Vector3(_ammoPlacerInitialPos.x,
+                    ammoPlacerTransform.localPosition.y +_stackData.OffsetZ, 0);
+            }
+        }
+
+        public void UseAmmo()
+        {
+            ammos[0].DOMove(transform.position, _stackData.LerpSpeed);
+            
+            ammoPlacerTransform.localPosition += new Vector3(ammoPlacerTransform.localPosition.x + _stackData.OffsetY, 0, 0);
+            _currentAmmoAmount--;
+            if (_currentAmmoAmount % 3 == 0)
+            {
+                ammoPlacerTransform.localPosition = new Vector3(_ammoPlacerInitialPos.x,
+                    ammoPlacerTransform.localPosition.y - +_stackData.OffsetZ, 0);
+            }
+        }
+
         #region Save-Load
         
         public void Save(int uniqueId)
         {
-            Data = new TurretData(Data.Cost, Data.PayedAmount, Data.AmmoCapacity, Data.AmmoDamage);
+            Data = new TurretData(Data.Cost, Data.PayedAmount, Data.AmmoCapacity);
             SaveLoadSignals.Instance.onSaveTurretData?.Invoke(Data,uniqueId);
         }
 
@@ -104,11 +154,10 @@ namespace Managers
         {
             TurretData turretData = SaveLoadSignals.Instance.onLoadTurretData?.Invoke(Data.Key, uniqueId);
             
-            // if(turretData==null) return;
+            if(turretData==null) return;
             Data.Cost = turretData.Cost;
             Data.PayedAmount = turretData.PayedAmount;
             Data.AmmoCapacity = turretData.AmmoCapacity;
-            Data.AmmoDamage = turretData.AmmoDamage;
         }
         #endregion
     }

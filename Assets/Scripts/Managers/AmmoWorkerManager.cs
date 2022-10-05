@@ -5,6 +5,7 @@ using Data.ValueObject.Base;
 using DG.Tweening;
 using Enums;
 using Signals;
+using StateMachine.AmmoWorker;
 using TMPro;
 using UnityEngine;
 
@@ -32,6 +33,8 @@ namespace Managers
         [SerializeField] private GameObject buyPart;
 
         [SerializeField] private Renderer filledSquareRenderer;
+
+        [SerializeField] private AmmoWorkerAI ammoWorkerAI;
         
         //Controllers
         
@@ -153,6 +156,7 @@ namespace Managers
         private void CheckBougthState(BuyState buyState)
         {
             if(buyState == BuyState.NotBought) return;
+            ammoWorkerAI.IsBougth = true;
             buyPart.SetActive(false);
         }
 

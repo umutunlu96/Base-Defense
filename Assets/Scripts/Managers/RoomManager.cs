@@ -27,7 +27,7 @@ namespace Managers
         {
             Identifier = identifier;
             UniqueId = GetLevelID * 10 + Identifier;
-            
+
             if (!ES3.FileExists($"RoomData{UniqueId}.es3"))
             {
                 if (!ES3.KeyExists("RoomData"))

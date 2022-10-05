@@ -5,6 +5,7 @@
         PlayerMoney,
         PlayerAmmo,
         MoneyWorker,
-        AmmoWorker
+        AmmoWorker,
+        TurretAmmmoHolder
     }
 }

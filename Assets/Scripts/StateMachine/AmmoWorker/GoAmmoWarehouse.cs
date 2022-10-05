@@ -3,29 +3,35 @@ using UnityEngine.AI;
 
 namespace StateMachine.AmmoWorker
 {
-    public class PickAmmo : IState
+    public class GoAmmoWarehouse : IState
     {
         private readonly AmmoWorkerAI _ammoWorkerAI;
         private readonly Animator _animator;
+        private readonly NavMeshAgent _navMeshAgent;
+        private readonly Transform _target;
+
         
         private static readonly int Speed = Animator.StringToHash("Speed");
         
         
-        public PickAmmo(AmmoWorkerAI workerAI, Animator animator)
+        public GoAmmoWarehouse(AmmoWorkerAI workerAI, Animator animator, NavMeshAgent agent, Transform target)
         {
             _ammoWorkerAI = workerAI;
             _animator = animator;
+            _navMeshAgent = agent;
+            _target = target;
         }
         
         public void Tick()
         {
-            _animator.SetFloat(Speed, 0);
+            _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
         }
 
         public void OnEnter()
         {
-            _ammoWorkerAI.TakeAmmo();
-            _ammoWorkerAI.GetAvaibleTurretTarget();
+            _navMeshAgent.enabled = true;
+            _navMeshAgent.speed = _ammoWorkerAI.Speed;
+            _navMeshAgent.SetDestination(_target.position);
         }
 
         public void OnExit()

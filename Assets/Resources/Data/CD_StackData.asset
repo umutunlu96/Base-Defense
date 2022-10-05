@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CD_StackData
   m_EditorClassIdentifier: 
   StackDatas:
-    m_Keys: 00000000010000000200000003000000
+    m_Keys: 0000000001000000020000000300000004000000
     m_Values:
     - MaxHeight: 11
       Capacity: 20
@@ -35,3 +35,8 @@ MonoBehaviour:
       LerpSpeed: 0.5
       OffsetY: 0.64
       OffsetZ: 0.615
+    - MaxHeight: 9
+      Capacity: 9
+      LerpSpeed: 0.5
+      OffsetY: 3.5
+      OffsetZ: 3.5

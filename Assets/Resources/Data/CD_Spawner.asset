@@ -16,8 +16,8 @@ MonoBehaviour:
   - EnemySpawnDelay: 1
     EnemySpawnDatas:
     - EnemyType: 0
-      MaxSpawnAmount: 1
-      CurrentSpawnAmount: 1
+      MaxSpawnAmount: 2
+      CurrentSpawnAmount: 2
     - EnemyType: 1
       MaxSpawnAmount: 0
       CurrentSpawnAmount: 0

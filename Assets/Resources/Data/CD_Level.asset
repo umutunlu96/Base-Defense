@@ -33,22 +33,28 @@ MonoBehaviour:
         RoomDatas:
         - Key: RoomData
           Cost: 50
-          PayedAmount: 0
+          PayedAmount: 50
           TurretData:
             Key: TurretData
             Cost: 50
-            PayedAmount: 0
-            AmmoCapacity: 50
-            AmmoDamage: 5
+            PayedAmount: 50
+            AmmoCapacity: 15
         - Key: RoomData
           Cost: 50
-          PayedAmount: 0
+          PayedAmount: 50
           TurretData:
             Key: TurretData
             Cost: 50
-            PayedAmount: 0
-            AmmoCapacity: 50
-            AmmoDamage: 5
+            PayedAmount: 50
+            AmmoCapacity: 15
+        - Key: RoomData
+          Cost: 50
+          PayedAmount: 50
+          TurretData:
+            Key: TurretData
+            Cost: 50
+            PayedAmount: 50
+            AmmoCapacity: 15
       MineBaseData:
         MaxWorkerAmount: 10
         CurrentWorkerAmount: 0
@@ -78,9 +84,3 @@ MonoBehaviour:
         MoneyWorkerPayedAmount: 0
         MoneyWorkerLevel: 1
         Key: MoneyWorkerData
-      TurretData:
-        Key: TurretData
-        Cost: 0
-        PayedAmount: 0
-        AmmoCapacity: 0
-        AmmoDamage: 0

@@ -10,6 +10,5 @@ namespace Data.ValueObject.Base
         public MilitaryBaseData MilitaryBaseData;
         public AmmoWorkerData AmmoWorkerData;
         public MoneyWorkerData MoneyWorkerData;
-        public TurretData TurretData;
     }
 }

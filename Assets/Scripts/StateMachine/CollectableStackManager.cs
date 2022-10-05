@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Commands;
-using Data.UnityObject;
 using Data.ValueObject;
 using DG.Tweening;
 using Enums;
@@ -15,6 +12,12 @@ namespace StateMachine
     {
         #region Variables
 
+        #region Public
+
+        public string ReturnTag;
+        public PoolType PoolType;
+        #endregion
+        
         #region Serialized
         
         [SerializeField] private List<Transform> collectableList = new List<Transform>();
@@ -52,7 +55,7 @@ namespace StateMachine
             else if (_collectedAmount % _stackData.MaxHeight == 0)
             {
                 _nextPos = Vector3.zero;
-                _nextPos += new Vector3(0, _stackData.OffsetY, -_stackData.OffsetZ);
+                _nextPos += new Vector3(0, 0, -_stackData.OffsetZ);
             }
             
             collectable.SetParent(transform);
@@ -61,6 +64,15 @@ namespace StateMachine
             collectableList.Add(collectable);
             
             collectable.gameObject.tag = "Collected";
+        }
+
+        public Transform GetStackedObject()
+        {
+            if (collectableList.Count == 0) return null;
+            Transform collectableCache = collectableList[collectableList.Count - 1];
+            collectableList.RemoveAt(collectableList.Count - 1);
+            collectableList.TrimExcess();
+            return collectableCache;
         }
         
         public async void RemoveStackAll()
@@ -78,11 +90,11 @@ namespace StateMachine
 
         private void RemoveAllList()
         {
-            foreach (var money in collectableList)
+            foreach (var collectable in collectableList)
             {
-                var o = money.gameObject;
-                o.tag = "Money";
-                PoolSignals.Instance.onReleasePoolObject?.Invoke("Money", o);
+                var o = collectable.gameObject;
+                o.tag = ReturnTag;
+                PoolSignals.Instance.onReleasePoolObject?.Invoke(PoolType.ToString(), o);
             }
             collectableList.Clear();
             _collectedAmount = 0;

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Abstract;
 using Enums;
 using Extentions;
+using Managers;
 using StateMachine.Enemy;
 using UnityEngine;
 
@@ -43,13 +45,14 @@ namespace StateMachine
         #region MoneyWorker
         
         public Func<Transform> onGetBaseTransform;
-        public Func<Transform> onGetOutsideTransform;
 
         #endregion
 
         #region AmmoWorker
 
         public Func<Transform> onGetAmmoWarehouseTransform;
+        public Func<List<TurretManager>> onGetTurretManagers;
+        public Func<int> onGetTurretAmmoStock;
 
         #endregion
     }

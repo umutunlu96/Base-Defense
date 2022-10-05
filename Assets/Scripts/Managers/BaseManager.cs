@@ -24,6 +24,7 @@ namespace Managers
         #region Serialized
 
         [SerializeField] private List<RoomManager> roomManagers;
+        [SerializeField] private List<TurretManager> turretManagers;
         [SerializeField] private List<Transform> baseAttackPoints;
         
         [SerializeField] private TextMeshPro baseText;
@@ -75,8 +76,8 @@ namespace Managers
             AiSignals.Instance.onGetMineBaseArea += OnGetMineBaseTransform;
             AiSignals.Instance.onGetBaseAttackPoint += OnReturnBaseAttackPoint;
             AiSignals.Instance.onGetBaseTransform += OnGetBaseTransform;
-            AiSignals.Instance.onGetOutsideTransform += OnGetOutDoorTransform;
             AiSignals.Instance.onGetAmmoWarehouseTransform += OnGetAmmoWarehouseTransform;
+            AiSignals.Instance.onGetTurretManagers += OnGetTurretManagers;
         }
         
         private void UnSubscribeEvents()
@@ -84,8 +85,8 @@ namespace Managers
             AiSignals.Instance.onGetMineBaseArea -= OnGetMineBaseTransform;
             AiSignals.Instance.onGetBaseAttackPoint -= OnReturnBaseAttackPoint;
             AiSignals.Instance.onGetBaseTransform -= OnGetBaseTransform;
-            AiSignals.Instance.onGetOutsideTransform -= OnGetOutDoorTransform;
             AiSignals.Instance.onGetAmmoWarehouseTransform -= OnGetAmmoWarehouseTransform;
+            AiSignals.Instance.onGetTurretManagers -= OnGetTurretManagers;
         }
 
         private void OnDisable()
@@ -110,6 +111,8 @@ namespace Managers
         private Transform OnGetMineBaseTransform() => mineBaseTransform;
 
         private Transform OnGetAmmoWarehouseTransform() => ammoWarehouse;
+
+        private List<TurretManager> OnGetTurretManagers() => turretManagers;
 
         #endregion
     }

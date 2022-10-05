@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 764608972716822767}
   - component: {fileID: 1975176223537316669}
+  - component: {fileID: 356639854}
   - component: {fileID: 9131113213528716639}
   - component: {fileID: 764608972716822765}
-  - component: {fileID: 356639854}
   m_Layer: 0
   m_Name: MoneyWorker
   m_TagString: Worker
@@ -54,6 +54,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!136 &356639854
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764608972716822766}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.4, z: 0}
 --- !u!195 &9131113213528716639
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -88,38 +102,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47372fb8fc3d42db81d658a475aaf400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Capacity: 0
-  Speed: 0
-  isBougth: 0
-  StackType: 1
-  collectedMoneyList: []
-  StackData:
-    Capacity: 0
-    LerpSpeed: 0
-    OffsetY: 0
-    OffsetZ: 0
+  StackType: 2
   MoneyTransform: {fileID: 0}
+  isBougth: 0
   SearchRange: 5
   CollectRange: 0.5
+  moneyCollector: {fileID: 1975176223423814629}
   moneyFinder: {fileID: 1975176221958600662}
   stackManager: {fileID: 1975176222387314677}
   speed: 5
-  capacity: 10
   _collectedMoney: 0
---- !u!136 &356639854
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764608972716822766}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.75
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.4, z: 0}
 --- !u!1 &764608973327268896
 GameObject:
   m_ObjectHideFlags: 0
@@ -2645,7 +2637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414900d8b38f453a9a16768b5b89b2ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stackType: 1
+  ReturnTag: Money
+  PoolType: 0
   collectableList: []
 --- !u!1 &1975176223423814632
 GameObject:

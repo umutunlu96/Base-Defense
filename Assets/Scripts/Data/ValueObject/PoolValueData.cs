@@ -7,7 +7,6 @@ namespace Data.ValueObject
     [Serializable]
     public class PoolValueData
     {
-        // public PoolType ObjectType;
         [Range(0,200)] public int ObjectLimit;
         public GameObject PooledObject;
     }

@@ -16,17 +16,14 @@ namespace Data.ValueObject.Base
         public int PayedAmount;
         
         public int AmmoCapacity;
-
-        public int AmmoDamage;
         
         public TurretData(){}
 
-        public TurretData(int cost, int payedAmount, int ammoCapacity, int ammoDamage)
+        public TurretData(int cost, int payedAmount, int ammoCapacity)
         {
             Cost = cost;
             PayedAmount = payedAmount;
             AmmoCapacity = ammoCapacity;
-            AmmoDamage = ammoDamage;
         }
     }
 }
