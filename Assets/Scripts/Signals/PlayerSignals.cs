@@ -15,6 +15,6 @@ namespace Signals
         public Action onPlayerEnterSoldierArea;
         public Action<Transform> onPlayerEnterDiamondArea;
 
-        public Action<PlayerWeaponType> onPlayerWeaponTypeChanged;
+        public Action<WeaponType> onPlayerWeaponTypeChanged;
     }
 }

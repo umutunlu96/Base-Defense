@@ -19,6 +19,7 @@
         SmgBullet,
         RifleBullet,
         GrenadeLauncherBullet,
-        MiniGunBullet
+        MiniGunBullet,
+        TurretGunBullet
     }
 }

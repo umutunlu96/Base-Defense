@@ -27,7 +27,7 @@ namespace Controllers
         
         [SerializeField] private List<GameObject> guns;
         [SerializeField] private List<Transform> muzzleTransform;
-        [SerializeField] private PlayerWeaponType playerWeaponType;
+        [SerializeField] private WeaponType weaponType;
 
         private IDamageable _closestDamageable;
         
@@ -92,7 +92,7 @@ namespace Controllers
         
         public void EnableAimRig(bool isEnabled) => rigBuilder.layers[0].active = isEnabled;
 
-        public void ChangeWeaponRigPos(PlayerWeaponType weaponType)
+        public void ChangeWeaponRigPos(WeaponType weaponType)
         {
             for (int i = 1; i < rigBuilder.layers.Count; i++)
             {
@@ -107,8 +107,8 @@ namespace Controllers
 
         private GameObject GetBullet()
         {
-            Transform muzzle = muzzleTransform[(int) playerWeaponType];
-            return PoolSignals.Instance.onGetPoolObject?.Invoke($"{playerWeaponType}Bullet", muzzle);
+            Transform muzzle = muzzleTransform[(int) weaponType];
+            return PoolSignals.Instance.onGetPoolObject?.Invoke($"{weaponType}Bullet", muzzle);
         }
 
 
@@ -179,7 +179,7 @@ namespace Controllers
                     GameObject bullet = GetBullet();
                     if (bullet != null)
                     {
-                        bullet.GetComponent<Bullet>().Shoot(muzzleTransform[(int) playerWeaponType].rotation);
+                        bullet.GetComponent<Bullet>().Shoot(muzzleTransform[(int) weaponType].rotation);
                     }
                 }
 

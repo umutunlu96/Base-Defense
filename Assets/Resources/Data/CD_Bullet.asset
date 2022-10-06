@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CD_Bullet
   m_EditorClassIdentifier: 
   BulletDatas:
-    m_Keys: 000000000100000002000000030000000400000005000000
+    m_Keys: 00000000010000000200000003000000040000000500000006000000
     m_Values:
     - AutoDestroyTime: 3
       SpawnDelay: 0.5
@@ -38,4 +38,8 @@ MonoBehaviour:
     - AutoDestroyTime: 8
       SpawnDelay: 0.25
       MoveSpeed: 15
+      Damage: 8
+    - AutoDestroyTime: 5
+      SpawnDelay: 0.25
+      MoveSpeed: 10
       Damage: 8

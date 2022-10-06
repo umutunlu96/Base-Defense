@@ -1,12 +1,13 @@
 ﻿namespace Enums
 {
-    public enum PlayerWeaponType
+    public enum WeaponType
     {
         Pistol,
         Shotgun,
         Smg,
         Rifle,
         GrenadeLauncher,
-        MiniGun
+        MiniGun,
+        TurretGun
     }
 }

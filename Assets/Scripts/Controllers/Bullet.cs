@@ -10,7 +10,7 @@ namespace Controllers
 {
     public class Bullet : MonoBehaviour
     {
-        [SerializeField] private PlayerWeaponType WeaponType;
+        [SerializeField] private WeaponType WeaponType;
         private BulletData _bulletData;
         private Rigidbody _rigidBody;
         private const string DisableMethodName = "Disable";

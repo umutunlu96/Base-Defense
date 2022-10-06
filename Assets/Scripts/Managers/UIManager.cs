@@ -115,7 +115,7 @@ namespace Managers
 
         public void OnPlayerWeaponChange(int order)
         {
-            PlayerWeaponType weaponType = (PlayerWeaponType) order;
+            WeaponType weaponType = (WeaponType) order;
             PlayerSignals.Instance.onPlayerWeaponTypeChanged?.Invoke(weaponType);
         }
     }

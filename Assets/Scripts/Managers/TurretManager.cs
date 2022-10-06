@@ -8,6 +8,7 @@ using Data.ValueObject.Base;
 using DG.Tweening;
 using Enums;
 using Signals;
+using StateMachine.TurretSoldier;
 using UnityEngine;
 
 namespace Managers
@@ -16,6 +17,7 @@ namespace Managers
     {
         #region Variables
 
+        [SerializeField] private TurretSoldierAI _soldierAI;
         [SerializeField] private Transform ammoPlacerTransform;
         [SerializeField] private RoomManager roomManager;
         [SerializeField] private TurretAreaPhysicController buyAreaController;
@@ -29,7 +31,7 @@ namespace Managers
         
         #region Private
 
-        private List<Transform> ammos;
+        private List<Transform> _ammoList = new List<Transform>();
         private Vector3 _ammoPlacerInitialPos;
         private StackType _stackType = StackType.TurretAmmmoHolder;
         private StackData _stackData;
@@ -119,7 +121,11 @@ namespace Managers
             ammo.transform.localRotation = Quaternion.Euler(-90,0,0);
             ammo.DOLocalMove(ammoPlacerTransform.localPosition, _stackData.LerpSpeed).SetDelay(.1f);
             ammoPlacerTransform.localPosition = new Vector3(ammoPlacerTransform.localPosition.x - _stackData.OffsetY, ammoPlacerTransform.localPosition.y, 0);
+            
             _currentAmmoAmount++;
+            _ammoList.Add(ammo);
+            _soldierAI.UpdateAmmo(1);
+            
             if (_currentAmmoAmount % 3 == 0)
             {
                 ammoPlacerTransform.localPosition = new Vector3(_ammoPlacerInitialPos.x,
@@ -127,17 +133,30 @@ namespace Managers
             }
         }
 
-        public void UseAmmo()
+        public void GetAmmo(Transform turret)
         {
-            ammos[0].DOMove(transform.position, _stackData.LerpSpeed);
-            
-            ammoPlacerTransform.localPosition += new Vector3(ammoPlacerTransform.localPosition.x + _stackData.OffsetY, 0, 0);
+            Sequence sequence = DOTween.Sequence();
+            Transform ammo;
             _currentAmmoAmount--;
-            if (_currentAmmoAmount % 3 == 0)
+            if (_ammoList.Count > 1)
             {
-                ammoPlacerTransform.localPosition = new Vector3(_ammoPlacerInitialPos.x,
-                    ammoPlacerTransform.localPosition.y - +_stackData.OffsetZ, 0);
+                ammo = _ammoList[_ammoList.Count - 1];
+                ammo.SetParent(null);
             }
+            else
+            {
+                ammo = _ammoList[0];
+                ammo.SetParent(null);
+            }
+
+            sequence.Append(ammo.DOMove(new Vector3(0, 2, 0), .2f));
+            sequence.Join(ammo.DORotate(new Vector3(0, 0, 45), .2f));
+            sequence.Append(ammo.DOMove(turret.position, .2f)).OnComplete(() =>
+            {
+                ammo.transform.rotation = Quaternion.Euler(0,0,0);
+                PoolSignals.Instance.onReleasePoolObject?.Invoke("Ammo", ammo.gameObject);
+            });
+
         }
 
         #region Save-Load

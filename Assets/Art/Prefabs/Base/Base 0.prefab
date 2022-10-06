@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 54267869}
-  - component: {fileID: 55023441528094940}
+  - component: {fileID: 9200632774969598398}
   m_Layer: 14
   m_Name: GameObject (2)
   m_TagString: GateOutside
@@ -31,8 +31,8 @@ Transform:
   m_Father: {fileID: 2059466916}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &55023441528094940
-SphereCollider:
+--- !u!65 &9200632774969598398
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -42,8 +42,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 5.5, y: 2, z: 4}
+  m_Center: {x: 1.75, y: 1.1, z: -1.92}
 --- !u!1 &217991158
 GameObject:
   m_ObjectHideFlags: 0
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 217991159}
-  - component: {fileID: 6121520264462351008}
+  - component: {fileID: 3403666334105226582}
   m_Layer: 14
   m_Name: GameObject (3)
   m_TagString: GateOutside
@@ -75,8 +75,8 @@ Transform:
   m_Father: {fileID: 2059466916}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6121520264462351008
-SphereCollider:
+--- !u!65 &3403666334105226582
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -86,8 +86,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 8.6845665, y: 2, z: 4}
+  m_Center: {x: 0.61994934, y: 1.0999999, z: -1.9200001}
 --- !u!1 &413850290
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1511050233}
-  - component: {fileID: 7660068054487885921}
+  - component: {fileID: 7910792416639784387}
   m_Layer: 14
   m_Name: GameObject (1)
   m_TagString: GateOutside
@@ -206,14 +206,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1511050232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.5, y: 0, z: -0.5}
+  m_LocalPosition: {x: 4.57, y: 0, z: -1.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2059466916}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7660068054487885921
-SphereCollider:
+--- !u!65 &7910792416639784387
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -223,8 +223,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 5.5, y: 2, z: 4}
+  m_Center: {x: 0, y: 1.1, z: -1.92}
 --- !u!1 &2059466915
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2112670291}
-  - component: {fileID: 1721228121353618623}
+  - component: {fileID: 8364548199253022005}
   m_Layer: 14
   m_Name: GameObject
   m_TagString: GateOutside
@@ -284,14 +284,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112670290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13, y: 0, z: -0.5}
+  m_LocalPosition: {x: 12.97, y: 0, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2059466916}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1721228121353618623
-SphereCollider:
+--- !u!65 &8364548199253022005
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -301,8 +301,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 5.5, y: 2, z: 4}
+  m_Center: {x: -1.71, y: 1.1, z: -1.81}
 --- !u!1 &2120816109
 GameObject:
   m_ObjectHideFlags: 0

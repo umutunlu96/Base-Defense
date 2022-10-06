@@ -149,7 +149,7 @@ namespace Managers
 
 
 
-        private void OnWeaponTypeChanged(PlayerWeaponType weaponType) => aimController.ChangeWeaponRigPos(weaponType);
+        private void OnWeaponTypeChanged(WeaponType weaponType) => aimController.ChangeWeaponRigPos(weaponType);
 
         private float OnGetPlayerSpeed() => rigidBody.velocity.magnitude;
         

@@ -106,8 +106,6 @@ namespace Managers
             if (enemyTransform.TryGetComponent(out EnemyAI enemyAI))
             {
                 EnemyType enemyType = enemyAI.EnemyType;
-                string enemyName = enemyType.ToString();
-                PoolSignals.Instance.onReleasePoolObject?.Invoke(enemyName, enemyTransform.gameObject);
                 _enemySpawnDatas[(int)enemyType].CurrentSpawnAmount--;
                 _enemySpawnedCount--;
             }

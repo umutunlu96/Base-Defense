@@ -4,6 +4,6 @@ namespace Managers
 {
     public class StackDataUpgradeManager : MonoBehaviour
     {
-        
+
     }
 }
