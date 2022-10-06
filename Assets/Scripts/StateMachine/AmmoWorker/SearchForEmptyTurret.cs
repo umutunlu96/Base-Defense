@@ -17,7 +17,6 @@ namespace StateMachine.AmmoWorker
         public void Tick()
         {
             timer += Time.deltaTime;
-            Debug.Log("Searchj");
             if (timer >= 5)
             {
                 _ammoWorkerAI.GetAvaibleTurretTarget();

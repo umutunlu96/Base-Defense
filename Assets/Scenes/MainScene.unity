@@ -6569,7 +6569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1802557985435396427, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
       propertyPath: speed
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1802557985435396427, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
       propertyPath: _ammoWarehouseTransform

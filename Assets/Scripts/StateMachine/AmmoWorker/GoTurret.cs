@@ -20,13 +20,13 @@ namespace StateMachine.AmmoWorker
         
         public void Tick()
         {
-            Debug.Log("goturret");
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
         }
 
         public void OnEnter()
         {
             if(_ammoWorkerAI.IsCurrentTurretFull) _ammoWorkerAI.GetAvaibleTurretTarget();
+            if (_ammoWorkerAI.CurrentTarget == null) return;
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _ammoWorkerAI.Speed;
             _navMeshAgent.SetDestination(_ammoWorkerAI.CurrentTarget.position);

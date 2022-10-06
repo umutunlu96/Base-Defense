@@ -49,7 +49,7 @@ namespace StateMachine.AmmoWorker
         [ShowInInspector] private bool _isAtTurretAmmoHolder;
         [ShowInInspector] private int _collectedAmmo = 0;
         [ShowInInspector] private bool _isCurrentTurretFull = false;
-        // [ShowInInspector] private bool _isAllTurretsAreaFullNow = false;
+        [ShowInInspector] private bool _isAllTurretsAreaFullNow = false;
         [ShowInInspector] private bool _isPlacedAmmo = false;
 
         #endregion
@@ -61,7 +61,6 @@ namespace StateMachine.AmmoWorker
         public Transform CurrentTarget { get => _targetTurretTransform; set => _targetTurretTransform = value; }
         
         public bool IsAtAmmoWarehouse { get => _isAtAmmoWarehouse; set => _isAtAmmoWarehouse = value; }
-        
         
         public bool IsCurrentTurretFull { get => _isCurrentTurretFull; set => _isCurrentTurretFull = value; }
         
@@ -113,15 +112,18 @@ namespace StateMachine.AmmoWorker
             var pickAmmo = new PickAmmo(this, _animator);
             var goTurret = new GoTurret(this, _animator, _navMeshAgent);
             var placeAmmoToTurret = new PlaceAmmoToTurret(this);
-
+            var searchForEmptyTurret = new SearchForEmptyTurret(this);
+            
             At(stationary, goAmmoWarehouse, IsBought());
             At(goAmmoWarehouse, pickAmmo, IsAtAmmoWarehouse());
             At(pickAmmo, goTurret, CapasityFullAndHasTurretTarget());
             At(goTurret, placeAmmoToTurret, IsAtTurretAmmoHolder());
-            At(placeAmmoToTurret, goAmmoWarehouse, IsDeployedAllAmmos());
+            At(placeAmmoToTurret, goAmmoWarehouse, IsDeployedAllAmmoOrAllTurretsAreFull());
             At(placeAmmoToTurret, goTurret, HaveSomeAmmoAndCurrentTurretFull());
+            At(pickAmmo, searchForEmptyTurret, SearchForTurretEmptySlot());
             
             _stateMachine.SetState(stationary);
+            _stateMachine.AddAnyTransition(goAmmoWarehouse, IsAllTurretsAreFull());
             
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
             
@@ -130,7 +132,10 @@ namespace StateMachine.AmmoWorker
             Func<bool> CapasityFullAndHasTurretTarget() => () => _targetTurretTransform != null && _collectedAmmo == _capacity;
             Func<bool> IsAtTurretAmmoHolder() => () => this.IsAtTurretAmmoHolder && !_isPlacedAmmo;
             Func<bool> HaveSomeAmmoAndCurrentTurretFull() => () => _collectedAmmo != 0 && _isCurrentTurretFull && CurrentTarget != null && _isPlacedAmmo;
-            Func<bool> IsDeployedAllAmmos() => () => _collectedAmmo == 0;
+            Func<bool> IsDeployedAllAmmoOrAllTurretsAreFull() => () => _collectedAmmo == 0 || _isAllTurretsAreaFullNow;
+            Func<bool> SearchForTurretEmptySlot() => () => _isAllTurretsAreaFullNow && this.IsAtAmmoWarehouse;
+            Func<bool> IsAllTurretsAreFull() => () => _isAllTurretsAreaFullNow && !this.IsAtAmmoWarehouse;
+            
         }
         
         private void Update() => _stateMachine.Tick();
@@ -139,10 +144,25 @@ namespace StateMachine.AmmoWorker
         {
             GetTurretsCurrentAmmoAmount();
 
+            int ammoCache = 0;
+            
+            foreach (var ammo in _turretCurrentAvaibleAmmoAmountList)
+            {
+                ammoCache += ammo;
+            }
+
+            if (ammoCache == 0)
+            {
+                _targetTurretTransform = null;
+                _isAllTurretsAreaFullNow = true;
+                return;
+            }
+            
             for (int i = 0; i < _turretCurrentAvaibleAmmoAmountList.Count; i++)
             {
                 if (_turretCurrentAvaibleAmmoAmountList[i] > 0)
                 {
+                    _isAllTurretsAreaFullNow = false;
                     CurrentTarget = _turretAmmoHolderTransformList[i];
                     _isCurrentTurretFull = false;
                     break;
@@ -182,7 +202,6 @@ namespace StateMachine.AmmoWorker
                 _turretManagers[index].PlaceAmmoToGround(stackManager.GetStackedObject());
                 _collectedAmmo--;
                 _isPlacedAmmo = true;
-                print("AmmoDropped");
                 await Task.Delay(100);
             }
         }

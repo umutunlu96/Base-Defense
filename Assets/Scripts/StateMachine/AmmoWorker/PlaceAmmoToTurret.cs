@@ -18,7 +18,6 @@ namespace StateMachine.AmmoWorker
 
         public void OnEnter()
         {
-            Debug.Log("place ammmo t");
             _ammoWorkerAI.DropAmmoToTurret();
         }
 

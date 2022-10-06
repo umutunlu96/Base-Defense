@@ -19,7 +19,6 @@ namespace StateMachine.AmmoWorker
         
         public void Tick()
         {
-            Debug.Log("pick ammo");
             _animator.SetFloat(Speed, 0);
         }
 
