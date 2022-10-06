@@ -51,6 +51,7 @@ namespace StateMachine.Enemy
         private bool _attackAnimEnded;
         // private bool _deathAnimEnded;
         private bool _isDeath;
+        private bool _isAlive = true;
         private static readonly int Idle = Animator.StringToHash("Idle");
 
         #endregion
@@ -136,12 +137,12 @@ namespace StateMachine.Enemy
             Func<bool> CanChasePlayer() => () => PlayerTarget != null && !CanAttack;
             Func<bool> IsInAttackRange() => () => PlayerTarget != null && CanAttack;
             Func<bool> ReachedBase() => () => ReachedAtBase && _baseTarget != null && PlayerTarget == null;
-            Func<bool> IsDeath() => () => _health <= 0;
+            Func<bool> IsDeath() => () => _isDeath;
         }
 
         private void Update()
         {
-            if(_isDeath) return;
+            if(!_isAlive) return;
                 _stateMachine.Tick();
         }
 
@@ -154,38 +155,42 @@ namespace StateMachine.Enemy
                 Attacked = false;
             }
         }
-
-        public void Death()
+        
+        public void DeathAnimCompleted()
         {
-            _isDeath = true;
-            AiSignals.Instance.onEnemyDead?.Invoke(transform);
-            PoolSignals.Instance.onGetPoolObject?.Invoke("Money", transform);
+            PoolSignals.Instance.onReleasePoolObject?.Invoke($"{EnemyType}", gameObject);
         }
         
         private void OnEnable()
         {
             if (_isDeath)
             {
-                // print("Death but now alive");
                 _health = _enemyData.Health;
                 animator.SetTrigger(Idle);
                 // renderer.material.SetFloat("_Saturation", 1);
                 navMeshAgent.enabled = true;
             }
             _isDeath = false;
+            _isAlive = true;
         }
 
         private void OnDisable()
         {
             if (_isDeath)
             {
-                
+                _isAlive = false;
             }
         }
 
-        public void TakeDamage(int damage) => _health -= damage;
+        public void TakeDamage(int damage)
+        {
+            _health -= damage;
+            if (_health <= 0)
+                _isDeath = true;
+        }
 
         public Transform GetTransform() => transform;
+        
         public bool AmIDeath() => IsDeath;
     }
 }
