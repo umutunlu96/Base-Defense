@@ -47,6 +47,8 @@ namespace StateMachine
         
         public void AddStack(Transform collectable)
         {
+            if (_collectedAmount == 0) InitializeStackPos();
+            
             _collectedAmount++;
             if (_collectedAmount % _stackData.MaxHeight != 0)
             {
@@ -69,9 +71,31 @@ namespace StateMachine
         public Transform GetStackedObject()
         {
             if (collectableList.Count == 0) return null;
+            
+            _collectedAmount--;
+            
+            // int maxHeight = _stackData.MaxHeight + 1;
+            //
+            // if (_collectedAmount % maxHeight == 0)
+            // {
+            //     _nextPos = new Vector3(0, _collectedAmount * _stackData.OffsetY, -_stackData.OffsetZ);
+            // }
+            //
+            // if (_collectedAmount % _stackData.MaxHeight != 0)
+            // {
+            //     _nextPos += new Vector3(0, -_stackData.OffsetY, 0);
+            // }
+
+            if(collectableList.Count != 1)
+                _nextPos = collectableList[collectableList.Count - 1].localPosition;
+            if(collectableList.Count == 1)
+                _nextPos = collectableList[0].localPosition;
+            
             Transform collectableCache = collectableList[collectableList.Count - 1];
             collectableList.RemoveAt(collectableList.Count - 1);
             collectableList.TrimExcess();
+            
+
             return collectableCache;
         }
         

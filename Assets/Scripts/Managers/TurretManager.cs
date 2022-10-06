@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Abstract;
 using Controllers;
@@ -9,9 +8,7 @@ using Data.ValueObject.Base;
 using DG.Tweening;
 using Enums;
 using Signals;
-using Unity.Mathematics;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -117,6 +114,7 @@ namespace Managers
 
         public void PlaceAmmoToGround(Transform ammo)
         {
+            if(ammo == null) return;
             ammo.SetParent(ammoHolderTransform);
             ammo.transform.localRotation = Quaternion.Euler(-90,0,0);
             ammo.DOLocalMove(ammoPlacerTransform.localPosition, _stackData.LerpSpeed).SetDelay(.1f);

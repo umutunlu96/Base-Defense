@@ -20,6 +20,7 @@ namespace StateMachine.AmmoWorker
         
         public void Tick()
         {
+            Debug.Log("goturret");
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
         }
 

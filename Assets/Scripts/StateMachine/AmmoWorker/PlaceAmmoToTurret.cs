@@ -1,4 +1,6 @@
-﻿namespace StateMachine.AmmoWorker
+﻿using UnityEngine;
+
+namespace StateMachine.AmmoWorker
 {
     public class PlaceAmmoToTurret : IState
     {
@@ -16,6 +18,7 @@
 
         public void OnEnter()
         {
+            Debug.Log("place ammmo t");
             _ammoWorkerAI.DropAmmoToTurret();
         }
 

@@ -30,8 +30,8 @@ MonoBehaviour:
       LerpSpeed: 0.5
       OffsetY: 0.125
       OffsetZ: 0.24
-    - MaxHeight: 6
-      Capacity: 6
+    - MaxHeight: 5
+      Capacity: 5
       LerpSpeed: 0.5
       OffsetY: 0.64
       OffsetZ: 0.615

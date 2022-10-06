@@ -20,7 +20,7 @@ namespace StateMachine.AmmoWorker
         
         public void Tick()
         {
-
+            Debug.Log("stationary");
         }
 
         public void OnEnter()

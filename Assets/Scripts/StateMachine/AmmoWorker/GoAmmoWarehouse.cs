@@ -24,6 +24,7 @@ namespace StateMachine.AmmoWorker
         
         public void Tick()
         {
+            Debug.Log("go wareaosue");
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
         }
 

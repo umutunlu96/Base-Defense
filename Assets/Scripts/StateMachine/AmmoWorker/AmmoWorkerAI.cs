@@ -44,12 +44,13 @@ namespace StateMachine.AmmoWorker
         
         private Transform _targetTurretTransform;
 
-        private int _capacity;
-        private bool _isAtAmmoWarehouse;
-        private bool _isAtTurretAmmoHolder;
-        private bool _isFull = false;
-        private int _collectedAmmo = 0;
-        private bool _isCurrentTurretFull = false;
+        [ShowInInspector] private int _capacity;
+        [ShowInInspector] private bool _isAtAmmoWarehouse;
+        [ShowInInspector] private bool _isAtTurretAmmoHolder;
+        [ShowInInspector] private int _collectedAmmo = 0;
+        [ShowInInspector] private bool _isCurrentTurretFull = false;
+        // [ShowInInspector] private bool _isAllTurretsAreaFullNow = false;
+        [ShowInInspector] private bool _isPlacedAmmo = false;
 
         #endregion
 
@@ -60,6 +61,7 @@ namespace StateMachine.AmmoWorker
         public Transform CurrentTarget { get => _targetTurretTransform; set => _targetTurretTransform = value; }
         
         public bool IsAtAmmoWarehouse { get => _isAtAmmoWarehouse; set => _isAtAmmoWarehouse = value; }
+        
         
         public bool IsCurrentTurretFull { get => _isCurrentTurretFull; set => _isCurrentTurretFull = value; }
         
@@ -116,8 +118,8 @@ namespace StateMachine.AmmoWorker
             At(goAmmoWarehouse, pickAmmo, IsAtAmmoWarehouse());
             At(pickAmmo, goTurret, CapasityFullAndHasTurretTarget());
             At(goTurret, placeAmmoToTurret, IsAtTurretAmmoHolder());
-            At(placeAmmoToTurret, goTurret, IsCurrentTurretFull());
             At(placeAmmoToTurret, goAmmoWarehouse, IsDeployedAllAmmos());
+            At(placeAmmoToTurret, goTurret, HaveSomeAmmoAndCurrentTurretFull());
             
             _stateMachine.SetState(stationary);
             
@@ -126,8 +128,8 @@ namespace StateMachine.AmmoWorker
             Func<bool> IsBought() => () => IsBougth;
             Func<bool> IsAtAmmoWarehouse() => () => this.IsAtAmmoWarehouse;
             Func<bool> CapasityFullAndHasTurretTarget() => () => _targetTurretTransform != null && _collectedAmmo == _capacity;
-            Func<bool> IsAtTurretAmmoHolder() => () => this.IsAtTurretAmmoHolder;
-            Func<bool> IsCurrentTurretFull() => () => _collectedAmmo != 0 && _isCurrentTurretFull;
+            Func<bool> IsAtTurretAmmoHolder() => () => this.IsAtTurretAmmoHolder && !_isPlacedAmmo;
+            Func<bool> HaveSomeAmmoAndCurrentTurretFull() => () => _collectedAmmo != 0 && _isCurrentTurretFull && CurrentTarget != null && _isPlacedAmmo;
             Func<bool> IsDeployedAllAmmos() => () => _collectedAmmo == 0;
         }
         
@@ -173,11 +175,13 @@ namespace StateMachine.AmmoWorker
                 if (_turretManagers[index].GetCurrentEmptyAmmoCount() == 0)
                 {
                     _isCurrentTurretFull = true;
-                    GetAvaibleTurretTarget();
+                    // GetAvaibleTurretTarget();
                     break;
                 }
+                if(_collectedAmmo == 0) break;
                 _turretManagers[index].PlaceAmmoToGround(stackManager.GetStackedObject());
                 _collectedAmmo--;
+                _isPlacedAmmo = true;
                 print("AmmoDropped");
                 await Task.Delay(100);
             }
@@ -192,7 +196,11 @@ namespace StateMachine.AmmoWorker
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("AmmoWarehouse")) IsAtAmmoWarehouse = false;
-            if (other.CompareTag("StockpileSpot")) IsAtTurretAmmoHolder = false;
+            if (other.CompareTag("StockpileSpot"))
+            {
+                IsAtTurretAmmoHolder = false;
+                _isPlacedAmmo = false;
+            }
         }
     }
 }

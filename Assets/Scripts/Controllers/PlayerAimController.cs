@@ -79,8 +79,8 @@ namespace Controllers
             if(_closestDamageable == null) return;
             if (_closestDamageable.AmIDeath()) return;
             targetTransform.position = Vector3.Lerp(targetTransform.position,
-                Damageables[0].GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 24));
-
+                _closestDamageable.GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 24));
+            //Damageables[0] => _closestDamageable
             //RotatePlayerSlowly(Damageables[0].GetTransform());
         }
 
