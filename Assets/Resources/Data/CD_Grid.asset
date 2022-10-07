@@ -15,10 +15,10 @@ MonoBehaviour:
   GridDatas:
     m_Keys: 0100000000000000
     m_Values:
-    - row: 3
-      column: 3
-      groundOffsetY: 0.5
-      levelOffsetY: 1
+    - row: 2
+      column: 2
+      groundOffsetY: 0.15
+      levelOffsetY: 0.5
     - row: 3
       column: 3
       groundOffsetY: 1

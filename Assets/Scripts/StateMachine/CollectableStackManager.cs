@@ -92,6 +92,7 @@ namespace StateMachine
                 _nextPos = collectableList[0].localPosition;
             
             Transform collectableCache = collectableList[collectableList.Count - 1];
+            collectableCache.SetParent(null);
             collectableList.RemoveAt(collectableList.Count - 1);
             collectableList.TrimExcess();
             

@@ -4421,6 +4421,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7340171552796219029, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7405470424355257320, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: m_Name
       value: BaseTurret
@@ -4707,6 +4711,10 @@ PrefabInstance:
     - target: {fileID: 6948808811504955157, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340171552796219029, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7405470424355257320, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: m_Name
@@ -5089,11 +5097,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7510957750306372658}
     - target: {fileID: 3611386946014835561, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3611386946014835561, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
       propertyPath: IsBougth
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3611386946014835561, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
       propertyPath: _ammoWarehouse
+      value: 
+      objectReference: {fileID: 7510957750306372658}
+    - target: {fileID: 3611386946014835561, guid: 11d9d6f5ae2cd464e8f80902f835e8e8, type: 3}
+      propertyPath: _ammoWarehouseTransform
       value: 
       objectReference: {fileID: 7510957750306372658}
     m_RemovedComponents: []
@@ -5376,6 +5392,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 689148989456712199}
     m_Modifications:
+    - target: {fileID: 709031994264756449, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
+      propertyPath: m_Size.x
+      value: 12.096399
+      objectReference: {fileID: 0}
+    - target: {fileID: 709031994264756449, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
+      propertyPath: m_Center.x
+      value: 3.2982006
+      objectReference: {fileID: 0}
+    - target: {fileID: 709031994264756449, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
+      propertyPath: m_Center.y
+      value: 1.0999999
+      objectReference: {fileID: 0}
     - target: {fileID: 3512175085568733305, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: payedAmountText
       value: 
