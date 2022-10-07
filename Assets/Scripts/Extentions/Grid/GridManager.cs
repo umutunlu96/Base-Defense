@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 
 namespace Extentions.Grid
 {
     public class GridManager : MonoBehaviour
     {
+        [SerializeField] private GameObject box;
         [SerializeField] private GridType _gridType;
         private Vector3 _scale;
         private Vector3 _placementPoint;
@@ -37,12 +39,14 @@ namespace Extentions.Grid
         {
             if (Input.GetMouseButtonDown(0))
             {
-                print(GetPlacementVector(1));
+                // print(GetPlacementVector(1));
+                PlaceObjectOnGrid();
             }
 
             if (Input.GetMouseButtonDown(1))
             {
-                print(GetPlacementVector(-1));
+                // print(GetPlacementVector(-1));
+                PlaceObjectOnGrid();
             }
         }
         
@@ -53,7 +57,7 @@ namespace Extentions.Grid
             _placementPoint = new Vector3((-_scale.x * 10 / 2), _gridData.groundOffsetY, (_scale.z * 10 / 2));
             
             int row = Mathf.CeilToInt((((float)_placementCount % _maxPlacementInLevel) / _gridData.row)) == 0 ? 
-                Mathf.CeilToInt(1f / _gridData.row) : 
+                Mathf.CeilToInt((float)_maxPlacementInLevel / _gridData.row) : 
                 Mathf.CeilToInt((((float)_placementCount % _maxPlacementInLevel) / _gridData.row)); 
             int column = _placementCount % _gridData.row != 0 ? _placementCount % _gridData.row : _gridData.row;
             _placementPoint.x += ((column * 2) -1) * _gridX;
@@ -63,9 +67,10 @@ namespace Extentions.Grid
             return _placementPoint;
         }
         
-        public void PlaceObjectOnGrid(Transform Obj)
+        public void PlaceObjectOnGrid()
         {
-            Obj.transform.position = GetPlacementVector(1);
+            // Obj.transform.position = GetPlacementVector(1);
+            Instantiate(box, GetPlacementVector(1), quaternion.identity);
         }
 
         public void GetObjectOnGrid()
