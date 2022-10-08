@@ -19,6 +19,7 @@ TagManager:
   - StockpileSpot
   - Enemy
   - BombMine
+  - Turret
   layers:
   - Default
   - TransparentFX

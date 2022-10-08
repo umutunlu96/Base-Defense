@@ -21,6 +21,7 @@ namespace StateMachine.TurretSoldier
         [ShowInInspector] private int _ammo;
         private InputParams _inputParams;
         private float _timer;
+        private bool _canRotateByPlayer;
         
         #region EventSubscription
 
@@ -33,12 +34,16 @@ namespace StateMachine.TurretSoldier
         {
             AiSignals.Instance.onEnemyDead += OnEnemyDead;
             InputSignals.Instance.onInputDragged += OnInputDragged;
+            InputSignals.Instance.onInputTaken += ActivateRotation;
+            InputSignals.Instance.onInputReleased += DeactivateRotation;
         }
         
         private void UnSubscribeEvents()
         {
             AiSignals.Instance.onEnemyDead -= OnEnemyDead;
             InputSignals.Instance.onInputDragged -= OnInputDragged;
+            InputSignals.Instance.onInputTaken -= ActivateRotation;
+            InputSignals.Instance.onInputReleased -= DeactivateRotation;
         }
 
         private void OnDisable()
@@ -50,6 +55,10 @@ namespace StateMachine.TurretSoldier
         
         #region Event Functions
 
+        private void ActivateRotation() => _canRotateByPlayer = true;
+        
+        private void DeactivateRotation() => _canRotateByPlayer = false; 
+        
         private void OnEnemyDead(Transform enemy) => enemies.Remove(enemy);
 
         private void OnInputDragged(InputParams inputParams) => _inputParams = inputParams;
@@ -71,6 +80,7 @@ namespace StateMachine.TurretSoldier
                     _timer += Time.deltaTime;
                     if (_timer > .5f)
                     {
+                        if (enemies.Count == 0) return;
                         Shoot();
                         _timer = 0;
                     }
@@ -82,23 +92,41 @@ namespace StateMachine.TurretSoldier
             }
             else
             {
-                if (_ammo > 0)
+                _timer += Time.deltaTime;
+                
+                if (_timer > .5f && _ammo > 0)
                 {
-                    
+                    Shoot();
+                    _timer = 0;
+                }
+                
+                if(!_canRotateByPlayer) return;
+                
+                if (_inputParams.movementVector.z <= -0.9f)
+                {
+                    IsPlayerUsingTurret = false;
+                    PlayerSignals.Instance.onPlayerLeaveTurretArea?.Invoke();
+                    print("Player exited turret");
+                }
+
+                if (_inputParams.movementVector.x < 0.05f)
+                {
+                    turret.rotation = Quaternion.Slerp(turret.rotation,Quaternion.Euler(0,-60,0), Time.deltaTime);
+                }
+                else if (_inputParams.movementVector.x > 0.05f)
+                {
+                    turret.rotation = Quaternion.Slerp(turret.rotation,Quaternion.Euler(0,60,0), Time.deltaTime);
                 }
             }
         }
 
-        public void UpdateAmmo(int ammo)
-        {
-            _ammo += ammo * 4;
-        }
+
+        public void UpdateAmmo(int ammo) => _ammo += ammo * 4;
 
         private GameObject GetBullet() { return PoolSignals.Instance.onGetPoolObject?.Invoke($"{weaponType}Bullet", turretMuzzle); }
         
         private void Shoot()
         {
-            if (enemies.Count == 0) return;
             GameObject bullet = GetBullet();
             bullet.GetComponent<Bullet>().Shoot(turretMuzzle.rotation);
             _ammo--;

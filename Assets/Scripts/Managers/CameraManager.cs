@@ -1,5 +1,4 @@
-﻿using System;
-using Cinemachine;
+﻿using Cinemachine;
 using Signals;
 using UnityEngine;
 
@@ -10,7 +9,12 @@ namespace Managers
         [SerializeField] private Animator cameraAnimator;
         [SerializeField] private CinemachineVirtualCamera inGameCam;
         [SerializeField] private CinemachineVirtualCamera turretUseCam;
-        
+
+        private void Awake()
+        {
+            cameraAnimator.Play("InGame");
+        }
+
         #region EventSubscription
 
         private void OnEnable()
@@ -22,16 +26,16 @@ namespace Managers
         {
             CoreGameSignals.Instance.onPlay += GetPlayer;
             LevelSignals.Instance.onRestartLevel += GetPlayer;
-            PlayerSignals.Instance.onPlayerUseTurret += OnPlayerUseTurret;
-            PlayerSignals.Instance.onPlayerLeaveTurret += OnPlayerLeaveTurret;
+            PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerUseTurret;
+            PlayerSignals.Instance.onPlayerLeaveTurretArea += OnPlayerLeaveTurret;
         }
         
         private void UnSubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay -= GetPlayer;
             LevelSignals.Instance.onRestartLevel -= GetPlayer;
-            PlayerSignals.Instance.onPlayerUseTurret -= OnPlayerUseTurret;
-            PlayerSignals.Instance.onPlayerLeaveTurret -= OnPlayerLeaveTurret;
+            PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerUseTurret;
+            PlayerSignals.Instance.onPlayerLeaveTurretArea -= OnPlayerLeaveTurret;
         }
 
         private void OnDisable()
@@ -43,15 +47,9 @@ namespace Managers
 
         #region Event Functions
 
-        private void OnPlayerUseTurret()
-        {
-            cameraAnimator.Play("UseTurret");
-        }
+        private void OnPlayerUseTurret() => cameraAnimator.Play("UseTurret");
         
-        private void OnPlayerLeaveTurret()
-        {
-            cameraAnimator.Play("InGame");
-        }
+        private void OnPlayerLeaveTurret() => cameraAnimator.Play("InGame");
 
         private void GetPlayer()
         {

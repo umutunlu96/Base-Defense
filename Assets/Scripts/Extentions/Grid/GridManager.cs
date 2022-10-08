@@ -49,9 +49,9 @@ namespace Extentions.Grid
             int column = _placementCount % _gridData.row != 0 ? _placementCount % _gridData.row : _gridData.row;
             _placementPoint.x += ((column * 2) -1) * _gridX;
             _placementPoint.y += Mathf.CeilToInt((float) _placementCount / _maxPlacementInLevel) > 1
-                ? _gridY * Mathf.CeilToInt((float) _placementCount / _maxPlacementInLevel) - _gridY: 0;
+                ? _gridY * (Mathf.CeilToInt((float) _placementCount / _maxPlacementInLevel) - 1): 0;
             _placementPoint.z -= ((row * 2) - 1) * _gridZ;
-            // print(_placementPoint);
+
             return _placementPoint;
         }
         

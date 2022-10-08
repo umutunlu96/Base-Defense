@@ -32,7 +32,7 @@ namespace Controllers
         {
             if (other.CompareTag("Player"))
             {
-                manager.OnPlayerEnter();
+                manager.OnPlayerEnterBuyArea();
             }
         }
 

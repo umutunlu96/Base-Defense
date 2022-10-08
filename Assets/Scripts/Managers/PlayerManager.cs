@@ -4,6 +4,7 @@ using Controllers;
 using Enums;
 using Keys;
 using Signals;
+using Sirenix.OdinInspector.Editor.Drawers;
 using UnityEngine;
 
 namespace Managers
@@ -28,9 +29,10 @@ namespace Managers
 
         private PlayerData _playerData;
         private bool _isPlayerMoving;
+        private bool _isPlayerUsingTurret;
         private bool _isAtOutside;
-        public List<Transform> enemyTransformList = new List<Transform>();
-
+        private Transform _parent;
+        
         #endregion Private
 
         
@@ -38,6 +40,7 @@ namespace Managers
 
         private void Awake()
         {
+            _parent = transform.parent;
             _playerData = GetPlayerData();
             SetPlayerDataToControllers();
         }
@@ -64,6 +67,8 @@ namespace Managers
             PlayerSignals.Instance.onGetPlayerTransfrom += OnGetPlayerTransform;
             PlayerSignals.Instance.onGetPlayerSpeed += OnGetPlayerSpeed;
             PlayerSignals.Instance.onPlayerWeaponTypeChanged += OnWeaponTypeChanged;
+            PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerUseTurret;
+            PlayerSignals.Instance.onPlayerLeaveTurretArea += OnPlayerLeaveTurret;
         }
 
         private void UnsubscribeEvents()
@@ -79,6 +84,8 @@ namespace Managers
             PlayerSignals.Instance.onGetPlayerTransfrom -= OnGetPlayerTransform;
             PlayerSignals.Instance.onGetPlayerSpeed -= OnGetPlayerSpeed;
             PlayerSignals.Instance.onPlayerWeaponTypeChanged -= OnWeaponTypeChanged;
+            PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerUseTurret;
+            PlayerSignals.Instance.onPlayerLeaveTurretArea -= OnPlayerLeaveTurret;
         }
 
         private void OnDisable()
@@ -95,13 +102,11 @@ namespace Managers
             movementController.SetMovementData(_playerData.playerMovementData);
         }
 
-        private void OnPlay()
-        {
-            movementController.IsReadyToPlay(true);
-        }
+        private void OnPlay() => movementController.IsReadyToPlay(true);
         
         private void OnPointerDown()
         {
+            if(_isPlayerUsingTurret) return;
             ActivateMovement();
             _isPlayerMoving = true;
             animationController.TranslatePlayerAnimationState(PlayerAnimationState.Run);
@@ -109,22 +114,32 @@ namespace Managers
 
         private void OnInputReleased()
         {
+            if(_isPlayerUsingTurret) return;
             DeactivateMovement();
             _isPlayerMoving = false;
             animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
         }
 
         private void OnInputDragged(InputParams inputParams) => movementController.UpdateInputValue(inputParams);
+
+        private void OnPlayerUseTurret()
+        {
+            _isPlayerUsingTurret = true;
+            animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
+            DeactivateMovement();
+        }
+
+        private void OnPlayerLeaveTurret()
+        {
+            _isPlayerUsingTurret = false;
+            transform.SetParent(_parent);
+            ActivateMovement();
+        }
         
         private void ActivateMovement() => movementController.ActivateMovement();
 
         public void DeactivateMovement() => movementController.DeactivateMovement();
         
-        // private void OnTranslatePlayerAnimationState(AnimationStateMachine state)
-        // {
-        //     animationController.TranslatePlayerAnimationState(state);
-        // }
-
         public void OnEnterGate()
         {
             _isAtOutside = !_isAtOutside;
@@ -146,9 +161,7 @@ namespace Managers
         }
         
         private Transform OnGetPlayerTransform() => transform;
-
-
-
+        
         private void OnWeaponTypeChanged(WeaponType weaponType) => aimController.ChangeWeaponRigPos(weaponType);
 
         private float OnGetPlayerSpeed() => rigidBody.velocity.magnitude;

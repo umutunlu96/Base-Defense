@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Abstract;
 using Controllers;
@@ -63,10 +64,18 @@ namespace Managers
         private void CheckData()
         {
             if (Data.PayedAmount < Data.Cost) return;
+            transform.GetComponent<BoxCollider>().enabled = false;
             soldier.SetActive(true); buyAreaController.gameObject.SetActive(false); Save(_uniqueID);
+            
         }
-        
-        public void OnPlayerEnter()
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                _soldierAI.IsPlayerUsingTurret = true;
+        }
+
+        public void OnPlayerEnterBuyArea()
         {
             int playerMoney = ScoreSignals.Instance.onGetMoneyAmount();
             int moneyToPay = Data.Cost - Data.PayedAmount;

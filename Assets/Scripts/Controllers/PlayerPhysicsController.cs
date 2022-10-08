@@ -20,7 +20,6 @@ namespace Controllers
             if (other.CompareTag("MineArea"))
             {
                 PlayerSignals.Instance.onPlayerEnterMineArea?.Invoke();
-                // StackSignals.Instance.onRemoveAllStack?.Invoke(HostageType.Miner);
             }
 
             if (other.CompareTag("GateOutside"))
@@ -32,11 +31,11 @@ namespace Controllers
             {
                 PlayerSignals.Instance.onPlayerEnterDiamondArea?.Invoke(_manager.transform);
             }
-        }
-        
-        private void OnTriggerExit(Collider other)
-        {
-            //
+
+            if (other.CompareTag("Turret"))
+            {
+                PlayerSignals.Instance.onPlayerEnterTurretArea?.Invoke();
+            }
         }
     }
 }

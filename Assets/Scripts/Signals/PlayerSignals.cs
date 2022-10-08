@@ -10,12 +10,13 @@ namespace Signals
         public Func<Transform> onGetPlayerTransfrom;
         public Func<float> onGetPlayerSpeed;
         public Func<bool> onIsPlayerMoving;
-
-        public Action onPlayerUseTurret;
-        public Action onPlayerLeaveTurret;
         
         public Action onPlayerEnterMineArea;
         public Action onPlayerEnterSoldierArea;
+
+        public Action onPlayerEnterTurretArea;
+        public Action onPlayerLeaveTurretArea;
+        
         public Action<Transform> onPlayerEnterDiamondArea;
 
         public Action<WeaponType> onPlayerWeaponTypeChanged;
