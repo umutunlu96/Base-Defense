@@ -176,13 +176,17 @@ namespace Managers
         {
             if(!OnCanPlaceDiamondToStockpileArea()) return;
             Data.CurrentDiamondAmount++;
-            // diamond.transform.SetParent(stockpileAreaTransform);
-            diamond.transform.SetParent(null);
+            
+            Vector3 stockpileScale = stockpileAreaTransform.localScale;
+            Vector3 scale = new Vector3(1 / stockpileScale.x, 1 / stockpileScale.y, 1 / stockpileScale.z);
+            
+            diamond.transform.SetParent(stockpileAreaTransform);
+            diamond.transform.localScale = scale;
             diamond.transform.rotation = Quaternion.Euler(0, 0, 0);
             var position = gridManager.GetPlacementVector();
+            
             collectedGemsList.Add(diamond.transform);
             diamond.transform.DOMove(position, placementDuration);
-            print(position);
         }
 
         private void OnPlayerCollectAllDiamonds(Transform player)

@@ -894,7 +894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5335531781462010186}
   - component: {fileID: 7002526381110531841}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: PhysicController
   m_TagString: MineArea
   m_Icon: {fileID: 0}
@@ -2327,10 +2327,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MineEnterance
       objectReference: {fileID: 0}
-    - target: {fileID: 2001691899360365546, guid: 3aa53e23d2b5c6b419ed87f6bb1f75e1, type: 3}
-      propertyPath: m_TagString
-      value: GemSpot
-      objectReference: {fileID: 0}
     - target: {fileID: 2001691899360365547, guid: 3aa53e23d2b5c6b419ed87f6bb1f75e1, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2374,10 +2370,6 @@ PrefabInstance:
     - target: {fileID: 2001691899360365547, guid: 3aa53e23d2b5c6b419ed87f6bb1f75e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146742146017536052, guid: 3aa53e23d2b5c6b419ed87f6bb1f75e1, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aa53e23d2b5c6b419ed87f6bb1f75e1, type: 3}

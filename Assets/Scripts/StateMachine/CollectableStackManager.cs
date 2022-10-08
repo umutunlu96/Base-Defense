@@ -102,6 +102,7 @@ namespace StateMachine
         
         public async void RemoveStackAll()
         {
+            if(_collectedAmount == 0) return;
             for (int i = 0; i < collectableList.Count; i++)
             {
                 Vector3 pos1 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-2, 2), collectableList[i].transform.localPosition.y + 3, collectableList[i].transform.localPosition.z + Random.Range(-2, 2));

@@ -122,9 +122,9 @@ GameObject:
   - component: {fileID: 7146589142309613509}
   - component: {fileID: 4108538142841641360}
   - component: {fileID: 5467118993182588027}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: PhysicController
-  m_TagString: Untagged
+  m_TagString: Worker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

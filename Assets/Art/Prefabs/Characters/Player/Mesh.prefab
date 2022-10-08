@@ -547,10 +547,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1c89ffc4394ac9a8cc1025d1877654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTargetList: []
+  AttackDelay: 0.2
   manager: {fileID: 0}
   rigBuilder: {fileID: 2675851899802677601}
   targetTransform: {fileID: 2828590315087394041}
+  targetInitialTransform: {fileID: 0}
   guns:
   - {fileID: 317676342492020428}
   - {fileID: 5568394952761644596}
@@ -565,7 +566,7 @@ MonoBehaviour:
   - {fileID: 4353296740745420297}
   - {fileID: 1337076217391430821}
   - {fileID: 8622304137915265320}
-  playerWeaponType: 0
+  weaponType: 0
 --- !u!1 &2803174578907189765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,7 +1102,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2828590315162233453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 0.15, z: 0}
+  m_LocalPosition: {x: 0.018, y: -0.074, z: 0.067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 752310151052507559}

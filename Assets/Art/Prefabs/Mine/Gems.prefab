@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2720230424791435461}
   - component: {fileID: 7621491905681184517}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Gems
   m_TagString: GemSpot
   m_Icon: {fileID: 0}

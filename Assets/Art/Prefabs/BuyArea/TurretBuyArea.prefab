@@ -715,7 +715,7 @@ GameObject:
   - component: {fileID: 701131967949236933}
   - component: {fileID: 464665905135853953}
   - component: {fileID: -8570244345798228432}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: TurretBuyArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
