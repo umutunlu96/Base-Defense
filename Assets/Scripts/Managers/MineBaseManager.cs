@@ -5,6 +5,7 @@ using Data.UnityObject;
 using Data.ValueObject.Base;
 using DG.Tweening;
 using Enums;
+using Extentions.Grid;
 using Signals;
 using Sirenix.OdinInspector;
 using StateMachine;
@@ -37,13 +38,9 @@ namespace Managers
         [SerializeField] private Transform stockpileAreaTransform;
         
         [SerializeField] private Transform groundTransform;
-        
-        [Header("Gem Placement Settings")]//Datalastir
-        
-        [SerializeField] private Transform gemPlaceTransform;
-        [SerializeField] private int maxLineAmount = 5;
-        [SerializeField] private float placementDistanceXZ = 0.5f;
-        [SerializeField] private float placementDistanceY = 0.2f;
+
+        [Header("Gem Placement Settings")] //Datalastir
+        [SerializeField] private GridManager gridManager;
         [SerializeField] private float placementDuration = .5f;
         
         #endregion
@@ -71,7 +68,6 @@ namespace Managers
             SetData();
             CheckData();
             SetText();
-            _initialGemPlacePosition = gemPlaceTransform.localPosition;
         }
         
         private void SetData()
@@ -180,18 +176,13 @@ namespace Managers
         {
             if(!OnCanPlaceDiamondToStockpileArea()) return;
             Data.CurrentDiamondAmount++;
-            diamond.transform.SetParent(stockpileAreaTransform);
-            diamond.transform.rotation = Quaternion.Euler(180, 0, 0);
-            var position = gemPlaceTransform.localPosition;
+            // diamond.transform.SetParent(stockpileAreaTransform);
+            diamond.transform.SetParent(null);
+            diamond.transform.rotation = Quaternion.Euler(0, 0, 0);
+            var position = gridManager.GetPlacementVector();
             collectedGemsList.Add(diamond.transform);
-            diamond.transform.DOLocalMove(position, placementDuration);
-            
-            gemPlaceTransform.localPosition = new Vector3(position.x + placementDistanceXZ, position.y, position.z);
-            if (Data.CurrentDiamondAmount % maxLineAmount != 0) return;
-            gemPlaceTransform.localPosition = new Vector3(_initialGemPlacePosition.x, position.y, position.z + placementDistanceXZ);
-            if (Data.CurrentDiamondAmount % Mathf.Pow(maxLineAmount, 2) != 0) return;
-            gemPlaceTransform.localPosition = new Vector3(_initialGemPlacePosition.x, _initialGemPlacePosition.y + placementDistanceY * Data.CurrentDiamondAmount / Mathf.Pow(maxLineAmount, 2),
-                _initialGemPlacePosition.z);
+            diamond.transform.DOMove(position, placementDuration);
+            print(position);
         }
 
         private void OnPlayerCollectAllDiamonds(Transform player)
@@ -199,9 +190,8 @@ namespace Managers
             if(collectedGemsList.Count == 0) return;
 
             ScoreSignals.Instance.onSetDiamondAmount?.Invoke(collectedGemsList.Count);
-
+            gridManager.ReleaseAllObjectsOnGrid();
             Data.CurrentDiamondAmount = 0;
-            gemPlaceTransform.localPosition = _initialGemPlacePosition;
             
             for (int i = 0; i < collectedGemsList.Count; i++)
             {

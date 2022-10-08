@@ -56,8 +56,6 @@ namespace Managers
             }
             Load(_uniqueID);
             CheckData();
-            // ammoHolderTransform.SetParent(null);
-            // ammoHolderTransform.rotation = Quaternion.Euler(0, 0, 0);
             _stackData = Resources.Load<CD_StackData>("Data/CD_StackData").StackDatas[_stackType];
         }
         
@@ -118,24 +116,13 @@ namespace Managers
         public void PlaceAmmoToGround(Transform ammo)
         {
             if(ammo == null) return;
-            // ammo.SetParent(ammoHolderTransform);
-            
-            // ammo.SetParent(transform);
+            ammo.SetParent(ammoHolderTransform);
             ammo.transform.localRotation = Quaternion.Euler(0,0,0);
-            
-            // ammo.DOLocalMove(ammoPlacerTransform.localPosition, _stackData.LerpSpeed).SetDelay(.1f);
-            // ammoPlacerTransform.localPosition = new Vector3(ammoPlacerTransform.localPosition.x - _stackData.OffsetY, ammoPlacerTransform.localPosition.y, 0);
             ammo.DOMove(gridManager.GetPlacementVector(), .2f);
             
             _currentAmmoAmount++;
             _ammoList.Add(ammo);
             _soldierAI.UpdateAmmo(1);
-            
-            // if (_currentAmmoAmount % 3 == 0)
-            // {
-            //     ammoPlacerTransform.localPosition = new Vector3(_ammoPlacerInitialPos.x,
-            //         ammoPlacerTransform.localPosition.y +_stackData.OffsetZ, 0);
-            // }
         }
 
         public void GetAmmo(Transform turret)

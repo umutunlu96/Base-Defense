@@ -1,21 +1,20 @@
-﻿using Unity.Mathematics;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Extentions.Grid
 {
     public class GridManager : MonoBehaviour
     {
-        [SerializeField] private GameObject box;
         [SerializeField] private GridType _gridType;
-        private Vector3 _position;
-        private Vector3 _scale;
-        private Vector3 _placementPoint;
+        [ShowInInspector] private Vector3 _position;
+        [ShowInInspector] private Vector3 _scale;
+        [ShowInInspector] private Vector3 _placementPoint;
         private GridData _gridData;
-        private int _maxPlacementInLevel;
-        private int _placementCount = 0;
-
-        private float _gridX;
-        private float _gridZ;
+        [ShowInInspector] private int _maxPlacementInLevel;
+        [ShowInInspector] private int _placementCount = 0;
+        [ShowInInspector] private float _gridX;
+        [ShowInInspector] private float _gridY;
+        [ShowInInspector] private float _gridZ;
         private void Awake()
         {
             GetData();
@@ -35,22 +34,7 @@ namespace Extentions.Grid
             _scale = transform.lossyScale;
             _gridX = _scale.x * 10 / (_gridData.row * 2);
             _gridZ = _scale.z * 10 / (_gridData.column * 2);
-        }
-        
-        //Test Purpose
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                // print(GetPlacementVector(1));
-                // PlaceObjectOnGrid();
-            }
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                // print(GetPlacementVector(-1));
-                // PlaceObjectOnGrid();
-            }
+            _gridY = _gridData.levelOffsetY;
         }
         
         public Vector3 GetPlacementVector()
@@ -65,22 +49,20 @@ namespace Extentions.Grid
             int column = _placementCount % _gridData.row != 0 ? _placementCount % _gridData.row : _gridData.row;
             _placementPoint.x += ((column * 2) -1) * _gridX;
             _placementPoint.y += Mathf.CeilToInt((float) _placementCount / _maxPlacementInLevel) > 1
-                ? _gridData.levelOffsetY * Mathf.CeilToInt((float) _placementCount / _maxPlacementInLevel) - 1 : 0;
+                ? _gridY * Mathf.CeilToInt((float) _placementCount / _maxPlacementInLevel) - _gridY: 0;
             _placementPoint.z -= ((row * 2) - 1) * _gridZ;
-            print(_placementPoint);
+            // print(_placementPoint);
             return _placementPoint;
         }
         
-        //Test Purpose
-        public void PlaceObjectOnGrid()
-        {
-            GameObject anan = Instantiate(box, GetPlacementVector(), quaternion.identity);
-            anan.transform.position = GetPlacementVector();
-        }
-
         public void ReleaseObjectOnGrid()
         {
             _placementCount--;
+        }
+
+        public void ReleaseAllObjectsOnGrid()
+        {
+            _placementCount = 0;
         }
     }
 }
