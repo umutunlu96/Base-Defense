@@ -19,7 +19,7 @@ namespace Managers
     {
         #region Variables
 
-        [SerializeField] private TurretSoldierAI _soldierAI;
+        [SerializeField] private TurretSoldierAI soldierAI;
         [SerializeField] private GridManager gridManager;
         [SerializeField] private RoomManager roomManager;
         [SerializeField] private TurretAreaPhysicController buyAreaController;
@@ -67,13 +67,13 @@ namespace Managers
             if (Data.PayedAmount < Data.Cost) return;
             transform.GetComponent<BoxCollider>().enabled = false;
             soldier.SetActive(true); buyAreaController.gameObject.SetActive(false); Save(_uniqueID);
-            
+            soldierAI.HasSoldier = true;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
-                _soldierAI.IsPlayerUsingTurret = true;
+                soldierAI.IsPlayerUsingTurret = true;
         }
 
         public void OnPlayerEnterBuyArea()
@@ -138,34 +138,6 @@ namespace Managers
                 _isAmmoLoadedTurret = true;
             }
         }
-
-        // public void GetAmmo(Transform turret)
-        // {
-        //     Sequence sequence = DOTween.Sequence();
-        //     Transform ammo;
-        //     _currentAmmoAmount--;
-        //     if (_ammoList.Count > 1)
-        //     {
-        //         ammo = _ammoList[_ammoList.Count - 1];
-        //         ammo.SetParent(null);
-        //     }
-        //     else
-        //     {
-        //         ammo = _ammoList[0];
-        //         ammo.SetParent(null);
-        //     }
-        //     gridManager.ReleaseObjectOnGrid();
-        //
-        //     sequence.Append(ammo.DOMove(new Vector3(0, 2, 0), .2f));
-        //     sequence.Join(ammo.DORotate(new Vector3(0, 0, 45), .2f));
-        //     sequence.Append(ammo.DOMove(turret.position, .2f)).OnComplete(() =>
-        //     {
-        //         ammo.transform.rotation = Quaternion.Euler(0,0,0);
-        //         PoolSignals.Instance.onReleasePoolObject?.Invoke("Ammo", ammo.gameObject);
-        //     });
-        //
-        // }
-
         public void LoadAmmo(Transform turret)
         {
             if(_currentAmmoAmount == 0) return;
@@ -179,12 +151,15 @@ namespace Managers
         {
             _currentAmmoAmount--;
             gridManager.ReleaseObjectOnGrid();
-            _soldierAI.UpdateAmmo(1);
+            soldierAI.UpdateAmmo(1);
             ammo.DOJump(turret.position, 1, 1, 1f).OnComplete(() =>
             {
                 ammo.transform.rotation = Quaternion.Euler(0,0,0);
                 PoolSignals.Instance.onReleasePoolObject?.Invoke("Ammo", ammo.gameObject);
             });
+            
+            _ammoList.Remove(ammo);
+            _ammoList.TrimExcess();
         }
         
         

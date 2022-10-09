@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlayerUsingTurret: 0
+  HasSoldier: 0
   weaponType: 6
   manager: {fileID: 4181559242596672718}
   turret: {fileID: 5413522793554916805}
@@ -238,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7194b41f3ec748c39c2be2e5a5a225f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soldierAI: {fileID: 1022787664117185359}
+  soldierAI: {fileID: 1022787664117185359}
   gridManager: {fileID: 5087965710447342239}
   roomManager: {fileID: 0}
   buyAreaController: {fileID: 3512175085568733305}

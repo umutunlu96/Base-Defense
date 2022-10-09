@@ -12,6 +12,7 @@ namespace StateMachine.TurretSoldier
     public class TurretSoldierAI : MonoBehaviour
     {
         public bool IsPlayerUsingTurret = false;
+        public bool HasSoldier = false;
         [SerializeField] private WeaponType weaponType;
         [SerializeField] private TurretManager manager;
         [SerializeField] private Transform turret;
@@ -69,58 +70,69 @@ namespace StateMachine.TurretSoldier
         {
             if (!IsPlayerUsingTurret)
             {
-                if (_canShoot && _ammo > 0 && enemies.Count > 0)
-                {
-                    float singleStep = Time.deltaTime * 2;
-                    Vector3 targetDirection = enemies[0].position - turret.position;
-                    targetDirection.y = 0;
-                    Vector3 newDirection = Vector3.RotateTowards(turret.forward, targetDirection, singleStep, 0f);
-                    turret.rotation = Quaternion.LookRotation(newDirection);
+                SoldierAiUsingTurret();
+            }
+            else
+            {
+                PlayerUsingTurret();
+            }
+        }
+
+        private void SoldierAiUsingTurret()
+        {
+            if(!HasSoldier) return;
+            if (_canShoot && _ammo > 0 && enemies.Count > 0)
+            {
+                float singleStep = Time.deltaTime * 2;
+                Vector3 targetDirection = enemies[0].position - turret.position;
+                targetDirection.y = 0;
+                Vector3 newDirection = Vector3.RotateTowards(turret.forward, targetDirection, singleStep, 0f);
+                turret.rotation = Quaternion.LookRotation(newDirection);
                 
-                    _timer += Time.deltaTime;
-                    if (_timer > .5f)
-                    {
-                        if (enemies.Count == 0) return;
-                        Shoot();
-                        _timer = 0;
-                    }
-                }
-                else
+                _timer += Time.deltaTime;
+                if (_timer > .5f)
                 {
-                    turret.rotation = Quaternion.Slerp(turret.transform.rotation, Quaternion.Euler(0,0,0), Time.deltaTime * 2);
+                    if (enemies.Count == 0) return;
+                    Shoot();
+                    _timer = 0;
                 }
             }
             else
             {
-                _timer += Time.deltaTime;
-                
-                if (_timer > .5f && _ammo > 0)
-                {
-                    Shoot();
-                    _timer = 0;
-                }
-                
-                if(!_canRotateByPlayer) return;
-                
-                if (_inputParams.movementVector.z <= -0.9f)
-                {
-                    IsPlayerUsingTurret = false;
-                    PlayerSignals.Instance.onPlayerLeaveTurretArea?.Invoke();
-                    print("Player exited turret");
-                }
-
-                if (_inputParams.movementVector.x < 0.05f)
-                {
-                    turret.rotation = Quaternion.Slerp(turret.rotation,Quaternion.Euler(0,-60,0), Time.deltaTime);
-                }
-                else if (_inputParams.movementVector.x > 0.05f)
-                {
-                    turret.rotation = Quaternion.Slerp(turret.rotation,Quaternion.Euler(0,60,0), Time.deltaTime);
-                }
+                turret.rotation = Quaternion.Slerp(turret.transform.rotation, Quaternion.Euler(0,0,0), Time.deltaTime * 2);
             }
         }
+        
+        private void PlayerUsingTurret()
+        {
+            _timer += Time.deltaTime;
+                
+            if (_timer > .5f && _ammo > 0)
+            {
+                Shoot();
+                _timer = 0;
+            }
+                
+            if(!_canRotateByPlayer) return;
+                
+            if (_inputParams.movementVector.z <= -0.9f)
+            {
+                IsPlayerUsingTurret = false;
+                PlayerSignals.Instance.onPlayerLeaveTurretArea?.Invoke();
+                print("Player exited turret");
+            }
 
-
+            if (_inputParams.movementVector.x < 0.05f)
+            {
+                turret.rotation = Quaternion.Slerp(turret.rotation,Quaternion.Euler(0,-60,0), Time.deltaTime);
+            }
+            else if (_inputParams.movementVector.x > 0.05f)
+            {
+                turret.rotation = Quaternion.Slerp(turret.rotation,Quaternion.Euler(0,60,0), Time.deltaTime);
+            }
+        }
+        
+        
         public void UpdateAmmo(int ammo) => _ammo += ammo * 4;
 
         private GameObject GetBullet() { return PoolSignals.Instance.onGetPoolObject?.Invoke($"{weaponType}Bullet", turretMuzzle); }
@@ -130,8 +142,12 @@ namespace StateMachine.TurretSoldier
             GameObject bullet = GetBullet();
             bullet.GetComponent<Bullet>().Shoot(turretMuzzle.rotation);
             _ammo--;
-            if(_ammo == 0)
+            print(_ammo);
+            if (_ammo == 0)
+            {
                 manager.LoadAmmo(turret);
+                print("ammo loaded");
+            }
         }
         
         private void OnTriggerEnter(Collider other)
