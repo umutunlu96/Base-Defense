@@ -1,4 +1,6 @@
-﻿using Enums;
+﻿using System;
+using Enums;
+using ES3Types;
 using Managers;
 using Signals;
 using UnityEngine;
@@ -24,7 +26,13 @@ namespace Controllers
 
             if (other.CompareTag("GateOutside"))
             {
-                _manager.OnEnterGate();
+                _manager.OnExitBase();
+            }
+
+            if (other.CompareTag("GateInside"))
+            {
+                _manager.OnEnterBase();
+                _manager.DropMoneyToBase();
             }
             
             if (other.CompareTag("StockpileSpot"))
@@ -35,6 +43,32 @@ namespace Controllers
             if (other.CompareTag("Turret"))
             {
                 PlayerSignals.Instance.onPlayerEnterTurretArea?.Invoke();
+            }
+            
+            if (other.CompareTag("Money"))
+            {
+                _manager.StackMoney(other.transform);
+            }
+            
+            if(other.CompareTag("AmmoWarehouse"))
+            {
+                _manager.StackAmmo();
+            }
+            
+            if (other.CompareTag("TurretAmmoHolder"))
+            {
+                if(other.transform.parent.TryGetComponent(out TurretManager turretManager))
+                {
+                    _manager.DropAmmoToTurret(turretManager);
+                }
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if(other.CompareTag("AmmoWarehouse"))
+            {
+                _manager.StopStackAmmo();
             }
         }
     }

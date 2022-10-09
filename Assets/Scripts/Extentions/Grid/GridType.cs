@@ -3,6 +3,8 @@
     public enum GridType
     {
         Gem,
-        Ammo
+        Ammo,
+        PlayerMoney,
+        PlayerAmmo
     }
 }

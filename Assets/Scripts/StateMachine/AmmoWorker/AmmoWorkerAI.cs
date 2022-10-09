@@ -209,13 +209,13 @@ namespace StateMachine.AmmoWorker
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("AmmoWarehouse")) IsAtAmmoWarehouse = true;
-            if (other.CompareTag("StockpileSpot")) IsAtTurretAmmoHolder = true;
+            if (other.CompareTag("TurretAmmoHolder")) IsAtTurretAmmoHolder = true;
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("AmmoWarehouse")) IsAtAmmoWarehouse = false;
-            if (other.CompareTag("StockpileSpot"))
+            if (other.CompareTag("TurretAmmoHolder"))
             {
                 IsAtTurretAmmoHolder = false;
                 _isPlacedAmmo = false;

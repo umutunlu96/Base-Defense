@@ -20,6 +20,9 @@ TagManager:
   - Enemy
   - BombMine
   - Turret
+  - Collectable
+  - TurretAmmoHolder
+  - Ammo
   layers:
   - Default
   - TransparentFX
@@ -38,8 +41,8 @@ TagManager:
   - GateRadius
   - CollectBuyDeploy
   - Worker
-  - 
-  - 
+  - Gate
+  - TurretAttackRadius
   - 
   - 
   - 

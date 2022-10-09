@@ -22,7 +22,7 @@ namespace Managers
         [SerializeField] private PlayerAimController aimController;
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private Transform enemyDetection;
-        
+        [SerializeField] private PlayerStackController stackController;
         #endregion Seriliazed Field
 
         #region Private
@@ -32,7 +32,7 @@ namespace Managers
         private bool _isPlayerUsingTurret;
         private bool _isAtOutside;
         private Transform _parent;
-        
+        private WeaponType _weaponType;
         #endregion Private
 
         
@@ -43,6 +43,7 @@ namespace Managers
             _parent = transform.parent;
             _playerData = GetPlayerData();
             SetPlayerDataToControllers();
+            OnEnterBase();
         }
 
         private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").Data;
@@ -140,26 +141,38 @@ namespace Managers
 
         public void DeactivateMovement() => movementController.DeactivateMovement();
         
-        public void OnEnterGate()
+        public void OnEnterBase()
         {
-            _isAtOutside = !_isAtOutside;
-            if (_isAtOutside)
-            {
-                int layerIgnoreRaycastInsidePlayer = LayerMask.NameToLayer("Player");
-                int layerIgnoreRaycastInsideAttackRadius = LayerMask.NameToLayer("PlayerAttackRadius");
-                transform.gameObject.layer = layerIgnoreRaycastInsidePlayer;
-                enemyDetection.gameObject.layer = layerIgnoreRaycastInsideAttackRadius;
-                animationController.EnableAimLayer();
-                aimController.EnableAimRig(true);
-                return;
-            }
             int layerIgnoreRaycastOutside = LayerMask.NameToLayer("Empty");
             transform.gameObject.layer = layerIgnoreRaycastOutside;
             enemyDetection.gameObject.layer = layerIgnoreRaycastOutside;
             animationController.DisableAimLayer();
-            aimController.EnableAimRig(false);
+            aimController.DisableAimRig();
         }
         
+        public void OnExitBase()
+        {
+            int layerIgnoreRaycastInsidePlayer = LayerMask.NameToLayer("Player");
+            int layerIgnoreRaycastInsideAttackRadius = LayerMask.NameToLayer("PlayerAttackRadius");
+            transform.gameObject.layer = layerIgnoreRaycastInsidePlayer;
+            enemyDetection.gameObject.layer = layerIgnoreRaycastInsideAttackRadius;
+            animationController.EnableAimLayer();
+            aimController.EnableAimRig(_weaponType);
+            DropAllAmmoToGround();
+        }
+        
+        public void StackMoney(Transform money) => stackController.StackMoney(money);
+
+        public void StackAmmo() => stackController.StackAmmo();
+
+        public void StopStackAmmo() => stackController.CanStackAmmo = true;
+        
+        public void DropMoneyToBase() => stackController.DropAllMoney();
+        
+        public void DropAmmoToTurret(TurretManager turretManager) => stackController.DropAmmo(turretManager);
+
+        public void DropAllAmmoToGround() => stackController.DropAllAmmoToGround();
+
         private Transform OnGetPlayerTransform() => transform;
         
         private void OnWeaponTypeChanged(WeaponType weaponType) => aimController.ChangeWeaponRigPos(weaponType);
@@ -170,6 +183,7 @@ namespace Managers
         
         private void OnReset()
         {
+            OnEnterBase();
             movementController.MovementReset();
             movementController.OnReset();
         }

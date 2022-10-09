@@ -49,6 +49,8 @@ namespace StateMachine
         {
             if (_collectedAmount == 0) InitializeStackPos();
             
+            if(_collectedAmount == _stackData.Capacity) return;
+            
             _collectedAmount++;
             if (_collectedAmount % _stackData.MaxHeight != 0)
             {
@@ -74,18 +76,6 @@ namespace StateMachine
             
             _collectedAmount--;
             
-            // int maxHeight = _stackData.MaxHeight + 1;
-            //
-            // if (_collectedAmount % maxHeight == 0)
-            // {
-            //     _nextPos = new Vector3(0, _collectedAmount * _stackData.OffsetY, -_stackData.OffsetZ);
-            // }
-            //
-            // if (_collectedAmount % _stackData.MaxHeight != 0)
-            // {
-            //     _nextPos += new Vector3(0, -_stackData.OffsetY, 0);
-            // }
-
             if(collectableList.Count != 1)
                 _nextPos = collectableList[collectableList.Count - 1].localPosition;
             if(collectableList.Count == 1)
@@ -119,7 +109,8 @@ namespace StateMachine
             foreach (var collectable in collectableList)
             {
                 var o = collectable.gameObject;
-                o.tag = ReturnTag;
+                if(ReturnTag != null)
+                    o.tag = ReturnTag;
                 PoolSignals.Instance.onReleasePoolObject?.Invoke(PoolType.ToString(), o);
             }
             collectableList.Clear();

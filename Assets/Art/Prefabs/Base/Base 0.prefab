@@ -2196,7 +2196,7 @@ GameObject:
   - component: {fileID: 7510957750306372658}
   - component: {fileID: 5084183441971776230}
   - component: {fileID: 1513456056648397759}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: AmmoWarehouse
   m_TagString: AmmoWarehouse
   m_Icon: {fileID: 0}
@@ -4377,6 +4377,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6316560040842660067, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6948808811504955157, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4423,7 +4427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7340171552796219029, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7405470424355257320, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: m_Name
@@ -4668,6 +4672,10 @@ PrefabInstance:
       propertyPath: buyAreaController
       value: 
       objectReference: {fileID: 3043813060978038377}
+    - target: {fileID: 6316560040842660067, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6948808811504955157, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -4714,7 +4722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7340171552796219029, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7405470424355257320, guid: 76948c2e6474db44faa1050b4744ffcb, type: 3}
       propertyPath: m_Name

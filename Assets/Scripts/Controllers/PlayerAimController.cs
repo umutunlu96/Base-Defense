@@ -80,8 +80,6 @@ namespace Controllers
             if (_closestDamageable.AmIDeath()) return;
             targetTransform.position = Vector3.Lerp(targetTransform.position,
                 _closestDamageable.GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 24));
-            //Damageables[0] => _closestDamageable
-            //RotatePlayerSlowly(Damageables[0].GetTransform());
         }
 
         private void RotatePlayerSlowly(Transform target)
@@ -89,8 +87,23 @@ namespace Controllers
             Vector3 rotateTo = (target.position - transform.position).normalized;
             manager.transform.Rotate(rotateTo * Time.deltaTime);
         }
-        
-        public void EnableAimRig(bool isEnabled) => rigBuilder.layers[0].active = isEnabled;
+
+        public void EnableAimRig(WeaponType weaponType)
+        {
+            rigBuilder.layers[0].active = true;
+            ChangeWeaponRigPos(weaponType);
+        }
+
+        public void DisableAimRig()
+        {
+            rigBuilder.layers[0].active = false;
+            
+            for (int i = 1; i < rigBuilder.layers.Count; i++)
+            {
+                rigBuilder.layers[i].active = false;
+                guns[i-1].SetActive(false);
+            }
+        }
 
         public void ChangeWeaponRigPos(WeaponType weaponType)
         {

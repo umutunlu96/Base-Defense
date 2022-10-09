@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CD_Grid
   m_EditorClassIdentifier: 
   GridDatas:
-    m_Keys: 0100000000000000
+    m_Keys: 01000000000000000200000003000000
     m_Values:
     - row: 2
       column: 2
@@ -23,3 +23,11 @@ MonoBehaviour:
       column: 3
       groundOffsetY: 0.168
       levelOffsetY: 0.506
+    - row: 1
+      column: 10
+      groundOffsetY: 1
+      levelOffsetY: 0.2
+    - row: 1
+      column: 5
+      groundOffsetY: 1
+      levelOffsetY: 0.85

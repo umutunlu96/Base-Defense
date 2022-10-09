@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9089220550641125823}
   - component: {fileID: 1022787664117185359}
   - component: {fileID: 5598589749732093774}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: TurretAimController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 1725987274586213386}
   m_Layer: 15
   m_Name: AmmoHolderArea
-  m_TagString: StockpileSpot
+  m_TagString: TurretAmmoHolder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,8 +88,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6989631357695006580}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -2, y: 0.010000001, z: 0.4}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalPosition: {x: -2, y: 0.010000001, z: 0.025}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 6948808811504955157}
   m_RootOrder: 3
@@ -320,8 +320,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7947330369127534966}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: -2, y: 0.010000001, z: 0.4}
-  m_LocalScale: {x: 0.2, y: 1, z: 0.2}
+  m_LocalPosition: {x: -2, y: 0.010000001, z: 0.025}
+  m_LocalScale: {x: 0.1, y: 1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 6948808811504955157}
   m_RootOrder: 2
