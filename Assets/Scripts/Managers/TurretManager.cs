@@ -41,6 +41,7 @@ namespace Managers
         private int _uniqueID;
         private bool _playerEntered;
         private int _currentAmmoAmount;
+        private bool _isAmmoLoadedTurret = false;
         
         #endregion
         
@@ -131,36 +132,62 @@ namespace Managers
             
             _currentAmmoAmount++;
             _ammoList.Add(ammo);
-            _soldierAI.UpdateAmmo(1);
+            if (!_isAmmoLoadedTurret)
+            {
+                LoadAmmo(transform);
+                _isAmmoLoadedTurret = true;
+            }
         }
 
-        public void GetAmmo(Transform turret)
-        {
-            Sequence sequence = DOTween.Sequence();
-            Transform ammo;
-            _currentAmmoAmount--;
-            if (_ammoList.Count > 1)
-            {
-                ammo = _ammoList[_ammoList.Count - 1];
-                ammo.SetParent(null);
-            }
-            else
-            {
-                ammo = _ammoList[0];
-                ammo.SetParent(null);
-            }
-            gridManager.ReleaseObjectOnGrid();
+        // public void GetAmmo(Transform turret)
+        // {
+        //     Sequence sequence = DOTween.Sequence();
+        //     Transform ammo;
+        //     _currentAmmoAmount--;
+        //     if (_ammoList.Count > 1)
+        //     {
+        //         ammo = _ammoList[_ammoList.Count - 1];
+        //         ammo.SetParent(null);
+        //     }
+        //     else
+        //     {
+        //         ammo = _ammoList[0];
+        //         ammo.SetParent(null);
+        //     }
+        //     gridManager.ReleaseObjectOnGrid();
+        //
+        //     sequence.Append(ammo.DOMove(new Vector3(0, 2, 0), .2f));
+        //     sequence.Join(ammo.DORotate(new Vector3(0, 0, 45), .2f));
+        //     sequence.Append(ammo.DOMove(turret.position, .2f)).OnComplete(() =>
+        //     {
+        //         ammo.transform.rotation = Quaternion.Euler(0,0,0);
+        //         PoolSignals.Instance.onReleasePoolObject?.Invoke("Ammo", ammo.gameObject);
+        //     });
+        //
+        // }
 
-            sequence.Append(ammo.DOMove(new Vector3(0, 2, 0), .2f));
-            sequence.Join(ammo.DORotate(new Vector3(0, 0, 45), .2f));
-            sequence.Append(ammo.DOMove(turret.position, .2f)).OnComplete(() =>
+        public void LoadAmmo(Transform turret)
+        {
+            if(_currentAmmoAmount == 0) return;
+            if (_ammoList.Count > 1)
+                MoveAmmoToTurret(_ammoList[_ammoList.Count - 1], turret);
+            if(_ammoList.Count == 1)
+                MoveAmmoToTurret(_ammoList[0], turret);
+        }
+
+        private void MoveAmmoToTurret(Transform ammo, Transform turret)
+        {
+            _currentAmmoAmount--;
+            gridManager.ReleaseObjectOnGrid();
+            _soldierAI.UpdateAmmo(1);
+            ammo.DOJump(turret.position, 1, 1, 1f).OnComplete(() =>
             {
                 ammo.transform.rotation = Quaternion.Euler(0,0,0);
                 PoolSignals.Instance.onReleasePoolObject?.Invoke("Ammo", ammo.gameObject);
             });
-
         }
-
+        
+        
         #region Save-Load
         
         public void Save(int uniqueId)
