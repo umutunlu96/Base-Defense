@@ -36,7 +36,6 @@ namespace StateMachine.MoneyWorkerAI
                 if (_moneyFinder.Radius > 150)
                 {
                     _moneyWorkerAI.CantFindMoney = true;
-                    Debug.Log("CantFindMOny");
                 }
             }
         }

@@ -125,6 +125,7 @@ namespace StateMachine.Enemy
             At(attack, chasePlayer, CanChasePlayer());
             At(chasePlayer, moveToBase, GoBase());
             At(moveToBase, reachedBase, ReachedBase());
+            At(death, moveToBase, IsAlive());
             
             _stateMachine.AddAnyTransition(death, IsDeath());
             _stateMachine.AddAnyTransition(chasePlayer, CanChasePlayer());
@@ -139,6 +140,8 @@ namespace StateMachine.Enemy
             Func<bool> IsInAttackRange() => () => PlayerTarget != null && CanAttack;
             Func<bool> ReachedBase() => () => ReachedAtBase && _baseTarget != null && PlayerTarget == null;
             Func<bool> IsDeath() => () => _isDeath;
+            Func<bool> IsAlive() => () => _isAlive;
+            
         }
 
         private void Update()
@@ -186,6 +189,7 @@ namespace StateMachine.Enemy
             navMeshAgent.enabled = true;
             _isDeath = false;
             _isAlive = true;
+            ReachedAtBase = false;
         }
 
         private void OnDeath()
