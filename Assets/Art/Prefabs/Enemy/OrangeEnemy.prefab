@@ -186,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyType: 0
   CurrentTarget: {fileID: 0}
+  animationController: {fileID: 4791771962482883253}
   renderer: {fileID: 5704263202153382710}
   navMeshAgent: {fileID: 4255279260966684481}
   navMeshObstacle: {fileID: 2775619433514345524}

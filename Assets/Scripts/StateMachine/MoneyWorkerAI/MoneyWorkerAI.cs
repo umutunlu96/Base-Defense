@@ -104,7 +104,7 @@ namespace StateMachine.MoneyWorkerAI
             Func<bool> HasBougth() => () => IsBougth;
             Func<bool> HasAtBase() => () => IsAtBase;
             Func<bool> HasFoundMoney() => () => _collectedMoney < _capacity && MoneyTransform != null;
-            Func<bool> HasPickedMoney() => () => MoneyTransform == null;
+            Func<bool> HasPickedMoney() => () => MoneyTransform == null || MoneyTransform.CompareTag("Collected");
             Func<bool> IsBackPackFull() => () => _collectedMoney == _capacity;
             Func<bool> CantFindAnyMoney() => () => CantFindMoney && !IsAtBase;
             Func<bool> SearchOverAgain() => () => CantFindMoney && IsAtBase;

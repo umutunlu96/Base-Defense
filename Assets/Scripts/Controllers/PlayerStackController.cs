@@ -94,6 +94,7 @@ namespace Controllers
                 while (turretManager.GetCurrentEmptyAmmoCount() > 0 && _ammoCount > 0)
                 {
                     turretManager.PlaceAmmoToGround(ammoStack.GetStackedObject());
+                    _ammoCount--;
                     yield return new WaitForSeconds(.2f);
                 }
             }

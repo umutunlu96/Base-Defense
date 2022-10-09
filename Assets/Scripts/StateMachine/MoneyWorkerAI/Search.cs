@@ -33,8 +33,12 @@ namespace StateMachine.MoneyWorkerAI
             {
                 _moneyFinder.IncreaseRaius();
                 _timer = 0;
+                Debug.Log("Searching money");
                 if (_moneyFinder.Radius > 150)
+                {
                     _moneyWorkerAI.CantFindMoney = true;
+                    Debug.Log("CantFindMOny");
+                }
             }
         }
 

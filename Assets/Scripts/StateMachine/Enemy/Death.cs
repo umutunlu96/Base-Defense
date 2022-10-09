@@ -27,6 +27,7 @@ namespace StateMachine.Enemy
 
         public void OnEnter()
         {
+            _animator.applyRootMotion = false;
             _animator.SetTrigger(death);
             AiSignals.Instance.onEnemyDead?.Invoke(_enemyAI.transform);
             PoolSignals.Instance.onGetPoolObject?.Invoke("Money", _enemyAI.transform);

@@ -23,6 +23,7 @@ namespace StateMachine.Enemy
 
         #region Serialized
 
+        [SerializeField] private EnemyAnimationController animationController;
         [SerializeField] private Renderer renderer;
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private NavMeshObstacle navMeshObstacle;
@@ -50,7 +51,7 @@ namespace StateMachine.Enemy
         private bool _attacked;
         private bool _attackAnimEnded;
         // private bool _deathAnimEnded;
-        private bool _isDeath;
+        private bool _isDeath = false;
         private bool _isAlive = true;
         private static readonly int Idle = Animator.StringToHash("Idle");
 
@@ -165,13 +166,8 @@ namespace StateMachine.Enemy
         {
             if (_isDeath)
             {
-                _health = _enemyData.Health;
-                animator.SetTrigger(Idle);
-                // renderer.material.SetFloat("_Saturation", 1);
-                navMeshAgent.enabled = true;
+                OnAlive();
             }
-            _isDeath = false;
-            _isAlive = true;
         }
 
         private void OnDisable()
@@ -182,11 +178,28 @@ namespace StateMachine.Enemy
             }
         }
 
+        private void OnAlive()
+        {
+            _health = _enemyData.Health;
+            animator.SetTrigger(Idle);
+            // renderer.material.SetFloat("_Saturation", 1);
+            navMeshAgent.enabled = true;
+            _isDeath = false;
+            _isAlive = true;
+        }
+
+        private void OnDeath()
+        {
+            _isDeath = true;
+            navMeshAgent.enabled = false;
+            transform.DOMoveY(-.5f, .2f);
+        }
+        
         public void TakeDamage(int damage)
         {
             _health -= damage;
             if (_health <= 0)
-                _isDeath = true;
+                OnDeath();
         }
 
         public Transform GetTransform() => transform;

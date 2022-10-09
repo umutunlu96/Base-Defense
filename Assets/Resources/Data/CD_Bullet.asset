@@ -23,11 +23,11 @@ MonoBehaviour:
       SpawnDelay: 0.75
       MoveSpeed: 15
       Damage: 5
-    - AutoDestroyTime: 4
+    - AutoDestroyTime: 3
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 3
-    - AutoDestroyTime: 5
+    - AutoDestroyTime: 3
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 4
@@ -35,11 +35,11 @@ MonoBehaviour:
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 7
-    - AutoDestroyTime: 8
+    - AutoDestroyTime: 3
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 8
-    - AutoDestroyTime: 5
+    - AutoDestroyTime: 3
       SpawnDelay: 0.25
       MoveSpeed: 10
-      Damage: 8
+      Damage: 5
