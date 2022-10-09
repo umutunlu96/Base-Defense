@@ -24,7 +24,7 @@ namespace StateMachine.Enemy
         #region Serialized
 
         [SerializeField] private EnemyAnimationController animationController;
-        [SerializeField] private Renderer renderer;
+        [SerializeField] private SkinnedMeshRenderer sMeshRenderer;
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private NavMeshObstacle navMeshObstacle;
         [SerializeField] private Animator animator;
@@ -50,7 +50,6 @@ namespace StateMachine.Enemy
         private bool _reachedAtTheBase;
         private bool _attacked;
         private bool _attackAnimEnded;
-        // private bool _deathAnimEnded;
         private bool _isDeath = false;
         private bool _isAlive = true;
         private static readonly int Idle = Animator.StringToHash("Idle");
@@ -118,7 +117,7 @@ namespace StateMachine.Enemy
             var chasePlayer = new Chase(this, animator, navMeshAgent, _chaseUpdateSpeed);
             var attack = new Attack(this, animator, navMeshAgent, navMeshObstacle);
             var reachedBase = new ReachedBase(this, animator, navMeshAgent, navMeshObstacle);
-            var death = new Death(this, animator, renderer, EnemyType);
+            var death = new Death(this, animator, EnemyType);
 
             At(moveToBase, chasePlayer, CanChasePlayer());
             At(chasePlayer, attack, IsInAttackRange());
@@ -185,18 +184,25 @@ namespace StateMachine.Enemy
         {
             _health = _enemyData.Health;
             animator.SetTrigger(Idle);
-            // renderer.material.SetFloat("_Saturation", 1);
+            ChangeSaturation(1, 1, .1f);
             navMeshAgent.enabled = true;
             _isDeath = false;
             _isAlive = true;
             ReachedAtBase = false;
         }
 
+        private void ChangeSaturation(float saturation, float brightness, float duration)
+        {
+            sMeshRenderer.material.DOFloat(saturation,"_Saturation", duration);
+            sMeshRenderer.material.DOFloat(brightness,"_Brightness", duration);
+        }
+        
         private void OnDeath()
         {
             _isDeath = true;
             navMeshAgent.enabled = false;
             transform.DOMoveY(-.5f, .2f);
+            ChangeSaturation(.25f, .25f, .5f);
         }
         
         public void TakeDamage(int damage)

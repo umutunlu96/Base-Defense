@@ -129,7 +129,7 @@ MonoBehaviour:
   EnemyType: 0
   CurrentTarget: {fileID: 0}
   animationController: {fileID: 3750817025692002671}
-  renderer: {fileID: 5704263202153382710}
+  sMeshRenderer: {fileID: 5704263202153382710}
   navMeshAgent: {fileID: 4255279260966684481}
   navMeshObstacle: {fileID: 2716516609493755859}
   animator: {fileID: 5704263202157542902}
