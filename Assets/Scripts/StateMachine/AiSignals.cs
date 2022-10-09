@@ -39,7 +39,7 @@ namespace StateMachine
         public Action<Transform> onEnemyDead;
         public Func<Transform> onGetBaseAttackPoint;
         public Action<IDamageable> onEnemyAIDead;
-
+        public Action<bool> onPlayerIsAtOutside;
         #endregion
 
         #region MoneyWorker

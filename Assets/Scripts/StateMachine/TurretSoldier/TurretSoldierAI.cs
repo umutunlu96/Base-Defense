@@ -142,12 +142,8 @@ namespace StateMachine.TurretSoldier
             GameObject bullet = GetBullet();
             bullet.GetComponent<Bullet>().Shoot(turretMuzzle.rotation);
             _ammo--;
-            print(_ammo);
             if (_ammo == 0)
-            {
                 manager.LoadAmmo(turret);
-                print("ammo loaded");
-            }
         }
         
         private void OnTriggerEnter(Collider other)

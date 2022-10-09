@@ -5,6 +5,7 @@ using Enums;
 using Keys;
 using Signals;
 using Sirenix.OdinInspector.Editor.Drawers;
+using StateMachine;
 using UnityEngine;
 
 namespace Managers
@@ -143,8 +144,9 @@ namespace Managers
         
         public void OnEnterBase()
         {
+            AiSignals.Instance.onPlayerIsAtOutside?.Invoke(false);
             int layerIgnoreRaycastOutside = LayerMask.NameToLayer("Empty");
-            transform.gameObject.layer = layerIgnoreRaycastOutside;
+            physicsController.gameObject.layer = layerIgnoreRaycastOutside;
             enemyDetection.gameObject.layer = layerIgnoreRaycastOutside;
             animationController.DisableAimLayer();
             aimController.DisableAimRig();
@@ -152,9 +154,10 @@ namespace Managers
         
         public void OnExitBase()
         {
+            AiSignals.Instance.onPlayerIsAtOutside?.Invoke(true);
             int layerIgnoreRaycastInsidePlayer = LayerMask.NameToLayer("Player");
             int layerIgnoreRaycastInsideAttackRadius = LayerMask.NameToLayer("PlayerAttackRadius");
-            transform.gameObject.layer = layerIgnoreRaycastInsidePlayer;
+            physicsController.gameObject.layer = layerIgnoreRaycastInsidePlayer;
             enemyDetection.gameObject.layer = layerIgnoreRaycastInsideAttackRadius;
             animationController.EnableAimLayer();
             aimController.EnableAimRig(_weaponType);

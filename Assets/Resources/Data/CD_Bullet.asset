@@ -18,7 +18,7 @@ MonoBehaviour:
     - AutoDestroyTime: 3
       SpawnDelay: 0.5
       MoveSpeed: 15
-      Damage: 2
+      Damage: 0
     - AutoDestroyTime: 2
       SpawnDelay: 0.75
       MoveSpeed: 15

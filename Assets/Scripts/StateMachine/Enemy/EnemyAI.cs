@@ -142,7 +142,7 @@ namespace StateMachine.Enemy
             Func<bool> IsAlive() => () => _isAlive;
             
         }
-
+        
         private void Update()
         {
             if(!_isAlive) return;
