@@ -13,21 +13,21 @@ MonoBehaviour:
   m_Name: CD_Level
   m_EditorClassIdentifier: 
   Levels:
-  - FrondYardData:
-      StageDatas:
-      - BuyState: 0
-        Cost: 10
+  - frontYardData:
+      ForceFieldData:
+      - Key: ForceFieldData
+        Cost: 15
         PayedAmount: 0
-      - BuyState: 0
+      - Key: ForceFieldData
         Cost: 20
         PayedAmount: 0
-      - BuyState: 0
-        Cost: 30
+      - Key: ForceFieldData
+        Cost: 25
         PayedAmount: 0
       FrondYardItemsDatas:
-      - BombCost: 100
-        BombWaitTime: 120
-        BombExplodeTimer: 10
+      - BombCost: 50
+        BombWaitTime: 60
+        BombExplodeTimer: 0
     BaseData:
       BaseRoomData:
         RoomDatas:

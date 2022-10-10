@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace Data.ValueObject.Base
 {   
     [Serializable]
-    public class FrondYardData
+    public class FrontYardData
     {
         public List<ForceFieldData> ForceFieldData;
-        public List<FrondYardItemsData> FrondYardItemsDatas;
+        public List<FrontYardItemsData> FrondYardItemsDatas;
     }
 }

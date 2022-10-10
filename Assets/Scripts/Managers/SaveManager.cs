@@ -55,6 +55,9 @@ namespace Managers
 
             SaveLoadSignals.Instance.onSaveTurretData += _saveGameCommand.Execute;
             SaveLoadSignals.Instance.onLoadTurretData += _loadGameCommand.Execute<TurretData>;
+
+            SaveLoadSignals.Instance.onSaveForceFieldData += _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadForceFieldData += _loadGameCommand.Execute<ForceFieldData>;
         }
 
         private void UnsubscribeEvents()
@@ -73,6 +76,9 @@ namespace Managers
             
             SaveLoadSignals.Instance.onSaveTurretData -= _saveGameCommand.Execute;
             SaveLoadSignals.Instance.onLoadTurretData -= _loadGameCommand.Execute<TurretData>;
+            
+            SaveLoadSignals.Instance.onSaveForceFieldData -= _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadForceFieldData -= _loadGameCommand.Execute<ForceFieldData>;
         }
         private void OnDisable()
         {

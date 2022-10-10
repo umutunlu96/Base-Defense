@@ -1,6 +1,5 @@
 ﻿using System;
 using Abstract;
-using UnityEngine;
 
 namespace Data.ValueObject.Base
 {   

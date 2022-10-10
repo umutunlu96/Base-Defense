@@ -6,7 +6,7 @@ namespace Data.ValueObject
     [Serializable]
     public class LevelData
     {
-        public FrondYardData FrondYardData;
+        public FrontYardData frontYardData;
         public BaseData BaseData;
     }
 }

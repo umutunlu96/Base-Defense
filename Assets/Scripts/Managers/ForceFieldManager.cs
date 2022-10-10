@@ -1,4 +1,5 @@
-﻿using Abstract;
+﻿using System.Collections;
+using Abstract;
 using Controllers;
 using Data.ValueObject.Base;
 using Signals;
@@ -8,12 +9,11 @@ namespace Managers
 {
     public class ForceFieldManager : MonoBehaviour, ISaveable
     {
-        [SerializeField] private TurretManager turretManager;
         [SerializeField] private ForceFieldPhysicController buyAreaController;
-        [SerializeField] private GameObject areaToOpen;
+        [SerializeField] private GameObject areaToClose;
         [SerializeField] private float buyDelay = 0.05f;
-        
-        public RoomData Data;
+        [HideInInspector] public ForceFieldData Data;
+
         public int Identifier = 0; //Setted by BaseManager
         private int UniqueId;
         private int LevelId;
@@ -21,39 +21,37 @@ namespace Managers
         
         private int GetLevelID => LevelSignals.Instance.onGetLevelID();
         
-        public void SetData(RoomData roomData, int identifier)
+        public void SetData(ForceFieldData forceFieldData, int identifier)
         {
             Identifier = identifier;
             UniqueId = GetLevelID * 10 + Identifier;
 
-            if (!ES3.FileExists($"RoomData{UniqueId}.es3"))
+            if (!ES3.FileExists($"ForceFieldData{UniqueId}.es3"))
             {
-                if (!ES3.KeyExists("RoomData"))
+                if (!ES3.KeyExists("ForceFieldData"))
                 {
-                    Data = roomData;
+                    Data = forceFieldData;
                     Save(UniqueId);
                 }
             }
             Load(UniqueId);
             CheckData();
-            turretManager.SetData();
         }
-
-        public int ReturnUniqueId() => UniqueId;
 
         private void CheckData()
         {
+            buyAreaController.UpdatePayedAmountText(Data.PayedAmount, Data.Cost);
             if (Data.PayedAmount < Data.Cost) return;
-            areaToOpen.SetActive(true); buyAreaController.gameObject.SetActive(false); Save(UniqueId);
+            areaToClose.SetActive(false); buyAreaController.gameObject.SetActive(false); Save(UniqueId);
         }
         
         public void OnPlayerEnter()
         {
-            int playerMoney = ScoreSignals.Instance.onGetMoneyAmount();
-            int moneyToPay = Data.Cost - Data.PayedAmount;
+            int playerDiamond = ScoreSignals.Instance.onGetDiamondAmount();
+            int diamondToPay = Data.Cost - Data.PayedAmount;
             
-            if(PlayerSignals.Instance.onIsPlayerMoving() && playerMoney < Data.Cost) return;
-            if (playerMoney >= Data.Cost && moneyToPay > 0)
+            if(PlayerSignals.Instance.onIsPlayerMoving() && playerDiamond < Data.Cost) return;
+            if (playerDiamond >= Data.Cost && diamondToPay > 0)
             {
                 if (!_playerEntered)
                 {
@@ -83,17 +81,15 @@ namespace Managers
                 Data.PayedAmount++;
                 buyAreaController.UpdatePayedAmountText(Data.PayedAmount,Data.Cost);
                 buyAreaController.SetRadialFilletAmount(false,Data.PayedAmount,Data.Cost);
-                ScoreSignals.Instance.onSetMoneyAmount?.Invoke(-1);
+                ScoreSignals.Instance.onSetDiamondAmount?.Invoke(-1);
                 yield return new WaitForSeconds(buyDelay);
             }
         }
         
-
         #region Save-Load
 
-        public void OnSave(TurretData turretData)
+        public void OnSave()
         {
-            Data.TurretData = turretData;
             Save(UniqueId);
         }
 
@@ -104,48 +100,16 @@ namespace Managers
         
         public void Save(int uniqueId)
         {
-            Data = new RoomData(Data.Cost, Data.PayedAmount, Data.TurretData);
-            SaveLoadSignals.Instance.onSaveRoomData?.Invoke(Data,uniqueId);
+            Data = new ForceFieldData(Data.Cost, Data.PayedAmount);
+            SaveLoadSignals.Instance.onSaveForceFieldData?.Invoke(Data,uniqueId);
         }
 
         public void Load(int uniqueId)
         {
-            RoomData roomData = SaveLoadSignals.Instance.onLoadRoomData?.Invoke(Data.Key,uniqueId);
-            Data.Cost = roomData.Cost;
-            Data.PayedAmount = roomData.PayedAmount;
-            Data.TurretData = roomData.TurretData;
-            turretManager.Data = Data.TurretData;
+            ForceFieldData forceFieldData = SaveLoadSignals.Instance.onLoadForceFieldData?.Invoke(Data.Key,uniqueId);
+            Data.Cost = forceFieldData.Cost;
+            Data.PayedAmount = forceFieldData.PayedAmount;
         }
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #region Save-Load
-        public void Save(int uniqueId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Load(int uniqueId)
-        {
-            throw new System.NotImplementedException();
-        }
-        #endregion
-
     }
 }

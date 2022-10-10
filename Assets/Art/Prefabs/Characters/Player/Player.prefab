@@ -194,7 +194,7 @@ MonoBehaviour:
   meshController: {fileID: 0}
   aimController: {fileID: 1834083629}
   animationController: {fileID: 6246555519495116792}
-  enemyDetection: {fileID: 7877415330320333880}
+  attackRadius: {fileID: 7877415330320333880}
   stackController: {fileID: 6011431477936480369}
 --- !u!114 &1892333598
 MonoBehaviour:

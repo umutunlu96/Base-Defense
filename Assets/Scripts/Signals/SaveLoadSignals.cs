@@ -22,6 +22,9 @@ namespace Signals
         public Action<TurretData, int> onSaveTurretData;
         public Func<string, int, TurretData> onLoadTurretData;
 
+        public Action<ForceFieldData, int> onSaveForceFieldData;
+        public Func<string, int, ForceFieldData> onLoadForceFieldData;
+
         public Action<ScoreParams, int> onSaveScoreParams;
         public Func<string, int, ScoreParams> onLoadScoreParams;
     }

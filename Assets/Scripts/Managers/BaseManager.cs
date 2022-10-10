@@ -18,7 +18,7 @@ namespace Managers
         #region Public
 
         public BaseData BaseData;
-        public FrondYardData FrontYardData;
+        public FrontYardData FrontYardData;
         
         #endregion
 
@@ -52,7 +52,8 @@ namespace Managers
             BaseData;
 
         private void GetFrontyardData() =>
-            FrontYardData = Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelID - 1].FrondYardData;
+            FrontYardData = Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelID - 1].
+                frontYardData;
 
         private void Start()
         {

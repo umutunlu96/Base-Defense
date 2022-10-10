@@ -22,7 +22,7 @@ namespace Managers
         [SerializeField] private PlayerMeshController meshController;
         [SerializeField] private PlayerAimController aimController;
         [SerializeField] private PlayerAnimationController animationController;
-        [SerializeField] private Transform enemyDetection;
+        [SerializeField] private Transform attackRadius;
         [SerializeField] private PlayerStackController stackController;
         #endregion Seriliazed Field
 
@@ -147,7 +147,7 @@ namespace Managers
             AiSignals.Instance.onPlayerIsAtOutside?.Invoke(false);
             int layerIgnoreRaycastOutside = LayerMask.NameToLayer("Empty");
             physicsController.gameObject.layer = layerIgnoreRaycastOutside;
-            enemyDetection.gameObject.layer = layerIgnoreRaycastOutside;
+            attackRadius.gameObject.layer = layerIgnoreRaycastOutside;
             animationController.DisableAimLayer();
             aimController.DisableAimRig();
         }
@@ -158,7 +158,7 @@ namespace Managers
             int layerIgnoreRaycastInsidePlayer = LayerMask.NameToLayer("Player");
             int layerIgnoreRaycastInsideAttackRadius = LayerMask.NameToLayer("PlayerAttackRadius");
             physicsController.gameObject.layer = layerIgnoreRaycastInsidePlayer;
-            enemyDetection.gameObject.layer = layerIgnoreRaycastInsideAttackRadius;
+            attackRadius.gameObject.layer = layerIgnoreRaycastInsideAttackRadius;
             animationController.EnableAimLayer();
             aimController.EnableAimRig(_weaponType);
             DropAllAmmoToGround();

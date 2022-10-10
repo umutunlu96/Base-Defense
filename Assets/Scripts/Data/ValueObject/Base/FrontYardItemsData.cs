@@ -3,7 +3,7 @@
 namespace Data.ValueObject.Base
 {
     [Serializable]
-    public class FrondYardItemsData
+    public class FrontYardItemsData
     {
         public int BombCost;
         public int BombWaitTime;
