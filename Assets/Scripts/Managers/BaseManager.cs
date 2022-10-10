@@ -18,6 +18,7 @@ namespace Managers
         #region Public
 
         public BaseData BaseData;
+        public FrondYardData FrontYardData;
         
         #endregion
 
@@ -26,7 +27,8 @@ namespace Managers
         [SerializeField] private List<RoomManager> roomManagers;
         [SerializeField] private List<TurretManager> turretManagers;
         [SerializeField] private List<Transform> baseAttackPoints;
-        
+        [SerializeField] private List<ForceFieldManager> forceFieldManagers;
+
         [SerializeField] private TextMeshPro baseText;
         [SerializeField] private Transform mineBaseTransform;
         [SerializeField] private Transform baseTransform;
@@ -49,9 +51,13 @@ namespace Managers
         private void GetBaseData() => BaseData =  Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelID-1].
             BaseData;
 
+        private void GetFrontyardData() =>
+            FrontYardData = Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelID - 1].FrondYardData;
+
         private void Start()
         {
             GetBaseData();
+            GetFrontyardData();
             SetDataToManagers();
             baseText.text = $"Base {GetLevelID}";
         }
@@ -61,6 +67,11 @@ namespace Managers
             for (int i = 0; i < roomManagers.Count; i++)
             {
                 roomManagers[i].SetData(BaseData.BaseRoomData.RoomDatas[i], i);
+            }
+
+            for (int i = 0; i < forceFieldManagers.Count; i++)
+            {
+                forceFieldManagers[i].SetData(FrontYardData.ForceFieldData[i], i);
             }
         }
         

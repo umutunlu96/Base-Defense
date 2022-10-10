@@ -6,7 +6,7 @@ namespace Data.ValueObject.Base
     [Serializable]
     public class FrondYardData
     {
-        public List<StageData> StageDatas;
+        public List<ForceFieldData> ForceFieldData;
         public List<FrondYardItemsData> FrondYardItemsDatas;
     }
 }

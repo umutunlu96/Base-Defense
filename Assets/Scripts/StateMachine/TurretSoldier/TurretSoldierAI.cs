@@ -119,7 +119,6 @@ namespace StateMachine.TurretSoldier
             {
                 IsPlayerUsingTurret = false;
                 PlayerSignals.Instance.onPlayerLeaveTurretArea?.Invoke();
-                print("Player exited turret");
             }
 
             if (_inputParams.movementVector.x < 0.05f)
@@ -131,7 +130,6 @@ namespace StateMachine.TurretSoldier
                 turret.rotation = Quaternion.Slerp(turret.rotation,Quaternion.Euler(0,60,0), Time.deltaTime);
             }
         }
-        
         
         public void UpdateAmmo(int ammo) => _ammo += ammo * 4;
 

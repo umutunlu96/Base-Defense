@@ -4,7 +4,7 @@ using Enums;
 namespace Data.ValueObject.Base
 {
     [Serializable]
-    public class StageData
+    public class ForceFieldData
     {
         public BuyState BuyState;
         
