@@ -81,7 +81,7 @@ namespace StateMachine.TurretSoldier
         private void SoldierAiUsingTurret()
         {
             if(!HasSoldier) return;
-            if (_canShoot && _ammo > 0 && enemies.Count > 0)
+            if (_canShoot && enemies.Count > 0)
             {
                 float singleStep = Time.deltaTime * 2;
                 Vector3 targetDirection = enemies[0].position - turret.position;
@@ -92,8 +92,10 @@ namespace StateMachine.TurretSoldier
                 _timer += Time.deltaTime;
                 if (_timer > .5f)
                 {
+                    LoadAmmo();
                     if (enemies.Count == 0) return;
-                    Shoot();
+                    if (_ammo > 0)
+                        Shoot();
                     _timer = 0;
                 }
             }
@@ -140,8 +142,12 @@ namespace StateMachine.TurretSoldier
             GameObject bullet = GetBullet();
             bullet.GetComponent<Bullet>().Shoot(turretMuzzle.rotation);
             _ammo--;
-            if (_ammo == 0)
-                manager.LoadAmmo(turret);
+        }
+
+        private void LoadAmmo()
+        {
+            if(_ammo > 0) return;
+            manager.LoadAmmo(turret);
         }
         
         private void OnTriggerEnter(Collider other)

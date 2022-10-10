@@ -2,6 +2,7 @@
 using Data.UnityObject;
 using Data.ValueObject;
 using Enums;
+using Signals;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -135,6 +136,7 @@ namespace StateMachine.MoneyWorkerAI
         public void DropMoney()
         {
             if(_collectedMoney == 0 && !IsAtBase) return;
+            ScoreSignals.Instance.onSetMoneyAmount?.Invoke(_collectedMoney * 10);
             stackManager.RemoveStackAll();
             _collectedMoney = 0;
         }
