@@ -168,11 +168,13 @@ namespace Managers
 
         public void StackAmmo() => stackController.StackAmmo();
 
-        public void StopStackAmmo() => stackController.CanStackAmmo = true;
+        public void StopStackAmmo() => stackController.CanStackAmmo = false;
         
         public void DropMoneyToBase() => stackController.DropAllMoney();
         
         public void DropAmmoToTurret(TurretManager turretManager) => stackController.DropAmmo(turretManager);
+
+        public void StopDropAmmoToTurret() => stackController.CanDropAmmo = false;
 
         public void DropAllAmmoToGround() => stackController.DropAllAmmoToGround();
 

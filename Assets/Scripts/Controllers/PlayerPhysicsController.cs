@@ -70,6 +70,11 @@ namespace Controllers
             {
                 _manager.StopStackAmmo();
             }
+            
+            if (other.CompareTag("TurretAmmoHolder"))
+            {
+                _manager.StopDropAmmoToTurret();
+            }
         }
     }
 }

@@ -25,12 +25,11 @@ namespace Controllers
         private int _moneyCount;
 
         private bool _canStackAmmo;
+        private bool _canDropAmmo;
 
-        public bool CanStackAmmo
-        {
-            get => _canStackAmmo;
-            set => _canStackAmmo = value;
-        }
+        public bool CanStackAmmo {get => _canStackAmmo; set => _canStackAmmo = value;}
+        
+        public bool CanDropAmmo {get => _canDropAmmo; set => _canDropAmmo = value;}
         
         private void Start()
         {
@@ -68,43 +67,46 @@ namespace Controllers
 
         private GameObject GetAmmo() => PoolSignals.Instance.onGetPoolObject?.Invoke("Ammo", transform);
 
-        public void StackAmmo()
-            {
-                CanStackAmmo = true;
-                StartCoroutine(StackAmmos());
-            }
+        public void StackAmmo() 
+        {
+            CanStackAmmo = true;
+            StackAmmos();
+        }
             
-            private IEnumerator StackAmmos()
-            {
-                while (_ammoCount < ammoStackData.Capacity && CanStackAmmo)
-                {
-                    _ammoCount++;
-                    ammoStack.AddStack(GetAmmo().transform);
-                    yield return new WaitForSeconds(.2f);
-                }
+        private async void StackAmmos()
+        {
+            if(_ammoCount < ammoStackData.Capacity && CanStackAmmo)
+            { 
+                _ammoCount++; 
+                ammoStack.AddStack(GetAmmo().transform);
+                await Task.Delay(200);
+                StackAmmos();
             }
+        }
             
-            public void DropAmmo(TurretManager turretManager)
-            {
-                StartCoroutine(DropAmmunition(turretManager));
-            }
+        public void DropAmmo(TurretManager turretManager)
+        {
+            CanDropAmmo = true;
+            DropAmmunition(turretManager);
+        }
             
-            private IEnumerator DropAmmunition(TurretManager turretManager)
+        private async void DropAmmunition(TurretManager turretManager)
+        {
+            if(turretManager.GetCurrentEmptyAmmoCount() > 0 && _ammoCount > 0 && CanDropAmmo)
             {
-                while (turretManager.GetCurrentEmptyAmmoCount() > 0 && _ammoCount > 0)
-                {
-                    turretManager.PlaceAmmoToGround(ammoStack.GetStackedObject());
-                    _ammoCount--;
-                    yield return new WaitForSeconds(.2f);
-                }
+                turretManager.PlaceAmmoToGround(ammoStack.GetStackedObject());
+                _ammoCount--;
+                await Task.Delay(200);
+                DropAmmunition(turretManager);
             }
+        }
             
-            public void DropAllAmmoToGround()
-            {
-                if(_ammoCount <= 0) return;
-                _ammoCount = 0;
-                ammoStack.RemoveStackAll();
-            }
+        public void DropAllAmmoToGround() 
+        {
+            if(_ammoCount <= 0) return;
+            _ammoCount = 0;
+            ammoStack.RemoveStackAll();
+        }
         
         #endregion
     }
