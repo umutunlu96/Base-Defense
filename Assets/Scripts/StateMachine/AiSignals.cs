@@ -4,7 +4,7 @@ using Abstract;
 using Enums;
 using Extentions;
 using Managers;
-using StateMachine.Enemy;
+using StateMachine.Soldier;
 using UnityEngine;
 
 namespace StateMachine
@@ -29,8 +29,13 @@ namespace StateMachine
 
         #region Soldier
 
-        public Func<Transform> onGetSoldierTentArea;
-        public Func<Transform> onGetWaitSlotArea;
+        public Func<Transform> onGetMilitaryBaseTentEnterenceTransform;
+        public Func<Transform> onGetMilitaryBaseTentTransform;
+        public Action<Transform> onCandidateEnteredMilitaryArea;
+        public Func<Transform> onGetSoldierWaitTransform;
+        public Func<Transform> onGetOutsideTransform;
+        public Func<int> onGetCurrentEmptySlotForCandidate;
+        public Action onAttackAllSoldiers;
 
         #endregion
 

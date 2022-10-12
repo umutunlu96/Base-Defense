@@ -20,6 +20,7 @@
         RifleBullet,
         GrenadeLauncherBullet,
         MiniGunBullet,
-        TurretGunBullet
+        TurretGunBullet,
+        Soldier
     }
 }

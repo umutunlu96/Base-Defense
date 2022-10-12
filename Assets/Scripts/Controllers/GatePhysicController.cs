@@ -10,13 +10,13 @@ namespace Controllers
         
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player") || other.CompareTag("Worker"))
+            if(other.CompareTag("Player") || other.CompareTag("Worker") || other.CompareTag("Soldier"))
                 manager.OpenTheGate();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if(other.CompareTag("Player") || other.CompareTag("Worker"))
+            if(other.CompareTag("Player") || other.CompareTag("Worker") || other.CompareTag("Soldier"))
                 manager.CloseTheGate();
         }
     }

@@ -19,6 +19,16 @@ namespace StateMachine.Hostage
             {
                 _manager.MakeMeAMiner();
             }
+
+            if (other.CompareTag("MilitaryBase"))
+            {
+                _manager.MakeMeACandidateSoldier();
+            }
+            
+            if (other.CompareTag("MilitaryTent"))
+            {
+                _manager.ReturnMeToPool();
+            }
         }
     }
 }

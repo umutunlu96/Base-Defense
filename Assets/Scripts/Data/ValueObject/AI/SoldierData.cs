@@ -9,8 +9,9 @@ namespace Data.ValueObject.AI
         public int Damage;
         public int AttackRate;
         public float AttackRange;
-        public float ChaseRange;
+        public float SearchRange;
         public float ChaseUpdateSpeed = .2f;
         public float RunSpeed;
+        public float WaitTime;
     }
 }

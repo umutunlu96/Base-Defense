@@ -23,6 +23,10 @@ TagManager:
   - Collectable
   - TurretAmmoHolder
   - Ammo
+  - MilitaryBase
+  - SoldierAttackTrigger
+  - MilitaryTent
+  - Soldier
   layers:
   - Default
   - TransparentFX
@@ -44,8 +48,8 @@ TagManager:
   - Gate
   - TurretAttackRadius
   - ForceField
-  - 
-  - 
+  - Soldier
+  - SoldierAttackRadius
   - 
   - 
   - 

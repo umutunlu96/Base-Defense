@@ -33,27 +33,27 @@ MonoBehaviour:
         RoomDatas:
         - Key: RoomData
           Cost: 50
-          PayedAmount: 50
+          PayedAmount: 0
           TurretData:
             Key: TurretData
             Cost: 50
-            PayedAmount: 50
+            PayedAmount: 0
             AmmoCapacity: 15
         - Key: RoomData
           Cost: 50
-          PayedAmount: 50
+          PayedAmount: 0
           TurretData:
             Key: TurretData
             Cost: 50
-            PayedAmount: 50
+            PayedAmount: 0
             AmmoCapacity: 15
         - Key: RoomData
           Cost: 50
-          PayedAmount: 50
+          PayedAmount: 0
           TurretData:
             Key: TurretData
             Cost: 50
-            PayedAmount: 50
+            PayedAmount: 0
             AmmoCapacity: 15
       MineBaseData:
         MaxWorkerAmount: 10
@@ -63,15 +63,12 @@ MonoBehaviour:
         MineCardCapacity: 0
         Key: MineBaseData
       MilitaryBaseData:
-        MaxSoldierAmount: 0
-        CandidateAmount: 0
+        MaxSoldierAmount: 8
+        MaxCandidateAmount: 12
         CurrentSoldierAmount: 0
-        SoldierUpgradeTimer: 0
-        SoldierSlotCost: 0
-        SlotCount: 0
-        Slots: []
-        AttackTimer: 0
-        Key: 
+        SoldierUpgradeTimer: 5
+        SoldierSlotCost: 500
+        AttackTimer: 2
       AmmoWorkerData:
         BuyState: 0
         AmmoWorkerCost: 100

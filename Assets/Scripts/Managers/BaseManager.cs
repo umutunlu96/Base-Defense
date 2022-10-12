@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Data.UnityObject;
 using Data.ValueObject.Base;
 using Signals;
 using StateMachine;
-using StateMachine.Enemy;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -34,6 +32,8 @@ namespace Managers
         [SerializeField] private Transform baseTransform;
         [SerializeField] private Transform outDoorTransform;
         [SerializeField] private Transform ammoWarehouse;
+        [SerializeField] private Transform outsideTransform;
+        
         
         #endregion
 
@@ -90,6 +90,7 @@ namespace Managers
             AiSignals.Instance.onGetBaseTransform += OnGetBaseTransform;
             AiSignals.Instance.onGetAmmoWarehouseTransform += OnGetAmmoWarehouseTransform;
             AiSignals.Instance.onGetTurretManagers += OnGetTurretManagers;
+            AiSignals.Instance.onGetOutsideTransform += OnGetOutsideTransform;
         }
         
         private void UnSubscribeEvents()
@@ -99,6 +100,7 @@ namespace Managers
             AiSignals.Instance.onGetBaseTransform -= OnGetBaseTransform;
             AiSignals.Instance.onGetAmmoWarehouseTransform -= OnGetAmmoWarehouseTransform;
             AiSignals.Instance.onGetTurretManagers -= OnGetTurretManagers;
+            AiSignals.Instance.onGetOutsideTransform -= OnGetOutsideTransform;
         }
 
         private void OnDisable()
@@ -125,6 +127,8 @@ namespace Managers
         private Transform OnGetAmmoWarehouseTransform() => ammoWarehouse;
 
         private List<TurretManager> OnGetTurretManagers() => turretManagers;
+
+        private Transform OnGetOutsideTransform() => outsideTransform;
 
         #endregion
     }

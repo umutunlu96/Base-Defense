@@ -2,7 +2,6 @@
 using Abstract;
 using Data.UnityObject;
 using Data.ValueObject.AI;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,49 +12,90 @@ namespace StateMachine.Soldier
         [SerializeField] private SoldierAimController aimController;
         [SerializeField] private EnemyFinder enemyFinder;
         [SerializeField] private NavMeshAgent navMeshAgent;
+        [SerializeField] private Animator animator;
+        
+        public Transform enemyTarget;
         private SoldierData _soldierData;
         private StateMachine _stateMachine;
-        private Transform _baseTarget;
+        public Transform _soldierWaitTransform;
+        public Transform _outsideTransform;
         
-        [ShowInInspector] private int _health;
-        [ShowInInspector] private int _damage;
-        [ShowInInspector] private int _attackRate;
-        [ShowInInspector] private float _attackRange;
-        [ShowInInspector] private float _chaseRange;
-        [ShowInInspector] private float _chaseUpdateSpeed;
-        [ShowInInspector] private float _runSpeed;
-        private bool _isAlive = true;
+        [Header("Datas")]
+        public int Health;
+        public int Damage;
+        public int AttackRate;
+        public float AttackRange;
+        public float SearchRange;
+        public float ChaseUpdateSpeed;
+        public float RunSpeed;
+        public float WaitTime;
         
-        /// Wait State - player attack butonuna basana kadar bu state de kalacak.
-        /// Search - Attack basıldıktan sonra enemy search çalışacak.
-        /// Move - bulunca enemy e doğru yürüyecek.
-        /// Attack - attack rangesine girince enemy durup ateş edecek
-        /// Death - can<= 0 sa ölecek.
-        ///
-        ///
 
+        private bool _isAlive = true;
+        private bool _isPlayerCallForAttack;
+        public bool IsReachedOutside;
+        public bool canAttack;
+        
         private void Awake()
         {
             _soldierData = GetData();
-            InitEnemyDatas();
+            InitDatas();
         }
 
         private SoldierData GetData() => Resources.Load<CD_Soldier>("Data/CD_Soldier").SoldierData;
 
-        private void InitEnemyDatas()
+        #region EventSubscription
+
+        private void OnEnable()
         {
-            _health = _soldierData.Health;
-            _damage = _soldierData.Damage;
-            _attackRate = _soldierData.AttackRate;
-            _attackRange = _soldierData.AttackRange;
-            _chaseRange = _soldierData.ChaseRange;
-            _chaseUpdateSpeed = _soldierData.ChaseUpdateSpeed;
-            _runSpeed = _soldierData.RunSpeed;
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            AiSignals.Instance.onAttackAllSoldiers += OnPlayerCallForAttack;
+        }
+        
+        private void UnSubscribeEvents()
+        {
+            AiSignals.Instance.onAttackAllSoldiers -= OnPlayerCallForAttack;
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
+        #endregion
+
+        #region Event Functions
+
+        private void OnPlayerCallForAttack() => _isPlayerCallForAttack = true;
+
+        #endregion
+        
+        private void InitDatas()
+        {
+            Health = _soldierData.Health;
+            Damage = _soldierData.Damage;
+            AttackRate = _soldierData.AttackRate;
+            AttackRange = _soldierData.AttackRange;
+            SearchRange = _soldierData.SearchRange;
+            ChaseUpdateSpeed = _soldierData.ChaseUpdateSpeed;
+            RunSpeed = _soldierData.RunSpeed;
+            WaitTime = _soldierData.WaitTime;
         }
         
         private void Start()
         {
+            GetMilitaryLocationTransforms();
             InitAI();
+        }
+        
+        private void GetMilitaryLocationTransforms()
+        {
+            _soldierWaitTransform = AiSignals.Instance.onGetSoldierWaitTransform();
+            _outsideTransform = AiSignals.Instance.onGetOutsideTransform();
         }
 
         private void Update()
@@ -67,32 +107,43 @@ namespace StateMachine.Soldier
         {
             _stateMachine = new StateMachine();
             
+            var wait = new Wait(this, animator, navMeshAgent, _soldierWaitTransform);
+            var moveOutside = new MoveOutside(this, animator, navMeshAgent,_outsideTransform);
+            var search = new Search(this, animator, navMeshAgent, enemyFinder);
+            var move = new Move(this, animator, navMeshAgent);
+            var attack = new Attack(this, animator, navMeshAgent, enemyFinder);
+            var death = new Death();
             
+            At(wait, moveOutside, IsPlayerCalledForAttack());
+            At(moveOutside, search, IsAtOutside());
+            At(search, move, HasFoundEnemy());
+            At(move, attack, EnemyInAttackRange());
+            At(attack, search, IsKilledEnemy());
             
-            
-            
-            
-            
-            
+            _stateMachine.AddAnyTransition(death, IsDead());
+
+            _stateMachine.SetState(wait);
             
             void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
+            
+            Func<bool> IsPlayerCalledForAttack() => () => _isPlayerCallForAttack;
+            Func<bool> IsAtOutside() => () => IsReachedOutside;
+            Func<bool> HasFoundEnemy() => () => enemyTarget != null;
+            Func<bool> EnemyInAttackRange() => () => enemyTarget != null && canAttack;
+            Func<bool> IsKilledEnemy() => () => enemyTarget == null && !canAttack;
+            Func<bool> IsDead() => () => Health <= 0;
         }
 
-
-        
-        
-        
-        
         private void OnDeath()
         {
             _isAlive = false;
             navMeshAgent.enabled = false;
         }
-
+        
         public void TakeDamage(int damage)
         {
-            _health -= damage;
-            if (_health <= 0)
+            Health -= damage;
+            if (Health <= 0)
                 OnDeath();
         }
 
