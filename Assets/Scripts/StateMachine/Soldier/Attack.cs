@@ -24,14 +24,6 @@ namespace StateMachine.Soldier
         {
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
             Debug.Log("Attack");
-            if (_soldierAI.enemyTarget != null)
-            {
-                if (!_soldierAI.enemyTarget.gameObject.activeSelf)
-                {
-                    _soldierAI.enemyTarget = null;
-                    _enemyFinder.ResetRadius();
-                }
-            }
         }
 
         public void OnEnter()
@@ -42,7 +34,8 @@ namespace StateMachine.Soldier
 
         public void OnExit()
         {
-            
+            _navMeshAgent.speed = _soldierAI.RunSpeed;
+            _animator.SetFloat(Speed, _navMeshAgent.speed);
         }
     }
 }

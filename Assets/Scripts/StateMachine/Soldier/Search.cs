@@ -27,7 +27,7 @@ namespace StateMachine.Soldier
 
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
             _timer += Time.deltaTime;
-            if (_soldierAI.enemyTarget == null && _timer > _soldierAI.ChaseUpdateSpeed)
+            if (_timer > _soldierAI.ChaseUpdateSpeed)
             {
                 _enemyFinder.IncreaseRaius();
                 _timer = 0;
@@ -40,7 +40,7 @@ namespace StateMachine.Soldier
 
         public void OnEnter()
         {
-            
+            _soldierAI.ChaseTarget = null;
         }
 
         public void OnExit()

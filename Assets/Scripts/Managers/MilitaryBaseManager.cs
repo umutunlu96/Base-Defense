@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Controllers;
 using Data.UnityObject;
 using Data.ValueObject.Base;
 using Signals;
@@ -9,6 +10,7 @@ namespace Managers
 {
     public class MilitaryBaseManager : MonoBehaviour
     {
+        [SerializeField] private MilitaryBaseAttackController attackController; 
         [SerializeField] private Transform militaryBaseTentEnterenceTransform;
         [SerializeField] private Transform militaryBaseTentTransform;
         [SerializeField] private Transform soldierSpawnTransform;
@@ -29,7 +31,7 @@ namespace Managers
         private int _soldierSlotCost;
         private int _attackTimer;
 
-        private bool _canInterractWithPlayer;
+        private bool _canInterractWithPlayer = true;
         
         private MilitaryBaseData GetData() => Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelCount() - 1]
             .BaseData.MilitaryBaseData;
@@ -127,10 +129,8 @@ namespace Managers
 
         public void OnPlayerEnter()
         {
-            if(!_canInterractWithPlayer) return;
-            
             _playerAttackTimer += Time.deltaTime;
-            if (_playerAttackTimer >= _attackTimer)
+            if (_playerAttackTimer >= _attackTimer && _canInterractWithPlayer)
             {
                 OnPlayerPressedAttack();
                 _canInterractWithPlayer = false;
@@ -140,6 +140,7 @@ namespace Managers
         public void OnPlayerExit()
         {
             _canInterractWithPlayer = true;
+            _playerAttackTimer = 0;
         }
         
         public void OnPlayerPressedAttack()

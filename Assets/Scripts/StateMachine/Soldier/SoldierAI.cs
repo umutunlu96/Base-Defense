@@ -14,7 +14,9 @@ namespace StateMachine.Soldier
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Animator animator;
         
-        public Transform enemyTarget;
+        // public Transform ChaseTargett;
+        public IDamageable ChaseTarget;
+        public IDamageable AttackTarget;
         private SoldierData _soldierData;
         private StateMachine _stateMachine;
         public Transform _soldierWaitTransform;
@@ -34,7 +36,8 @@ namespace StateMachine.Soldier
         private bool _isAlive = true;
         private bool _isPlayerCallForAttack;
         public bool IsReachedOutside;
-        public bool canAttack;
+        // public bool canAttack;
+        private float _timer;
         
         private void Awake()
         {
@@ -110,15 +113,17 @@ namespace StateMachine.Soldier
             var wait = new Wait(this, animator, navMeshAgent, _soldierWaitTransform);
             var moveOutside = new MoveOutside(this, animator, navMeshAgent,_outsideTransform);
             var search = new Search(this, animator, navMeshAgent, enemyFinder);
-            var move = new Move(this, animator, navMeshAgent);
+            var move = new Move(this, animator, navMeshAgent, ChaseUpdateSpeed);
             var attack = new Attack(this, animator, navMeshAgent, enemyFinder);
             var death = new Death();
             
             At(wait, moveOutside, IsPlayerCalledForAttack());
             At(moveOutside, search, IsAtOutside());
             At(search, move, HasFoundEnemy());
+            At(move, search, IsNoEnemyTarget());
             At(move, attack, EnemyInAttackRange());
-            At(attack, search, IsKilledEnemy());
+            At(attack, search, IsNoEnemyTarget());
+            At(attack, move, IsNoAttackTarget());
             
             _stateMachine.AddAnyTransition(death, IsDead());
 
@@ -128,9 +133,10 @@ namespace StateMachine.Soldier
             
             Func<bool> IsPlayerCalledForAttack() => () => _isPlayerCallForAttack;
             Func<bool> IsAtOutside() => () => IsReachedOutside;
-            Func<bool> HasFoundEnemy() => () => enemyTarget != null;
-            Func<bool> EnemyInAttackRange() => () => enemyTarget != null && canAttack;
-            Func<bool> IsKilledEnemy() => () => enemyTarget == null && !canAttack;
+            Func<bool> HasFoundEnemy() => () => ChaseTarget != null;
+            Func<bool> EnemyInAttackRange() => () => AttackTarget != null;
+            Func<bool> IsNoEnemyTarget() => () => ChaseTarget == null || ChaseTarget.AmIDeath();
+            Func<bool> IsNoAttackTarget() => () => AttackTarget == null;
             Func<bool> IsDead() => () => Health <= 0;
         }
 

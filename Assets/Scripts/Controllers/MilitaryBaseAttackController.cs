@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using System;
+using Managers;
 using UnityEngine;
 
 namespace Controllers
@@ -8,6 +9,7 @@ namespace Controllers
         [SerializeField] private MilitaryBaseManager manager;
         [SerializeField] private Renderer filledSquareRenderer;
         private float _timer;
+        private float _filletAmount;
         
         public void SetRadialFilletAmount(bool isInitialize)
         {
@@ -18,8 +20,8 @@ namespace Controllers
             else
             {
                 _timer += Time.deltaTime;
-                float filletAmount = 360 - (_timer * 360 / 2);
-                filledSquareRenderer.material.SetFloat("_Arc2", filletAmount);
+                _filletAmount = 360 - (_timer * 360 / 2);
+                filledSquareRenderer.material.SetFloat("_Arc2", _filletAmount);
             }
         }
         
@@ -37,6 +39,7 @@ namespace Controllers
             if (other.CompareTag("Player"))
             {
                 manager.OnPlayerExit();
+                _timer = 0;
                 SetRadialFilletAmount(true);
             }
         }

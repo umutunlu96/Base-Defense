@@ -1,4 +1,5 @@
 ﻿using System;
+using Abstract;
 using UnityEngine;
 
 namespace StateMachine.Soldier
@@ -28,11 +29,12 @@ namespace StateMachine.Soldier
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Enemy") && other.gameObject.activeSelf)
+            IDamageable damageable = other.GetComponent<IDamageable>();
+            // if (damageable != null && !damageable.AmIDeath())
+            if (damageable != null)
             {
-                manager.enemyTarget = other.transform;
+                manager.ChaseTarget = damageable;
                 ResetRadius();
-                print("enemyfound");
             }
         }
     }

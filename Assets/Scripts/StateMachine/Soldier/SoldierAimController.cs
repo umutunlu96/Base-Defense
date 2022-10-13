@@ -59,6 +59,7 @@ namespace StateMachine.Soldier
         {
             Damageables.Remove(damageable);
             Damageables.TrimExcess();
+            soldierAI.AttackTarget = null;
             _closestDamageable = null;
         }
 
@@ -68,12 +69,13 @@ namespace StateMachine.Soldier
             {
                 targetTransform.localPosition = Vector3.Lerp(targetTransform.localPosition,
                     targetInitialTransform.localPosition, Mathf.SmoothStep(0, 1, Time.deltaTime * 12));
-                soldierAI.canAttack = false;
+                soldierAI.AttackTarget = null;
                 return;
             }
             
             if(_closestDamageable == null) return;
             if (_closestDamageable.AmIDeath()) return;
+            soldierAI.AttackTarget = _closestDamageable;
             targetTransform.position = Vector3.Lerp(targetTransform.position,
                 _closestDamageable.GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 24));
         }
@@ -105,7 +107,6 @@ namespace StateMachine.Soldier
             IDamageable damageable = other.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                soldierAI.canAttack = true;
                 Damageables.Add(damageable);
                 if (AttackCoroutine == null)
                 {
@@ -119,7 +120,6 @@ namespace StateMachine.Soldier
             IDamageable damageable = other.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                soldierAI.canAttack = false;
                 Damageables.Remove(damageable);
                 if (Damageables.Count == 0 && AttackCoroutine != null)
                 {
