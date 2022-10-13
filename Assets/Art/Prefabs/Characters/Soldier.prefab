@@ -443,9 +443,9 @@ GameObject:
   - component: {fileID: 7019714422907602364}
   - component: {fileID: 2709983481157749332}
   - component: {fileID: 5072536274336309148}
-  m_Layer: 7
+  m_Layer: 21
   m_Name: AimController
-  m_TagString: Soldier
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1321,7 +1321,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1653191794034229520, guid: edf204ffbbdfbf045b07ca6f2abbb255, type: 3}
+  - {fileID: 2100000, guid: d348582b21ee5104a92fec907aa50484, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1659,7 +1659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6309568769185998560
 Transform:
   m_ObjectHideFlags: 0
@@ -1710,7 +1710,6 @@ MonoBehaviour:
   enemyFinder: {fileID: 6627370251395128291}
   navMeshAgent: {fileID: 4235050299759420384}
   animator: {fileID: 8422295924065925832}
-  enemyTarget: {fileID: 0}
   _soldierWaitTransform: {fileID: 0}
   _outsideTransform: {fileID: 0}
   Health: 0
@@ -1721,7 +1720,7 @@ MonoBehaviour:
   ChaseUpdateSpeed: 0
   RunSpeed: 0
   WaitTime: 0
-  canAttack: 0
+  IsReachedOutside: 0
 --- !u!195 &4235050299759420384
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1818,7 +1817,7 @@ GameObject:
   - component: {fileID: 5579953563212820792}
   - component: {fileID: 3941341196387893204}
   - component: {fileID: 6627370251395128291}
-  m_Layer: 20
+  m_Layer: 21
   m_Name: EnemyFinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1850,7 +1849,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6627370251395128291
 MonoBehaviour:

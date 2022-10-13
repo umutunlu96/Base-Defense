@@ -180,7 +180,9 @@ namespace Managers
 
         private Transform OnGetPlayerTransform() => transform;
         
-        private void OnWeaponTypeChanged(WeaponType weaponType) => aimController.ChangeWeaponRigPos(weaponType);
+        // private void OnWeaponTypeChanged(WeaponType weaponType) => aimController.ChangeWeaponRigPos(weaponType);
+
+        private void OnWeaponTypeChanged(WeaponType weaponType) => _weaponType = weaponType;
 
         private float OnGetPlayerSpeed() => rigidBody.velocity.magnitude;
         
