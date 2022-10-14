@@ -16,7 +16,7 @@ namespace Controllers
         private float _autoDestroyTime;
         private float _spawnDelay;
         private float _moveSpeed;
-        private int _damage;
+        private float _damage;
         private void Awake()
         {
             Initialization();

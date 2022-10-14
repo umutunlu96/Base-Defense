@@ -23,7 +23,7 @@ namespace StateMachine.Soldier
         public Transform _outsideTransform;
         
         [Header("Datas")]
-        public int Health;
+        public float Health;
         public int Damage;
         public int AttackRate;
         public float AttackRange;
@@ -146,7 +146,7 @@ namespace StateMachine.Soldier
             navMeshAgent.enabled = false;
         }
         
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             Health -= damage;
             if (Health <= 0)

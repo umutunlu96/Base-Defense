@@ -24,7 +24,7 @@ namespace Controllers
         
         [SerializeField] private List<GameObject> guns;
         [SerializeField] private List<Transform> muzzleTransform;
-        [SerializeField] private WeaponType weaponType;
+        [SerializeField] private WeaponType _weaponType;
 
         private IDamageable _closestDamageable;
         
@@ -56,7 +56,7 @@ namespace Controllers
         }
 
         #endregion
-
+        
         private void OnEnemyAIDead(IDamageable damageable)
         {
             Damageables.Remove(damageable);
@@ -111,14 +111,15 @@ namespace Controllers
             }
             
             int weaponTypeIndex = (int)weaponType;
+            _weaponType = weaponType;
             guns[weaponTypeIndex].SetActive(true);
             rigBuilder.layers[weaponTypeIndex + 1].active = true;
         }
 
         private GameObject GetBullet()
         {
-            Transform muzzle = muzzleTransform[(int) weaponType];
-            return PoolSignals.Instance.onGetPoolObject?.Invoke($"{weaponType}Bullet", muzzle);
+            Transform muzzle = muzzleTransform[(int) _weaponType];
+            return PoolSignals.Instance.onGetPoolObject?.Invoke($"{_weaponType}Bullet", muzzle);
         }
 
 
@@ -189,7 +190,7 @@ namespace Controllers
                     GameObject bullet = GetBullet();
                     if (bullet != null)
                     {
-                        bullet.GetComponent<Bullet>().Shoot(muzzleTransform[(int) weaponType].rotation);
+                        bullet.GetComponent<Bullet>().Shoot(muzzleTransform[(int) _weaponType].rotation);
                     }
                 }
 

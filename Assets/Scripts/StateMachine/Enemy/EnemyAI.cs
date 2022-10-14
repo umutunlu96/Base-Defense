@@ -38,7 +38,7 @@ namespace StateMachine.Enemy
         private Transform _baseTarget;
         private Transform _playerTarget;
         
-        [ShowInInspector] private int _health;
+        [ShowInInspector] private float _health;
         [ShowInInspector] private int _damage;
         [ShowInInspector] private float _chaseRange;
         [ShowInInspector] private float _attackRange;
@@ -205,7 +205,7 @@ namespace StateMachine.Enemy
             ChangeSaturation(.25f, .25f, .5f);
         }
         
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             _health -= damage;
             if (_health <= 0)

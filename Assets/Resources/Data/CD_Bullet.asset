@@ -15,31 +15,45 @@ MonoBehaviour:
   BulletDatas:
     m_Keys: 00000000010000000200000003000000040000000500000006000000
     m_Values:
-    - AutoDestroyTime: 3
+    - Bought: 1
+      Level: 1
+      AutoDestroyTime: 3
       SpawnDelay: 0.5
       MoveSpeed: 15
-      Damage: 0
-    - AutoDestroyTime: 2
+      Damage: 1
+    - Bought: 0
+      Level: 1
+      AutoDestroyTime: 2
       SpawnDelay: 0.75
       MoveSpeed: 15
       Damage: 5
-    - AutoDestroyTime: 3
+    - Bought: 0
+      Level: 1
+      AutoDestroyTime: 3
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 3
-    - AutoDestroyTime: 3
+    - Bought: 0
+      Level: 1
+      AutoDestroyTime: 3
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 4
-    - AutoDestroyTime: 2
+    - Bought: 0
+      Level: 1
+      AutoDestroyTime: 2
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 7
-    - AutoDestroyTime: 3
+    - Bought: 0
+      Level: 1
+      AutoDestroyTime: 3
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 8
-    - AutoDestroyTime: 3
+    - Bought: 0
+      Level: 1
+      AutoDestroyTime: 3
       SpawnDelay: 0.25
       MoveSpeed: 10
       Damage: 5

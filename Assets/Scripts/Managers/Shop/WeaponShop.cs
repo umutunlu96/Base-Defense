@@ -9,7 +9,7 @@ namespace Managers.Shop
 {
     public class WeaponShop : ShopableMarket
     {
-        public ShopPanelType ShopPanelType { get; set; }
+        public new ShopPanelType ShopPanelType { get; set; }
         private CD_Bullet _data;
 
         protected override void GetData()
