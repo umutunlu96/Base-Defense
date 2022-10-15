@@ -302,7 +302,7 @@ MonoBehaviour:
   - {fileID: 6531371527833356907}
   - {fileID: 8376743834173417671}
   - {fileID: 1253830768429720906}
-  weaponType: 0
+  _weaponType: 0
 --- !u!1 &1524757491936014826
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +383,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1294032278345427919}
     m_Modifications:
+    - target: {fileID: 209349458341554546, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e700386a94414e44ba188a767466e083, type: 2}
     - target: {fileID: 2675851899802677598, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
       propertyPath: m_Name
       value: Mesh
@@ -393,11 +397,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2828590314919288893, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
       propertyPath: m_Data.m_MaxLimit
-      value: 180
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 2828590314919288893, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
       propertyPath: m_Data.m_MinLimit
-      value: -180
+      value: -120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2828590315405386414, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
+      propertyPath: m_Data.m_MaxLimit
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2828590315405386414, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
+      propertyPath: m_Data.m_MinLimit
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 3344302659316919268, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
       propertyPath: m_RootOrder

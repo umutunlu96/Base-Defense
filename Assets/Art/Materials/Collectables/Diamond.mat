@@ -21,19 +21,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Diamond
-  m_Shader: {fileID: 4800000, guid: f67804e22f42e8441879353a5604515d, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6c046203321edf34fb092959a05e5b4a, type: 3}
   m_ShaderKeywords: _MK_ARTISTIC_PROJECTION_SCREEN_SPACE _MK_BLEND_PREMULTIPLY _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
-    _MK_IRIDESCENCE_DEFAULT _MK_LIGHT_CEL _MK_RECEIVE_SHADOWS _MK_RIM_SPLIT _MK_SURFACE_TYPE_TRANSPARENT
-    _MK_WRAPPED_DIFFUSE _RECEIVESHADOWS_ON _WRAPPEDLIGHTING_ON
+    _MK_IRIDESCENCE_DEFAULT _MK_LIGHT_BANDED _MK_OUTLINE_HULL_CLIP _MK_RECEIVE_SHADOWS
+    _MK_RIM_SPLIT _MK_WRAPPED_DIFFUSE _RECEIVESHADOWS_ON _WRAPPEDLIGHTING_ON
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2000
   stringTagMap:
-    IGNOREPROJECTOR: true
-    RenderType: Transparent
-  disabledShaderPasses:
-  - SHADOWCASTER
+    IGNOREPROJECTOR: False
+    RenderType: Opaque
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -113,6 +112,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _OutlineMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -170,7 +173,7 @@ Material:
     - _ArtisticFrequency: 1
     - _ArtisticProjection: 1
     - _Blend: 1
-    - _BlendDst: 10
+    - _BlendDst: 0
     - _BlendSrc: 1
     - _Brightness: 1
     - _BumpScale: 1
@@ -205,14 +208,21 @@ Material:
     - _IridescenceSize: 0.57
     - _IridescenceSmoothness: 0.5
     - _IridescenceThresholdOffset: 0
-    - _Light: 1
-    - _LightBands: 4
-    - _LightBandsScale: 0.5
-    - _LightThreshold: 0.199
+    - _Light: 2
+    - _LightBands: 3
+    - _LightBandsScale: 0
+    - _LightThreshold: 0.64
     - _Metallic: 0
     - _NormalMapIntensity: 1
     - _OcclusionStrength: 1
     - _OptionsTab: 1
+    - _Outline: 3
+    - _OutlineData: 0
+    - _OutlineFadeMax: 2
+    - _OutlineFadeMin: 0.25
+    - _OutlineNoise: 0
+    - _OutlineSize: 5
+    - _OutlineTab: 0
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -223,7 +233,7 @@ Material:
     - _RenderFace: 2
     - _RenderPriority: 0
     - _Rim: 2
-    - _RimSize: 0.75
+    - _RimSize: 1.89
     - _RimSmoothness: 0.5
     - _RimThresholdOffset: 0.25
     - _Saturation: 1
@@ -245,7 +255,7 @@ Material:
     - _StencilWriteMask: 255
     - _StencilZFail: 0
     - _StylizeTab: 1
-    - _Surface: 1
+    - _Surface: 0
     - _ThresholdMapScale: 1
     - _VertexAnimation: 0
     - _VertexAnimationIntensity: 0.05
@@ -253,7 +263,7 @@ Material:
     - _WorkflowMode: 1
     - _WrappedLighting: 1
     - _ZTest: 4
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
     - _AlbedoColor: {r: 1, g: 0, b: 0.97479534, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
@@ -263,6 +273,7 @@ Material:
     - _GoochBrightColor: {r: 1, g: 1, b: 1, a: 1}
     - _GoochDarkColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
     - _IridescenceColor: {r: 1, g: 0, b: 0.992434, a: 0.49411765}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimBrightColor: {r: 0.56102854, g: 0, b: 0.5660378, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimDarkColor: {r: 0, g: 0, b: 0, a: 1}

@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &22403187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 22403188}
+  - component: {fileID: 22403189}
+  m_Layer: 0
+  m_Name: BoxCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &22403188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22403187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7012902200148288778}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &22403189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22403187}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.195786, y: 3.6793387, z: 13.691726}
+  m_Center: {x: 0.18260382, y: 1.8396693, z: 0.06677799}
 --- !u!1 &1072858725815119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,6 +1145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e473cf04ab440b49e0b702a06178d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackController: {fileID: 0}
   militaryBaseTentEnterenceTransform: {fileID: 5428899326902905154}
   militaryBaseTentTransform: {fileID: 7012902200148288778}
   soldierSpawnTransform: {fileID: 783315173788371364}
@@ -2195,7 +2240,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 458678700437931579}
-  delay: 0.005
   filledSquareRenderer: {fileID: 1878733979046744953}
 --- !u!1 &7317327566260008302
 GameObject:
@@ -4373,6 +4417,14 @@ PrefabInstance:
     - target: {fileID: 6772446701167835551, guid: e26db33de28d4634aa07717dcd0b3982, type: 3}
       propertyPath: m_Name
       value: Barracks
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772446701167835551, guid: e26db33de28d4634aa07717dcd0b3982, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772446701167835551, guid: e26db33de28d4634aa07717dcd0b3982, type: 3}
+      propertyPath: m_TagString
+      value: MilitaryTent
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e26db33de28d4634aa07717dcd0b3982, type: 3}

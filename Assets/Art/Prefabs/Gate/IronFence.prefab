@@ -200,6 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1917852627609504942}
   - component: {fileID: 5626710207882386050}
+  - component: {fileID: 4920069566021733880}
   m_Layer: 0
   m_Name: IronFence
   m_TagString: Untagged
@@ -216,7 +217,7 @@ Transform:
   m_GameObject: {fileID: 3610081091717644888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.45, y: 0.65, z: 1}
   m_Children:
   - {fileID: 300215005882287343}
   - {fileID: 572252607365752096}
@@ -237,6 +238,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6714935, y: 1.6659561, z: 0.046707153}
   m_Center: {x: -0.80939484, y: 0.81262, z: -0.0000076293945}
+--- !u!208 &4920069566021733880
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3610081091717644888}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.8, y: 1, z: 0.06}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.79, y: 1, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7397374988794927581
 GameObject:
   m_ObjectHideFlags: 0
