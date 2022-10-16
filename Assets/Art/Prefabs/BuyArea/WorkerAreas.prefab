@@ -87,7 +87,7 @@ MonoBehaviour:
   Identifier: 0
   delay: 0.005
   payedAmountText: {fileID: 8623558751184360066}
-  buyPart: {fileID: 8567343995976217213}
+  buyPart: {fileID: 3735134802974818859}
   filledSquareRenderer: {fileID: 5579326846493891978}
   ammoWorkerAI: {fileID: 3611386946014835561}
 --- !u!1 &2489814387834233520
@@ -146,7 +146,7 @@ MonoBehaviour:
   delay: 0.005
   moneyWorkerAI: {fileID: 7526959383113966594}
   payedAmountText: {fileID: 8623558751102175987}
-  buyPart: {fileID: 8567343995084794380}
+  buyPart: {fileID: 3735134803597810266}
   filledSquareRenderer: {fileID: 5579326846848697851}
 --- !u!1001 &2489814385849738695
 PrefabInstance:
@@ -222,11 +222,6 @@ Transform:
 --- !u!212 &5579326846848697851 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 8061540961375526972, guid: 8a86990b9f3dbf949a42d07939864c8a, type: 3}
-  m_PrefabInstance: {fileID: 2489814385849738695}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8567343995084794380 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6082332327837552587, guid: 8a86990b9f3dbf949a42d07939864c8a, type: 3}
   m_PrefabInstance: {fileID: 2489814385849738695}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8623558751102175987 stripped
@@ -351,11 +346,6 @@ Transform:
 --- !u!212 &5579326846493891978 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 8061540961375526972, guid: 8a86990b9f3dbf949a42d07939864c8a, type: 3}
-  m_PrefabInstance: {fileID: 2489814386535644598}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8567343995976217213 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6082332327837552587, guid: 8a86990b9f3dbf949a42d07939864c8a, type: 3}
   m_PrefabInstance: {fileID: 2489814386535644598}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8623558751184360066 stripped

@@ -397,11 +397,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2828590314919288893, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
       propertyPath: m_Data.m_MaxLimit
-      value: 120
+      value: 179
       objectReference: {fileID: 0}
     - target: {fileID: 2828590314919288893, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
       propertyPath: m_Data.m_MinLimit
-      value: -120
+      value: -179
       objectReference: {fileID: 0}
     - target: {fileID: 2828590315405386414, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
       propertyPath: m_Data.m_MaxLimit
@@ -455,12 +455,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6963705478984063238, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
-      propertyPath: manager
-      value: 
-      objectReference: {fileID: 1892333599}
-    m_RemovedComponents:
-    - {fileID: 6963705478984063238, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7b28bd61f604fe4e90840eb2996d3f2, type: 3}
 --- !u!4 &8376743834173417671 stripped
 Transform:

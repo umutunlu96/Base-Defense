@@ -591,6 +591,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6948808811504955157}
     m_Modifications:
+    - target: {fileID: 6331907106232091446, guid: b554ca0ba34fdac44b88b72bf26a16de, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad041f1e7b498ce4cb653a8bbf4a2b7f, type: 2}
     - target: {fileID: 6331907106816353008, guid: b554ca0ba34fdac44b88b72bf26a16de, type: 3}
       propertyPath: m_Name
       value: TurretSoldier
