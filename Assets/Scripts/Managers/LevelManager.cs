@@ -43,7 +43,9 @@ namespace Managers
         
         private int GetActiveLevel()
         {
+            print("GetactiveLevel");
             if (!ES3.FileExists()) return 1;
+            print("file not exist");
             return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 1;
         }
         
@@ -119,7 +121,7 @@ namespace Managers
         
         private void OnInitializeLevel()
         {
-            // levelLoader.InitializeLevel(GetLevelCount(), levelHolder.transform);
+            _levelLoader.InitializeLevel(GetLevelCount(), levelHolder.transform);
         }
 
         private void OnClearActiveLevel()

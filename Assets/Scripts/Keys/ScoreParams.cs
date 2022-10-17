@@ -1,6 +1,4 @@
-﻿using Abstract;
-
-namespace Keys
+﻿namespace Keys
 {
     public struct ScoreParams
     {

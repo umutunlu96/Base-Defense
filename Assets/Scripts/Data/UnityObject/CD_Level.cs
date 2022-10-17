@@ -7,6 +7,6 @@ namespace Data.UnityObject
     [CreateAssetMenu(fileName = "CD_Level", menuName = "BaseDefense/CD_Level", order = 0)]
     public class CD_Level : ScriptableObject
     {
-        public List<LevelData> Levels = new List<LevelData>();
+        public List<LevelData> Levels;
     }
 }

@@ -1,10 +1,9 @@
 ﻿using Commands;
 using Data.ValueObject.Base;
+using Keys;
 using Signals;
 using UnityEngine;
 
-
-//Sadece Sinyaller buraya load ve save commandine gonderilmek icin kullaniyoruz.
 namespace Managers
 {
     public class SaveManager : MonoBehaviour
@@ -41,6 +40,9 @@ namespace Managers
 
         private void SubscribeEvents()
         {
+            SaveLoadSignals.Instance.onLevelSave += OnSaveLevel;
+            SaveLoadSignals.Instance.onLevelLoad += OnRunnerGameLoad;
+            
             SaveLoadSignals.Instance.onSaveAmmoWorkerData += _saveGameCommand.Execute;
             SaveLoadSignals.Instance.onLoadAmmoWorkerData += _loadGameCommand.Execute<AmmoWorkerData>;
 
@@ -62,6 +64,9 @@ namespace Managers
 
         private void UnsubscribeEvents()
         {
+            SaveLoadSignals.Instance.onLevelSave -= OnSaveLevel;
+            SaveLoadSignals.Instance.onLevelLoad -= OnRunnerGameLoad;
+            
             SaveLoadSignals.Instance.onSaveAmmoWorkerData -= _saveGameCommand.Execute;
             SaveLoadSignals.Instance.onLoadAmmoWorkerData -= _loadGameCommand.Execute<AmmoWorkerData>;
             
@@ -86,5 +91,28 @@ namespace Managers
         }
         
         #endregion
+        
+        private void OnSaveLevel()
+        {
+            SaveLevel(
+                new LevelParams()
+                {
+                    Level = LevelSignals.Instance.onGetLevelID(),
+                }
+            );
+        }
+
+        private void SaveLevel(LevelParams saveDataParams)
+        {
+            if (saveDataParams.Level != null) ES3.Save("Level", saveDataParams.Level, "LevelData.es3");
+        }
+        
+        private LevelParams OnRunnerGameLoad()
+        {
+            return new LevelParams()
+            {
+                Level = ES3.KeyExists("Level","LevelData.es3") ? ES3.Load<int>("Level","LevelData.es3") : 1,
+            };
+        }
     }
 }

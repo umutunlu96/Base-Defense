@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Controllers;
 using Data.UnityObject;
 using Data.ValueObject.Base;
 using Signals;
@@ -10,7 +9,6 @@ namespace Managers
 {
     public class MilitaryBaseManager : MonoBehaviour
     {
-        [SerializeField] private MilitaryBaseAttackController attackController; 
         [SerializeField] private Transform militaryBaseTentEnterenceTransform;
         [SerializeField] private Transform militaryBaseTentTransform;
         [SerializeField] private Transform soldierSpawnTransform;

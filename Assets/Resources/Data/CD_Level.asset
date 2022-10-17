@@ -65,7 +65,89 @@ MonoBehaviour:
       MilitaryBaseData:
         MaxSoldierAmount: 8
         MaxCandidateAmount: 12
-        CurrentSoldierAmount: 0
+        SoldierUpgradeTimer: 5
+        SoldierSlotCost: 500
+        AttackTimer: 2
+      AmmoWorkerData:
+        BuyState: 0
+        AmmoWorkerCost: 100
+        AmmoWorkerPayedAmount: 0
+        AmmoWorkerLevel: 1
+        Key: AmmoWorkerData
+      MoneyWorkerData:
+        BuyState: 0
+        MoneyWorkerCost: 50
+        MoneyWorkerPayedAmount: 0
+        MoneyWorkerLevel: 1
+        Key: MoneyWorkerData
+  - frontYardData:
+      ForceFieldData:
+      - Key: ForceFieldData
+        Cost: 30
+        PayedAmount: 0
+      - Key: ForceFieldData
+        Cost: 35
+        PayedAmount: 0
+      - Key: ForceFieldData
+        Cost: 40
+        PayedAmount: 0
+      FrondYardItemsDatas:
+      - BombCost: 50
+        BombWaitTime: 60
+        BombExplodeTimer: 0
+    BaseData:
+      BaseRoomData:
+        RoomDatas:
+        - Key: RoomData
+          Cost: 50
+          PayedAmount: 0
+          TurretData:
+            Key: TurretData
+            Cost: 50
+            PayedAmount: 0
+            AmmoCapacity: 15
+        - Key: RoomData
+          Cost: 50
+          PayedAmount: 0
+          TurretData:
+            Key: TurretData
+            Cost: 50
+            PayedAmount: 0
+            AmmoCapacity: 0
+        - Key: RoomData
+          Cost: 50
+          PayedAmount: 0
+          TurretData:
+            Key: TurretData
+            Cost: 50
+            PayedAmount: 0
+            AmmoCapacity: 0
+        - Key: RoomData
+          Cost: 50
+          PayedAmount: 0
+          TurretData:
+            Key: TurretData
+            Cost: 50
+            PayedAmount: 0
+            AmmoCapacity: 0
+        - Key: RoomData
+          Cost: 50
+          PayedAmount: 0
+          TurretData:
+            Key: TurretData
+            Cost: 50
+            PayedAmount: 0
+            AmmoCapacity: 0
+      MineBaseData:
+        MaxWorkerAmount: 20
+        CurrentWorkerAmount: 0
+        DiamondCapacity: 50
+        CurrentDiamondAmount: 0
+        MineCardCapacity: 0
+        Key: MineBaseData
+      MilitaryBaseData:
+        MaxSoldierAmount: 8
+        MaxCandidateAmount: 12
         SoldierUpgradeTimer: 5
         SoldierSlotCost: 500
         AttackTimer: 2
