@@ -25,7 +25,8 @@ namespace Managers
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay += GetPlayer;
-            LevelSignals.Instance.onRestartLevel += GetPlayer;
+            // LevelSignals.Instance.onRestartLevel += GetPlayer;
+            LevelSignals.Instance.onLevelInitialize += GetPlayer;
             PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerUseTurret;
             PlayerSignals.Instance.onPlayerLeaveTurretArea += OnPlayerLeaveTurret;
         }
@@ -33,7 +34,8 @@ namespace Managers
         private void UnSubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay -= GetPlayer;
-            LevelSignals.Instance.onRestartLevel -= GetPlayer;
+            // LevelSignals.Instance.onRestartLevel -= GetPlayer;
+            LevelSignals.Instance.onLevelInitialize -= GetPlayer;
             PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerUseTurret;
             PlayerSignals.Instance.onPlayerLeaveTurretArea -= OnPlayerLeaveTurret;
         }

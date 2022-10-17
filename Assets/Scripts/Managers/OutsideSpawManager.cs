@@ -56,7 +56,7 @@ namespace Managers
         
         #endregion
         
-        private int GetLevelData() => LevelSignals.Instance.onGetLevelID();
+        private int GetLevelData() => LevelSignals.Instance.onGetLevelCount();
         
         private SpawnData GetSpawnData() => Resources.Load<CD_Spawner>("Data/CD_Spawner").SpawnDatas[GetLevelData()-1];
         

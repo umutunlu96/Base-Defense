@@ -88,7 +88,7 @@ namespace Managers
         
         private Transform ReturnTentEnterenceTransform() => militaryBaseTentEnterenceTransform;
         
-        private int GetLevelCount() => LevelSignals.Instance.onGetLevelID();
+        private int GetLevelCount() => LevelSignals.Instance.onGetLevelCount();
         
         private void OnGetCandidates(Transform candidate) => candidates.Add(candidate);
 

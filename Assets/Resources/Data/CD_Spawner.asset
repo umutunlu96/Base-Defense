@@ -32,3 +32,22 @@ MonoBehaviour:
       BombSpawnDelay: 1
       MaxSpawnAmount: 0
       CurrentSpawnAmount: 0
+  - EnemySpawnDelay: 1
+    EnemySpawnDatas:
+    - EnemyType: 0
+      MaxSpawnAmount: 10
+      CurrentSpawnAmount: 0
+    - EnemyType: 1
+      MaxSpawnAmount: 10
+      CurrentSpawnAmount: 0
+    - EnemyType: 2
+      MaxSpawnAmount: 1
+      CurrentSpawnAmount: 0
+    HostageSpawnDatas:
+      SpawnDelay: 15
+      MaxSpawnAmount: 5
+      CurrentSpawnAmount: 0
+    BombSpawnData:
+      BombSpawnDelay: 1
+      MaxSpawnAmount: 0
+      CurrentSpawnAmount: 0

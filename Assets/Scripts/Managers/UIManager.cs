@@ -101,14 +101,14 @@ namespace Managers
 
         public void NextLevel()
         {
-            CoreGameSignals.Instance.onNextLevel?.Invoke();
+            LevelSignals.Instance.onNextLevel?.Invoke();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.WinPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
         }
 
         public void RestartLevel()
         {
-            CoreGameSignals.Instance.onRestartLevel?.Invoke();
+            LevelSignals.Instance.onRestartLevel?.Invoke();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.FailPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
         }

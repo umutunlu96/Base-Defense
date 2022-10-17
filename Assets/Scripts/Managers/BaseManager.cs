@@ -46,9 +46,9 @@ namespace Managers
 
         #endregion
         
-        private int GetLevelID => LevelSignals.Instance.onGetLevelID();
+        private int GetLevelID => LevelSignals.Instance.onGetLevelCount();
         
-        private void GetBaseData() => BaseData =  Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelID-1].
+        private void GetBaseData() => BaseData =  Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelID - 1].
             BaseData;
 
         private void GetFrontyardData() =>
@@ -60,7 +60,7 @@ namespace Managers
             GetBaseData();
             GetFrontyardData();
             SetDataToManagers();
-            baseText.text = $"Base {GetLevelID}";
+            // baseText.text = $"Base {GetLevelID}";
         }
         
         private void SetDataToManagers()

@@ -14,5 +14,6 @@ namespace Signals
         public UnityAction onRestartLevel = delegate { };
         public UnityAction onNextIdleLevel = delegate { };
         public Func<int> onGetLevelID;
+        public Func<int> onGetLevelCount;
     }
 }

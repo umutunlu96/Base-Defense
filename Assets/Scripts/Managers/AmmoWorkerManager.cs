@@ -48,7 +48,7 @@ namespace Managers
 
         #endregion
         
-        private int GetLevelID => LevelSignals.Instance.onGetLevelID();
+        private int GetLevelID => LevelSignals.Instance.onGetLevelCount();
         
         private AmmoWorkerData GetAmmoWorkerData() => Resources.Load<CD_Level>("Data/CD_Level").Levels[GetLevelID-1].
             BaseData.AmmoWorkerData;

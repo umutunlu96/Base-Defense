@@ -113,7 +113,7 @@ MonoBehaviour:
             Key: TurretData
             Cost: 50
             PayedAmount: 0
-            AmmoCapacity: 0
+            AmmoCapacity: 15
         - Key: RoomData
           Cost: 50
           PayedAmount: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
             Key: TurretData
             Cost: 50
             PayedAmount: 0
-            AmmoCapacity: 0
+            AmmoCapacity: 15
         - Key: RoomData
           Cost: 50
           PayedAmount: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
             Key: TurretData
             Cost: 50
             PayedAmount: 0
-            AmmoCapacity: 0
+            AmmoCapacity: 15
       MineBaseData:
         MaxWorkerAmount: 20
         CurrentWorkerAmount: 0

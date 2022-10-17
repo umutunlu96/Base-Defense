@@ -41,7 +41,7 @@ namespace Managers
         private void SubscribeEvents()
         {
             SaveLoadSignals.Instance.onLevelSave += OnSaveLevel;
-            SaveLoadSignals.Instance.onLevelLoad += OnRunnerGameLoad;
+            SaveLoadSignals.Instance.onLevelLoad += OnLevelLoad;
             
             SaveLoadSignals.Instance.onSaveAmmoWorkerData += _saveGameCommand.Execute;
             SaveLoadSignals.Instance.onLoadAmmoWorkerData += _loadGameCommand.Execute<AmmoWorkerData>;
@@ -65,7 +65,7 @@ namespace Managers
         private void UnsubscribeEvents()
         {
             SaveLoadSignals.Instance.onLevelSave -= OnSaveLevel;
-            SaveLoadSignals.Instance.onLevelLoad -= OnRunnerGameLoad;
+            SaveLoadSignals.Instance.onLevelLoad -= OnLevelLoad;
             
             SaveLoadSignals.Instance.onSaveAmmoWorkerData -= _saveGameCommand.Execute;
             SaveLoadSignals.Instance.onLoadAmmoWorkerData -= _loadGameCommand.Execute<AmmoWorkerData>;
@@ -107,8 +107,9 @@ namespace Managers
             if (saveDataParams.Level != null) ES3.Save("Level", saveDataParams.Level, "LevelData.es3");
         }
         
-        private LevelParams OnRunnerGameLoad()
+        private LevelParams OnLevelLoad()
         {
+            print("OnLevelLoad");
             return new LevelParams()
             {
                 Level = ES3.KeyExists("Level","LevelData.es3") ? ES3.Load<int>("Level","LevelData.es3") : 1,

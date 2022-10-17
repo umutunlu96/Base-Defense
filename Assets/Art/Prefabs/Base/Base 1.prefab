@@ -660,7 +660,7 @@ MonoBehaviour:
   - {fileID: 689148989518523286}
   - {fileID: 5999926910977410852}
   baseText: {fileID: 1674397570148324552}
-  mineBaseTransform: {fileID: 0}
+  mineBaseTransform: {fileID: 4133912125644676396}
   baseTransform: {fileID: 2120816110}
   outDoorTransform: {fileID: 1402799530}
   ammoWarehouse: {fileID: 7510957750306372658}

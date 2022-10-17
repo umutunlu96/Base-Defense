@@ -7,7 +7,7 @@ namespace Signals
 {
     public class SaveLoadSignals : MonoSingleton<SaveLoadSignals>
     {
-        public Action onLevelSave = delegate { };
+        public Action onLevelSave;
         public Func<LevelParams> onLevelLoad;
         
         public Action<MoneyWorkerData, int> onSaveMoneyWorkerData;
