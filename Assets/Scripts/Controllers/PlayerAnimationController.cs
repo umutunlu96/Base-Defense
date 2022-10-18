@@ -18,14 +18,16 @@ namespace Controllers
         
         private static readonly int Idle = Animator.StringToHash("Idle");
         private static readonly int Run = Animator.StringToHash("Run");
+        private static readonly int Speed = Animator.StringToHash("Speed");
         private static readonly int HoldPistol = Animator.StringToHash("HoldPistol");
         private static readonly int HoldRifle = Animator.StringToHash("HoldRifle");
-
         
         #endregion
 
         #endregion
 
+        public void SetSpeed(float speed) => animator.SetFloat(Speed, speed);
+        
         public void EnableAimLayer() => animator.SetLayerWeight(1, 1);
         
         public void DisableAimLayer() => animator.SetLayerWeight(1, 0);

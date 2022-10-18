@@ -111,7 +111,7 @@ namespace Managers
             if(_isPlayerUsingTurret) return;
             ActivateMovement();
             _isPlayerMoving = true;
-            animationController.TranslatePlayerAnimationState(PlayerAnimationState.Run);
+            // animationController.TranslatePlayerAnimationState(PlayerAnimationState.Run);
         }
 
         private void OnInputReleased()
@@ -119,10 +119,15 @@ namespace Managers
             if(_isPlayerUsingTurret) return;
             DeactivateMovement();
             _isPlayerMoving = false;
-            animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
+            animationController.SetSpeed(0);
+            // animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
         }
 
-        private void OnInputDragged(InputParams inputParams) => movementController.UpdateInputValue(inputParams);
+        private void OnInputDragged(InputParams inputParams)
+        {
+            animationController.SetSpeed(inputParams.movementVector.magnitude);
+            movementController.UpdateInputValue(inputParams);
+        }
 
         private void OnPlayerUseTurret()
         {

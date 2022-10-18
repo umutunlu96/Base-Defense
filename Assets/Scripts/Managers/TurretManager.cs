@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Abstract;
 using Controllers;
@@ -60,7 +59,6 @@ namespace Managers
             CheckData();
             _stackData = Resources.Load<CD_StackData>("Data/CD_StackData").StackDatas[_stackType];
         }
-        
         
         private void CheckData()
         {

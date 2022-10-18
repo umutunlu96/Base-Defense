@@ -63,8 +63,9 @@ namespace StateMachine
             }
             
             collectable.SetParent(transform);
-            collectable.DOLocalMove(_nextPos, 1).SetEase(Ease.InOutBack);
-            collectable.transform.localRotation = Quaternion.Euler(0,0,0);
+            collectable.DOLocalMove(_nextPos, 1).SetEase(Ease.InOutBack).OnComplete(()
+                => collectable.transform.localRotation = Quaternion.Euler(0,0,0));
+            
             collectableList.Add(collectable);
             
             collectable.gameObject.tag = "Collected";

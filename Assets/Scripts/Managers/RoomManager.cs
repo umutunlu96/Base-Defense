@@ -22,7 +22,7 @@ namespace Managers
         private int LevelId;
         private bool _playerEntered;
         
-        private int GetLevelID => LevelSignals.Instance.onGetLevelID();
+        private int GetLevelID => LevelSignals.Instance.onGetLevelCount();
         
         public void SetData(RoomData roomData, int identifier)
         {

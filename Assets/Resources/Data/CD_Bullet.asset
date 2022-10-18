@@ -17,43 +17,43 @@ MonoBehaviour:
     m_Values:
     - Bought: 1
       Level: 1
-      AutoDestroyTime: 3
+      AutoDestroyTime: 1
       SpawnDelay: 0.5
       MoveSpeed: 15
       Damage: 1
     - Bought: 0
       Level: 1
-      AutoDestroyTime: 2
+      AutoDestroyTime: 1
       SpawnDelay: 0.75
       MoveSpeed: 15
       Damage: 5
     - Bought: 0
       Level: 1
-      AutoDestroyTime: 3
+      AutoDestroyTime: 1
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 3
     - Bought: 0
       Level: 1
-      AutoDestroyTime: 3
+      AutoDestroyTime: 1
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 4
     - Bought: 0
       Level: 1
-      AutoDestroyTime: 2
+      AutoDestroyTime: 1.5
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 7
     - Bought: 0
       Level: 1
-      AutoDestroyTime: 3
+      AutoDestroyTime: 1.5
       SpawnDelay: 0.25
       MoveSpeed: 15
       Damage: 8
     - Bought: 0
       Level: 1
-      AutoDestroyTime: 3
+      AutoDestroyTime: 1.5
       SpawnDelay: 0.25
       MoveSpeed: 10
       Damage: 5
