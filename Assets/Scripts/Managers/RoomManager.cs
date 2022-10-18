@@ -12,7 +12,8 @@ namespace Managers
     {
         [SerializeField] private TurretManager turretManager;
         [SerializeField] private RoomAreaPhysicController buyAreaController;
-        [SerializeField] private GameObject areaToOpen;
+        [SerializeField] private List<GameObject> areaToOpen;
+        [SerializeField] private List<GameObject> areaToClose;
         [SerializeField] private float buyDelay = 0.05f;
         
         public RoomData Data;
@@ -46,7 +47,16 @@ namespace Managers
         private void CheckData()
         {
             if (Data.PayedAmount < Data.Cost) return;
-            areaToOpen.SetActive(true); buyAreaController.gameObject.SetActive(false); Save(UniqueId);
+            foreach (var area in areaToOpen)
+            {
+                area.SetActive(true);
+            }
+            foreach (var area in areaToClose)
+            {
+                area.SetActive(false);
+            }
+            buyAreaController.gameObject.SetActive(false);
+            Save(UniqueId);
         }
         
         public void OnPlayerEnter()

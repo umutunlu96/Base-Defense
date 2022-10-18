@@ -418,13 +418,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 163547927085534916, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 163547927586583556, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 163547928273397264, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027085185649460686, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6027085186472970594, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
       propertyPath: m_Name
       value: Level2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6027085186472970594, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6027085186472970595, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
       propertyPath: m_RootOrder
@@ -469,6 +481,10 @@ PrefabInstance:
     - target: {fileID: 6027085186472970595, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027085186757438024, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229e53353248c6f4caac77376ffc718e, type: 3}
@@ -2653,6 +2669,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1822288543}
   m_CullTransparentMesh: 1
+--- !u!1 &1822659650 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7754488239647057377, guid: f4315d6df5f96bd40a9895abe65d5f96, type: 3}
+  m_PrefabInstance: {fileID: 7783204068492406720}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1911997232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,6 +2731,7 @@ GameObject:
   - component: {fileID: 1975954174}
   - component: {fileID: 1975954180}
   - component: {fileID: 1975954178}
+  - component: {fileID: 1975954181}
   - component: {fileID: 1975954179}
   m_Layer: 5
   m_Name: CanvasRoot
@@ -2844,6 +2866,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelPanelController: {fileID: 1975954178}
+--- !u!114 &1975954181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975954173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3e6c206da441dabd3a0bfb27c53578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panels:
+  - {fileID: 1822659650}
 --- !u!1 &2000827401
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,6 @@ namespace Managers
 
         #region Private
         
-        List<Transform> _tempList = new List<Transform>();
         private Transform _transform;
         private LerpData _lerpData;
         private Transform _playerTransform;
@@ -41,14 +40,16 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            CoreGameSignals.Instance.onPlay += OnPlay;
+            // CoreGameSignals.Instance.onPlay -= OnPlay;
+            LevelSignals.Instance.onLevelInitialized += OnPlay;
             StackSignals.Instance.onAddStack += OnAddStack;
             StackSignals.Instance.onRemoveStack += OnRemoveStack;
         }
         
         private void UnSubscribeEvents()
         {
-            CoreGameSignals.Instance.onPlay -= OnPlay;
+            // CoreGameSignals.Instance.onPlay -= OnPlay;
+            LevelSignals.Instance.onLevelInitialized -= OnPlay;
             StackSignals.Instance.onAddStack -= OnAddStack;
             StackSignals.Instance.onRemoveStack -= OnRemoveStack;
         }
@@ -95,6 +96,7 @@ namespace Managers
 
         private void OnPlay()
         {
+            hostageList.Clear();
             _playerTransform = PlayerSignals.Instance.onGetPlayerTransfrom();
             _stackLerpMoveCommand = new StackLerpMoveCommand(ref hostageList, ref _lerpData, _playerTransform);
         }

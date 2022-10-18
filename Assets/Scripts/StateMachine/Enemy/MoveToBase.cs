@@ -25,6 +25,7 @@ namespace StateMachine.Enemy
         {
             // Debug.Log("MoveTobase");
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
+
         }
 
         public void OnEnter()
@@ -33,6 +34,11 @@ namespace StateMachine.Enemy
             _animator.SetTrigger(Run);
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _enemyAI.WalkSpeed;
+            if (_baseTarget == null)
+            {
+                _navMeshAgent.SetDestination(AiSignals.Instance.onGetBaseTransform().position);
+                return;
+            }
             _navMeshAgent.SetDestination(_baseTarget.position);
         }
 

@@ -35,8 +35,6 @@ namespace Abstract
             if (other.CompareTag("Player"))
             {
                 ShopSignals.Instance.onOpenShopPanelType?.Invoke(ShopPanelType);
-                //Ui signals open panel
-                print($"{ShopPanelType} opened");
             }
         }
         

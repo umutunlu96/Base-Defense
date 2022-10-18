@@ -45,9 +45,7 @@ namespace Managers
         private int GetActiveLevel()
         {
             // return SaveLoadSignals.Instance.onLevelLoad().Level;
-            print("GetactiveLevel");
             if (!ES3.FileExists()) return 1;
-            print("file not exist");
             return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 1;
         }
         
@@ -97,7 +95,6 @@ namespace Managers
         private void OnNextLevel()
         {
             _levelID++;
-            print(_levelID);
             SaveLoadSignals.Instance.onLevelSave?.Invoke();
             LevelSignals.Instance.onClearActiveLevel?.Invoke();
             CoreGameSignals.Instance.onReset?.Invoke();
@@ -120,7 +117,6 @@ namespace Managers
 
         private int GetLevelCount()
         {
-            print("GetlevelID"+_levelID);
             if (_levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count == 0)
                 return 2;
             return _levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count;
@@ -135,6 +131,7 @@ namespace Managers
         {
             _levelLoader.InitializeLevel(GetLevelCount(), levelHolder.transform);
             InputSignals.Instance.onEnableInput?.Invoke();
+            LevelSignals.Instance.onLevelInitialized?.Invoke();
         }
 
         private void OnClearActiveLevel()
