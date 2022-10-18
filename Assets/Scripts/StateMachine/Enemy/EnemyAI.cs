@@ -64,8 +64,6 @@ namespace StateMachine.Enemy
         
         public bool Attacked { get { return _attacked; } set { _attacked = value; } }
         
-        public bool AttackAnimEnded { get { return _attackAnimEnded; } set { _attackAnimEnded = value; } }
-        
         public bool IsDeath { get { return _isDeath; } set { _isDeath = value; } }
         
         public bool ReachedAtBase { get { return _reachedAtTheBase; } set { _reachedAtTheBase = value; } }

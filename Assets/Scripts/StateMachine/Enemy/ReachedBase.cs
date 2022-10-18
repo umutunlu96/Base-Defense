@@ -10,7 +10,7 @@ namespace StateMachine.Enemy
         private readonly NavMeshAgent _navMeshAgent;
         private readonly NavMeshObstacle _navMeshObstacle;
         
-        private static readonly int Idle = Animator.StringToHash("Idle");
+        private static readonly int Attack = Animator.StringToHash("Attack");
         
         public ReachedBase(EnemyAI enemyAI, Animator animator, NavMeshAgent navMeshAgent, NavMeshObstacle navMeshObstacle)
         {
@@ -27,16 +27,16 @@ namespace StateMachine.Enemy
 
         public void OnEnter()
         {
-            _animator.SetTrigger(Idle);
+            _animator.SetTrigger(Attack);
             _navMeshAgent.speed = 0;
-            // _navMeshAgent.enabled = false;
-            // _navMeshObstacle.enabled = true;
+            _navMeshAgent.enabled = false;
+            _navMeshObstacle.enabled = true;
         }
 
         public void OnExit()
         {
-            // _navMeshObstacle.enabled = false;
-            // _navMeshAgent.enabled = true;
+            _navMeshObstacle.enabled = false;
+            _navMeshAgent.enabled = true;
         }
     }
 }

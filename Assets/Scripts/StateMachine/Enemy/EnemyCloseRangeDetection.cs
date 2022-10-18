@@ -21,6 +21,7 @@ namespace StateMachine.Enemy
             if (other.CompareTag("Player"))
             {
                 manager.CanAttack = true;
+                manager.PlayerTarget = other.transform;
             }
             
             if (other.CompareTag("GateOutside"))
@@ -34,6 +35,7 @@ namespace StateMachine.Enemy
             if (other.CompareTag("Player"))
             {
                 manager.CanAttack = false;
+                manager.PlayerTarget = null;
             }
             
             if (other.CompareTag("GateOutside"))

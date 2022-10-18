@@ -24,11 +24,7 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
-            if (_enemyAI.AttackAnimEnded)
-            {
-                AttackToTarget();
-                _enemyAI.AttackAnimEnded = false;
-            }
+
         }
 
         public void OnEnter()
@@ -38,14 +34,12 @@ namespace StateMachine.Enemy
 
         public void OnExit()
         {
-            // _navMeshAgent.isStopped = false;
+            
         }
 
         private void AttackToTarget()
         {
-            // _navMeshAgent.isStopped = true;
             _animator.SetTrigger(attack);
-            // Debug.Log("Attack");
         }
     }
 }
