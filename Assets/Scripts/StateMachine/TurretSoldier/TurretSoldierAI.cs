@@ -109,12 +109,14 @@ namespace StateMachine.TurretSoldier
         {
             _timer += Time.deltaTime;
                 
-            if (_timer > .5f && _ammo > 0)
+            if (_timer > .5f)
             {
-                Shoot();
+                LoadAmmo();
+                if (_ammo > 0 && enemies.Count != 0)
+                    Shoot();
                 _timer = 0;
             }
-                
+            
             if(!_canRotateByPlayer) return;
                 
             if (_inputParams.movementVector.z <= -0.9f)

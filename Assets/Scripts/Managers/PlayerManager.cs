@@ -125,6 +125,7 @@ namespace Managers
 
         private void OnInputDragged(InputParams inputParams)
         {
+            if(_isPlayerUsingTurret) return;
             animationController.SetSpeed(inputParams.movementVector.magnitude);
             movementController.UpdateInputValue(inputParams);
         }
@@ -132,6 +133,7 @@ namespace Managers
         private void OnPlayerUseTurret()
         {
             _isPlayerUsingTurret = true;
+            animationController.SetSpeed(0);
             animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
             DeactivateMovement();
         }
@@ -185,8 +187,6 @@ namespace Managers
 
         private Transform OnGetPlayerTransform() => transform;
         
-        // private void OnWeaponTypeChanged(WeaponType weaponType) => aimController.ChangeWeaponRigPos(weaponType);
-
         private void OnWeaponTypeChanged(WeaponType weaponType) => _weaponType = weaponType;
 
         private float OnGetPlayerSpeed() => rigidBody.velocity.magnitude;
