@@ -30,13 +30,16 @@ namespace StateMachine.Enemy
         {
             _timer -= Time.deltaTime;
             if(_timer >= 0) return;
+            
             _animator.SetTrigger(attack);
+            AttackToTarget();
             // _animator.SetFloat(Speed, 0);
             _timer = 1.1f;
         }
 
         public void OnEnter()
         {
+            _navMeshAgent.velocity = Vector3.zero;
             AttackToTarget();
         }
 
@@ -47,7 +50,6 @@ namespace StateMachine.Enemy
 
         private void AttackToTarget()
         {
-            _navMeshAgent.velocity = Vector3.zero;
             _animator.SetTrigger(attack);
             PlayerSignals.Instance.onTakeDamage?.Invoke(_damage);
             //PlayerTakeDamage

@@ -99,7 +99,8 @@ namespace StateMachine.Enemy
         {
             _stateMachine = new StateMachine();
             BaseTarget = AiSignals.Instance.onGetBaseAttackPoint();
-
+            CurrentTarget = BaseTarget;
+            
             var moveToBase = new MoveToBase(this, animator, navMeshAgent, BaseTarget);
             var chasePlayer = new Chase(this, animator, navMeshAgent);
             var attack = new Attack(this, animator, navMeshAgent, navMeshObstacle, _damage);
@@ -119,7 +120,7 @@ namespace StateMachine.Enemy
             void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
 
             Func<bool> GoBase() => () => CurrentTarget == BaseTarget;
-            Func<bool> CanChasePlayer() => () => CurrentTarget = PlayerTarget;
+            Func<bool> CanChasePlayer() => () => CurrentTarget == PlayerTarget && Vector3.Distance(transform.position, CurrentTarget.position) > navMeshAgent.stoppingDistance;
             Func<bool> IsInAttackRange() => () =>
                 CurrentTarget == PlayerTarget && Vector3.Distance(transform.position, CurrentTarget.position) <= navMeshAgent.stoppingDistance;
             Func<bool> IsAtBase() => () => Vector3.Distance(transform.position, BaseTarget.position) < navMeshAgent.stoppingDistance;
