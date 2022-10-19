@@ -1846,9 +1846,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 991781110, guid: 4467b669b7f2e4e4a89c99cb032750fd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 991781110, guid: 4467b669b7f2e4e4a89c99cb032750fd, type: 3}
       propertyPath: m_NavMeshData
       value: 
       objectReference: {fileID: 23800000, guid: c3c35e63e2b83564fad81af9f2d45fc1, type: 2}
+    - target: {fileID: 991781111, guid: 4467b669b7f2e4e4a89c99cb032750fd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 991781111, guid: 4467b669b7f2e4e4a89c99cb032750fd, type: 3}
       propertyPath: m_NavMeshData
       value: 
@@ -1858,9 +1866,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 23800000, guid: 556df3b9ea15ccc43801669ca66f05e9, type: 2}
     - target: {fileID: 991781113, guid: 4467b669b7f2e4e4a89c99cb032750fd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 991781113, guid: 4467b669b7f2e4e4a89c99cb032750fd, type: 3}
       propertyPath: m_NavMeshData
       value: 
       objectReference: {fileID: 23800000, guid: 1344a59f3e4e42f479b60975123e012b, type: 2}
+    - target: {fileID: 991781114, guid: 4467b669b7f2e4e4a89c99cb032750fd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 991781114, guid: 4467b669b7f2e4e4a89c99cb032750fd, type: 3}
       propertyPath: m_NavMeshData
       value: 
@@ -2466,7 +2482,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 31
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d25a41d44114a546a898016e00cb7c1, type: 2}
   m_sharedMaterial: {fileID: -5666909447730324025, guid: 5d25a41d44114a546a898016e00cb7c1, type: 2}
@@ -2493,14 +2509,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 110
-  m_fontSizeBase: 110
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 35
   m_fontSizeMax: 110
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2509,7 +2525,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -2600,7 +2616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 31
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d25a41d44114a546a898016e00cb7c1, type: 2}
   m_sharedMaterial: {fileID: -5666909447730324025, guid: 5d25a41d44114a546a898016e00cb7c1, type: 2}
@@ -2627,14 +2643,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 110
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 32
   m_fontSizeMax: 110
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2643,7 +2659,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

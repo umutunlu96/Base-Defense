@@ -11,7 +11,6 @@ namespace Data.ValueObject
         public int Damage;
         public float AttackRange;
         public float ChaseRange;
-        public float ChaseUpdateSpeed = .2f;
         public float WalkSpeed;
         public float RunSpeed;
     }

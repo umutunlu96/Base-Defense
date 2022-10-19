@@ -18,6 +18,7 @@ namespace StateMachine.Enemy
             if (other.CompareTag("Player"))
             {
                 manager.PlayerTarget = other.transform.parent;
+                manager.SetTarget(manager.PlayerTarget);
             }
         }
 
@@ -25,7 +26,7 @@ namespace StateMachine.Enemy
         {
             if(other.CompareTag("Player"))
             {
-                manager.PlayerTarget = null;
+                manager.SetTarget(manager.BaseTarget);
             }
         }
     }

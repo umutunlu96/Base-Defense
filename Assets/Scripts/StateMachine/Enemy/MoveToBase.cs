@@ -11,8 +11,6 @@ namespace StateMachine.Enemy
         private readonly Transform _baseTarget;
         
         private static readonly int Speed = Animator.StringToHash("Speed");
-        private static readonly int Run = Animator.StringToHash("Run");
-        private static readonly int Idle = Animator.StringToHash("Idle");
         
         public MoveToBase(EnemyAI enemyAI,Animator animator, NavMeshAgent agent, Transform baseTarget)
         {
@@ -23,15 +21,11 @@ namespace StateMachine.Enemy
         }
         public void Tick()
         {
-            // Debug.Log("MoveTobase");
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
-
         }
 
         public void OnEnter()
         {
-            // Debug.Log("MoveToBase");
-            _animator.SetTrigger(Run);
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _enemyAI.WalkSpeed;
             if (_baseTarget == null)

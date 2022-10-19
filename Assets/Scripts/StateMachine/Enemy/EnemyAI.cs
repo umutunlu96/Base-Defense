@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Abstract;
 using Data.UnityObject;
 using Data.ValueObject;
@@ -18,6 +19,9 @@ namespace StateMachine.Enemy
 
         public EnemyType EnemyType;
         public Transform CurrentTarget;
+        public Transform PlayerTarget;
+        public Transform BaseTarget;
+        public bool CanAttack;
 
         #endregion
 
@@ -35,21 +39,15 @@ namespace StateMachine.Enemy
 
         private EnemyData _enemyData;
         private StateMachine _stateMachine;
-        private Transform _baseTarget;
-        private Transform _playerTarget;
         
         [ShowInInspector] private float _health;
         [ShowInInspector] private int _damage;
         [ShowInInspector] private float _chaseRange;
         [ShowInInspector] private float _attackRange;
-        [ShowInInspector] private float _chaseUpdateSpeed;
         [ShowInInspector] private float _walkSpeed;
         [ShowInInspector] private float _runSpeed;
         
-        private bool _canAttack;
         private bool _reachedAtTheBase;
-        private bool _attacked;
-        private bool _attackAnimEnded;
         private bool _isDeath = false;
         private bool _isAlive = true;
         private static readonly int Idle = Animator.StringToHash("Idle");
@@ -60,17 +58,9 @@ namespace StateMachine.Enemy
 
         #region Props
         
-        public bool CanAttack { get { return _canAttack; } set { _canAttack = value; } }
-        
-        public bool Attacked { get { return _attacked; } set { _attacked = value; } }
-        
         public bool IsDeath { get { return _isDeath; } set { _isDeath = value; } }
         
         public bool ReachedAtBase { get { return _reachedAtTheBase; } set { _reachedAtTheBase = value; } }
-        
-        public Transform BaseTarget { get { return _baseTarget; } set { _baseTarget = value; } }
-        
-        public Transform PlayerTarget { get { return _playerTarget; } set { _playerTarget = value; } }
         
         public float WalkSpeed { get { return _walkSpeed; } set { _walkSpeed = value; } }
         
@@ -96,7 +86,6 @@ namespace StateMachine.Enemy
             _damage = _enemyData.Damage;
             _attackRange = _enemyData.AttackRange;
             _chaseRange = _enemyData.ChaseRange;
-            _chaseUpdateSpeed = _enemyData.ChaseUpdateSpeed;
             _walkSpeed = _enemyData.WalkSpeed;
             _runSpeed = _enemyData.RunSpeed;
         }
@@ -112,54 +101,45 @@ namespace StateMachine.Enemy
             BaseTarget = AiSignals.Instance.onGetBaseAttackPoint();
 
             var moveToBase = new MoveToBase(this, animator, navMeshAgent, BaseTarget);
-            var chasePlayer = new Chase(this, animator, navMeshAgent, _chaseUpdateSpeed);
-            var attack = new Attack(this, animator, navMeshAgent, navMeshObstacle);
-            var reachedBase = new ReachedBase(this, animator, navMeshAgent, navMeshObstacle);
+            var chasePlayer = new Chase(this, animator, navMeshAgent);
+            var attack = new Attack(this, animator, navMeshAgent, navMeshObstacle, _damage);
             var death = new Death(this, animator, EnemyType);
 
             At(moveToBase, chasePlayer, CanChasePlayer());
             At(chasePlayer, attack, IsInAttackRange());
             At(attack, chasePlayer, CanChasePlayer());
             At(chasePlayer, moveToBase, GoBase());
-            At(moveToBase, reachedBase, ReachedBase());
+            At(moveToBase, attack, IsAtBase());
             At(death, moveToBase, IsAlive());
             
             _stateMachine.AddAnyTransition(death, IsDeath());
-            _stateMachine.AddAnyTransition(chasePlayer, CanChasePlayer());
-            _stateMachine.AddAnyTransition(attack, IsInAttackRange());
             
             _stateMachine.SetState(moveToBase);
             
             void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
-            
-            Func<bool> GoBase() => () => PlayerTarget == null && !CanAttack && !ReachedAtBase && _baseTarget != null;
-            Func<bool> CanChasePlayer() => () => PlayerTarget != null && !CanAttack;
-            Func<bool> IsInAttackRange() => () => PlayerTarget != null && CanAttack;
-            Func<bool> ReachedBase() => () => ReachedAtBase && _baseTarget != null && PlayerTarget == null;
-            Func<bool> IsDeath() => () => _isDeath;
-            Func<bool> IsAlive() => () => _isAlive;
-            
+
+            Func<bool> GoBase() => () => CurrentTarget == BaseTarget;
+            Func<bool> CanChasePlayer() => () => CurrentTarget = PlayerTarget;
+            Func<bool> IsInAttackRange() => () =>
+                CurrentTarget == PlayerTarget && Vector3.Distance(transform.position, CurrentTarget.position) <= navMeshAgent.stoppingDistance;
+            Func<bool> IsAtBase() => () => Vector3.Distance(transform.position, BaseTarget.position) < navMeshAgent.stoppingDistance;
+            Func<bool> IsDeath() => () => _health <= 0;
+            Func<bool> IsAlive() => () => _health > 0;
         }
         
         private void Update()
         {
             if(!_isAlive) return;
-                _stateMachine.Tick();
+            _stateMachine.Tick();
+            // if (CurrentTarget == PlayerTarget)
+            // {
+            //     print(Vector3.Distance(transform.position, PlayerTarget.position));
+            // }
         }
 
-        public void AttackedToPlayer()
+        public void SetTarget(Transform target)
         {
-            if (Attacked)
-            {
-                //PlayerTakeDamage
-                // Debug.Log("PlayerTookDamage");
-                Attacked = false;
-            }
-        }
-        
-        public void DeathAnimCompleted()
-        {
-            PoolSignals.Instance.onReleasePoolObject?.Invoke($"{EnemyType}", gameObject);
+            CurrentTarget = target;
         }
         
         private void OnEnable()
@@ -195,12 +175,14 @@ namespace StateMachine.Enemy
             sMeshRenderer.material.DOFloat(brightness,"_Brightness", duration);
         }
         
-        private void OnDeath()
+        private async void OnDeath()
         {
             _isDeath = true;
             navMeshAgent.enabled = false;
             transform.DOMoveY(-.5f, .2f);
             ChangeSaturation(.25f, .25f, .5f);
+            await Task.Delay(200);
+            PoolSignals.Instance.onReleasePoolObject?.Invoke($"{EnemyType}", gameObject);
         }
         
         public void TakeDamage(float damage)

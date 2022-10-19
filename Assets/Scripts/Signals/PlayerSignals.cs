@@ -20,5 +20,7 @@ namespace Signals
         public Action<Transform> onPlayerEnterDiamondArea;
 
         public Action<WeaponType> onPlayerWeaponTypeChanged;
+
+        public Action<int> onTakeDamage;
     }
 }

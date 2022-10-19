@@ -98,7 +98,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!136 &3214674188484503558
 CapsuleCollider:
@@ -128,6 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyType: 0
   CurrentTarget: {fileID: 0}
+  PlayerTarget: {fileID: 0}
+  BaseTarget: {fileID: 0}
+  CanAttack: 0
   animationController: {fileID: 0}
   sMeshRenderer: {fileID: 5704263202153382710}
   navMeshAgent: {fileID: 4255279260966684481}
@@ -144,10 +147,10 @@ NavMeshAgent:
   m_AgentTypeID: 1479372276
   m_Radius: 0.5
   m_Speed: 1
-  m_Acceleration: 5
+  m_Acceleration: 30
   avoidancePriority: 50
   m_AngularSpeed: 720
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1.35
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -2612,7 +2615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2415486630584325132
 Transform:
   m_ObjectHideFlags: 0

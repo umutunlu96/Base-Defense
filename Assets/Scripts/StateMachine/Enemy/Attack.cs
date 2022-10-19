@@ -1,4 +1,5 @@
-﻿using TMPro.EditorUtilities;
+﻿using Signals;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,21 +11,28 @@ namespace StateMachine.Enemy
         private readonly Animator _animator;
         private readonly NavMeshAgent _navMeshAgent;
         private readonly NavMeshObstacle _navMeshObstacle;
+        private readonly int _damage;
         
         private static readonly int attack = Animator.StringToHash("Attack");
-        private float _timer;
+        private static readonly int Speed = Animator.StringToHash("Speed");
 
-        public Attack(EnemyAI enemyAI, Animator animator, NavMeshAgent navMeshAgent, NavMeshObstacle navMeshObstacle)
+        private float _timer = 1.1f;
+        public Attack(EnemyAI enemyAI, Animator animator, NavMeshAgent navMeshAgent, NavMeshObstacle navMeshObstacle, int damage)
         {
             _enemyAI = enemyAI;
             _animator = animator;
             _navMeshAgent = navMeshAgent;
             _navMeshObstacle = navMeshObstacle;
+            _damage = damage;
         }
         
         public void Tick()
         {
-
+            _timer -= Time.deltaTime;
+            if(_timer >= 0) return;
+            _animator.SetTrigger(attack);
+            // _animator.SetFloat(Speed, 0);
+            _timer = 1.1f;
         }
 
         public void OnEnter()
@@ -34,12 +42,16 @@ namespace StateMachine.Enemy
 
         public void OnExit()
         {
-            
+            _animator.SetFloat(Speed, _navMeshAgent.speed);
         }
 
         private void AttackToTarget()
         {
+            _navMeshAgent.velocity = Vector3.zero;
             _animator.SetTrigger(attack);
+            PlayerSignals.Instance.onTakeDamage?.Invoke(_damage);
+            //PlayerTakeDamage
+            // Debug.Log("PlayerTookDamage")
         }
     }
 }

@@ -10,32 +10,26 @@ namespace StateMachine.Enemy
         private readonly Animator _animator;
         private readonly NavMeshAgent _navMeshAgent;
         
+        private static readonly int Speed = Animator.StringToHash("Speed");
         private static readonly int Run = Animator.StringToHash("Run");
-        private readonly float _chaseUpdateSpeed;
         private float _timer;
         
-        public Chase(EnemyAI enemyAI, Animator animator, NavMeshAgent agent, float chaseUpdateSpeed)
+        public Chase(EnemyAI enemyAI, Animator animator, NavMeshAgent agent)
         {
             _enemyAI = enemyAI;
             _animator = animator;
             _navMeshAgent = agent;
-            _chaseUpdateSpeed = chaseUpdateSpeed;
         }
         
         public void Tick()
         {
-            // Debug.Log("Chase");
-
-            if(_enemyAI.PlayerTarget == null) return;
-            _timer += Time.deltaTime;
-            if (!(_timer >= _chaseUpdateSpeed)) return;
+            if(Vector3.Distance(_enemyAI.transform.position, _enemyAI.CurrentTarget.position) < 1f) return;
             _navMeshAgent.SetDestination(_enemyAI.PlayerTarget.position);
-            _timer = 0;
+            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
         }
         
         public void OnEnter()
         {
-            // Debug.Log("Chasing Player");
             _animator.SetTrigger(Run);
             _navMeshAgent.SetDestination(_enemyAI.PlayerTarget.position);
             _navMeshAgent.speed = _enemyAI.RunSpeed;
@@ -43,7 +37,7 @@ namespace StateMachine.Enemy
 
         public void OnExit()
         {
-            // Debug.Log("Chase End");
+            _navMeshAgent.speed = _enemyAI.WalkSpeed;
         }
     }
 }

@@ -21,12 +21,12 @@ namespace StateMachine.Enemy
             if (other.CompareTag("Player"))
             {
                 manager.CanAttack = true;
-                manager.PlayerTarget = other.transform;
             }
             
             if (other.CompareTag("GateOutside"))
             {
                 ChangeReachedBaseState(true);
+                manager.CanAttack = true;
             }
         }
         
@@ -35,12 +35,12 @@ namespace StateMachine.Enemy
             if (other.CompareTag("Player"))
             {
                 manager.CanAttack = false;
-                manager.PlayerTarget = null;
             }
             
             if (other.CompareTag("GateOutside"))
             {
                 ChangeReachedBaseState(false);
+                manager.CanAttack = false;
             }
         }
 
