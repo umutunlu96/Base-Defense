@@ -21,6 +21,8 @@
         GrenadeLauncherBullet,
         MiniGunBullet,
         TurretGunBullet,
-        Soldier
+        Soldier,
+        Grenade,
+        Explosion
     }
 }

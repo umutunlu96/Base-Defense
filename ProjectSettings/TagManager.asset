@@ -27,6 +27,8 @@ TagManager:
   - SoldierAttackTrigger
   - MilitaryTent
   - Soldier
+  - Boss
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -50,7 +52,7 @@ TagManager:
   - ForceField
   - Soldier
   - SoldierAttackRadius
-  - 
+  - Boss
   - 
   - 
   - 

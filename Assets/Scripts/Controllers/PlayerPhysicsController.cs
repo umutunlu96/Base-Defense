@@ -3,6 +3,7 @@ using Enums;
 using ES3Types;
 using Managers;
 using Signals;
+using StateMachine;
 using UnityEngine;
 
 namespace Controllers
@@ -62,6 +63,12 @@ namespace Controllers
                     _manager.DropAmmoToTurret(turretManager);
                 }
             }
+
+            if (other.CompareTag("Boss"))
+            {
+                AiSignals.Instance.onPlayerEnterBossArea?.Invoke();
+                print("Player Entered Boss Area");
+            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -74,6 +81,12 @@ namespace Controllers
             if (other.CompareTag("TurretAmmoHolder"))
             {
                 _manager.StopDropAmmoToTurret();
+            }
+            
+            if (other.CompareTag("Boss"))
+            {
+                AiSignals.Instance.onPlayerLeaveBossArea?.Invoke();
+                print("Player Exited Boss Area");
             }
         }
     }

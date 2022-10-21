@@ -4,6 +4,7 @@ using Abstract;
 using Enums;
 using Extentions;
 using Managers;
+using StateMachine.Boss;
 using StateMachine.Soldier;
 using UnityEngine;
 
@@ -58,6 +59,14 @@ namespace StateMachine
         public Func<Transform> onGetAmmoWarehouseTransform;
         public Func<List<TurretManager>> onGetTurretManagers;
         public Func<int> onGetTurretAmmoStock;
+
+        #endregion
+
+        #region Boss
+
+        public Action onPlayerEnterBossArea;
+        public Action onPlayerLeaveBossArea;
+        public Action<Grenade> onGrenadeSpawned;
 
         #endregion
     }
