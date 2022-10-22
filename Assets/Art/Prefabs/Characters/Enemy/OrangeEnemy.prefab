@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a00fc0245846d2a1a222d5951139de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyType: 0
+  EnemyType: 1
   CurrentTarget: {fileID: 0}
   PlayerTarget: {fileID: 0}
   BaseTarget: {fileID: 0}

@@ -176,7 +176,7 @@ Material:
     - _HatchingMapScale: 1
     - _IlluminPower: 1
     - _Initialized: 1
-    - _InputTab: 1
+    - _InputTab: 0
     - _Iridescence: 0
     - _IridescenceSize: 1
     - _IridescenceSmoothness: 0.5

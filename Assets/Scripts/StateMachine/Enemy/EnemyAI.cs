@@ -132,10 +132,6 @@ namespace StateMachine.Enemy
         {
             if(!_isAlive) return;
             _stateMachine.Tick();
-            // if (CurrentTarget == PlayerTarget)
-            // {
-            //     print(Vector3.Distance(transform.position, PlayerTarget.position));
-            // }
         }
 
         public void SetTarget(Transform target)
@@ -162,7 +158,6 @@ namespace StateMachine.Enemy
         private void OnAlive()
         {
             _health = _enemyData.Health;
-            animator.SetTrigger(Idle);
             ChangeSaturation(1, 1, .1f);
             navMeshAgent.enabled = true;
             _isDeath = false;
@@ -178,12 +173,15 @@ namespace StateMachine.Enemy
         
         private async void OnDeath()
         {
+            AiSignals.Instance.onEnemyDead?.Invoke(transform);
+            AiSignals.Instance.onEnemyAIDead?.Invoke(this);
             _isDeath = true;
             navMeshAgent.enabled = false;
             transform.DOMoveY(-.5f, .2f);
             ChangeSaturation(.25f, .25f, .5f);
             await Task.Delay(200);
             PoolSignals.Instance.onReleasePoolObject?.Invoke($"{EnemyType}", gameObject);
+            animator.SetTrigger(Idle);
         }
         
         public void TakeDamage(float damage)

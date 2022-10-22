@@ -67,7 +67,6 @@ namespace Controllers
             if (other.CompareTag("Boss"))
             {
                 AiSignals.Instance.onPlayerEnterBossArea?.Invoke();
-                print("Player Entered Boss Area");
             }
         }
 
@@ -86,7 +85,6 @@ namespace Controllers
             if (other.CompareTag("Boss"))
             {
                 AiSignals.Instance.onPlayerLeaveBossArea?.Invoke();
-                print("Player Exited Boss Area");
             }
         }
     }

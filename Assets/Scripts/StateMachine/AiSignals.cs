@@ -67,6 +67,8 @@ namespace StateMachine
         public Action onPlayerEnterBossArea;
         public Action onPlayerLeaveBossArea;
         public Action<Grenade> onGrenadeSpawned;
+        public Action onGrenadeThrowed;
+        public Action onGrenadeExplode;
 
         #endregion
     }

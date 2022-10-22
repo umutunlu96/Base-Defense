@@ -58,9 +58,13 @@ namespace StateMachine.TurretSoldier
 
         private void ActivateRotation() => _canRotateByPlayer = true;
         
-        private void DeactivateRotation() => _canRotateByPlayer = false; 
-        
-        private void OnEnemyDead(Transform enemy) => enemies.Remove(enemy);
+        private void DeactivateRotation() => _canRotateByPlayer = false;
+
+        private void OnEnemyDead(Transform enemy)
+        {
+            enemies.Remove(enemy);
+            enemies.TrimExcess();
+        }
 
         private void OnInputDragged(InputParams inputParams) => _inputParams = inputParams;
         

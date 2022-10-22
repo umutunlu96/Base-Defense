@@ -31,7 +31,6 @@ namespace StateMachine.Boss
                 ThrowGrenade();
                 _timer = 2.2f;
             }
-
             RotateTowardsPlayer();
         }
 
@@ -57,7 +56,7 @@ namespace StateMachine.Boss
         private void ThrowGrenade()
         {
             GameObject grenade = GetGrenade();
-            Debug.Log("granade is instantiated");
+            AiSignals.Instance.onGrenadeThrowed?.Invoke();
             grenade.transform.SetParent(_hand);
             grenade.transform.localPosition = _bombInitialTransform.localPosition;
             _animator.SetTrigger(attack);

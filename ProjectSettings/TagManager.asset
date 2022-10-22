@@ -29,6 +29,7 @@ TagManager:
   - Soldier
   - Boss
   - Ground
+  - BombTarget
   layers:
   - Default
   - TransparentFX

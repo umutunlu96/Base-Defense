@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Abstract;
 using Data.UnityObject;
 using Data.ValueObject;
+using DG.Tweening;
 using Enums;
 using Signals;
 using Sirenix.OdinInspector;
@@ -14,11 +16,11 @@ namespace StateMachine.Boss
         [SerializeField] private BossAnimationController animationController;
         [SerializeField] private Animator animator;
         [SerializeField] private Transform hand;
-        
+        [SerializeField] private GameObject targetCircle;
+        [SerializeField] private SkinnedMeshRenderer sMeshRenderer;
         [ShowInInspector] private bool _isPlayerInRange;
         private StateMachine _stateMachine;
         private EnemyData _data;
-
         private Transform _bombInitialTransform;
         private Transform _playerTransform;
         private float _health;
@@ -47,7 +49,7 @@ namespace StateMachine.Boss
             
             var stationary = new Stationary(animator);
             var attack = new Attack(this, animator, _playerTransform, hand, _bombInitialTransform);
-            var death = new Death(animator);
+            var death = new Death(this, animator);
 
             At(stationary, attack, CanAttack());
             At(attack, stationary, CantAttack());
@@ -79,6 +81,8 @@ namespace StateMachine.Boss
             AiSignals.Instance.onPlayerEnterBossArea += OnPlayerEnterRange;
             AiSignals.Instance.onPlayerLeaveBossArea += OnPlayerExitRange;
             AiSignals.Instance.onGrenadeSpawned += OnGrenadeSpawned;
+            AiSignals.Instance.onGrenadeThrowed += OnGrenadeThrowed;
+            AiSignals.Instance.onGrenadeExplode += OnGrenadeExplode;
         }
         
         private void UnSubscribeEvents()
@@ -86,6 +90,8 @@ namespace StateMachine.Boss
             AiSignals.Instance.onPlayerEnterBossArea -= OnPlayerEnterRange;
             AiSignals.Instance.onPlayerLeaveBossArea -= OnPlayerExitRange;
             AiSignals.Instance.onGrenadeSpawned -= OnGrenadeSpawned;
+            AiSignals.Instance.onGrenadeThrowed -= OnGrenadeThrowed;
+            AiSignals.Instance.onGrenadeExplode -= OnGrenadeExplode;
         }
 
         private void OnDisable()
@@ -98,13 +104,41 @@ namespace StateMachine.Boss
         #region Event Functions
 
         private void OnPlayerEnterRange() => _isPlayerInRange = true;
+        
         private void OnPlayerExitRange() => _isPlayerInRange = false;
+        
         private void OnGrenadeSpawned(Grenade grenade) => animationController.grenade = grenade;
+        
+        private void OnGrenadeThrowed()
+        {
+            targetCircle.SetActive(true);
+            Vector3 playerPos = PlayerSignals.Instance.onGetPlayerTransfrom().position;
+            targetCircle.transform.position = playerPos;
+        }
+        
+        private void OnGrenadeExplode() => targetCircle.SetActive(false);
         
         #endregion
 
-        public void TakeDamage(float damage) => _health -= damage;
+        public void TakeDamage(float damage)
+        {
+            _health -= damage;
+        }
 
+        public async void OnDeath()
+        {
+            transform.DOMoveY(-.5f, .2f);
+            ChangeSaturation(.25f, 1, 1.5f);
+            AiSignals.Instance.onEnemyAIDead?.Invoke(this);
+            await Task.Delay(3600);
+            gameObject.SetActive(false);
+        }
+        
+        private void ChangeSaturation(float saturation, float brightness, float duration)
+        {
+            sMeshRenderer.material.DOFloat(saturation,"_Saturation", duration);
+            sMeshRenderer.material.DOFloat(brightness,"_Brightness", duration);
+        }
         public Transform GetTransform() => this.transform;
 
         public bool AmIDeath() => _health <= 0;

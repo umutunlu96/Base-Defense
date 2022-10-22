@@ -7,24 +7,22 @@ namespace StateMachine.Boss
     public class Grenade : MonoBehaviour
     {
         [SerializeField] private Rigidbody rigidbody;
-        private Transform _playerTransform;
+        private Vector3 _playerPosition;
         private GameObject _explosion;
         
         public void Launch()
         {
-            _playerTransform = PlayerSignals.Instance.onGetPlayerTransfrom();
-            
-            Vector3 Vo = Throw(_playerTransform, .5f);
+            Vector3 Vo = Throw(_playerPosition, .5f);
             transform.rotation = Quaternion.LookRotation(Vo);
             rigidbody.useGravity = true;
             rigidbody.velocity = Vo;
         }
         
-        private Vector3 Throw(Transform playerTransform, float time)
+        private Vector3 Throw(Vector3 playerPosition, float time)
         {
             gameObject.transform.SetParent(null);
-
-            Vector3 distance = playerTransform.position - transform.position;
+            CheckPlayerPositionIfNull();
+            Vector3 distance = playerPosition - transform.position;
             Vector3 distanceXZ = distance;
             distanceXZ.y = 0;
 
@@ -44,11 +42,27 @@ namespace StateMachine.Boss
         private void OnEnable()
         {
             AiSignals.Instance.onGrenadeSpawned?.Invoke(this);
+            AiSignals.Instance.onGrenadeThrowed += OnGrenadeThrowed;
         }
 
         private void OnDisable()
         {
+            _playerPosition = Vector3.zero;
             rigidbody.useGravity = false;
+            AiSignals.Instance.onGrenadeThrowed -= OnGrenadeThrowed;
+        }
+
+        private void OnGrenadeThrowed()
+        {
+            _playerPosition = PlayerSignals.Instance.onGetPlayerTransfrom().position;
+        }
+
+        private void CheckPlayerPositionIfNull()
+        {
+            if (_playerPosition == Vector3.zero)
+            {
+                _playerPosition = PlayerSignals.Instance.onGetPlayerTransfrom().position;
+            }
         }
         
         private void OnTriggerEnter(Collider other)
@@ -68,8 +82,8 @@ namespace StateMachine.Boss
 
         private void GetExplosionParticle()
         {
-            _explosion = null;
             _explosion = PoolSignals.Instance.onGetPoolObject?.Invoke("Explosion", transform);
+            AiSignals.Instance.onGrenadeExplode?.Invoke();
             _explosion.transform.position = transform.position;
             ReturnExplosion();
         }
