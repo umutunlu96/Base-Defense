@@ -87,6 +87,8 @@ namespace StateMachine.TurretSoldier
             if(!HasSoldier) return;
             if (_canShoot && enemies.Count > 0)
             {
+                if(!enemies[0].gameObject.activeInHierarchy)
+                    print("NotActiveeeeeeeeeeeeeeeeeeeeeee");
                 float singleStep = Time.deltaTime * 2;
                 Vector3 targetDirection = enemies[0].position - turret.position;
                 targetDirection.y = 0;

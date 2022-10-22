@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: CD_Spawner
   m_EditorClassIdentifier: 
   SpawnDatas:
-  - EnemySpawnDelay: 3
+  - EnemySpawnDelay: 2
     EnemySpawnDatas:
     - EnemyType: 0
-      MaxSpawnAmount: 10
-      CurrentSpawnAmount: 2
-    - EnemyType: 1
-      MaxSpawnAmount: 5
-      CurrentSpawnAmount: 1
-    - EnemyType: 2
       MaxSpawnAmount: 1
       CurrentSpawnAmount: 1
+    - EnemyType: 1
+      MaxSpawnAmount: 1
+      CurrentSpawnAmount: 1
+    - EnemyType: 2
+      MaxSpawnAmount: 10
+      CurrentSpawnAmount: 9
     HostageSpawnDatas:
       SpawnDelay: 15
       MaxSpawnAmount: 5

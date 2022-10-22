@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 5704263201531388657}
   - component: {fileID: 6835565559669453091}
   - component: {fileID: 3059159727535956083}
-  - component: {fileID: 8598288362471393090}
   - component: {fileID: 5704263201531388659}
   - component: {fileID: 4255279260966684481}
   - component: {fileID: 1170798531234514905}
@@ -110,20 +109,6 @@ CapsuleCollider:
   m_GameObject: {fileID: 5704263201531388656}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 2.7171502
-  m_Direction: 1
-  m_Center: {x: -0, y: 1.3100575, z: 0}
---- !u!136 &8598288362471393090
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5704263201531388656}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
   m_Height: 2.7171502
@@ -2630,7 +2615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4444245881068935278
 Transform:
   m_ObjectHideFlags: 0
@@ -2683,7 +2668,7 @@ GameObject:
   - component: {fileID: 6835565559279118840}
   - component: {fileID: 6835565559279118843}
   m_Layer: 9
-  m_Name: PlayerDetection
+  m_Name: EnemySearchRadius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
