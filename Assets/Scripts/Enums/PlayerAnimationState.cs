@@ -4,6 +4,7 @@
     {
         Idle,
         Run,
+        Death,
         HoldPistol,
         HoldRifle
     }

@@ -125,5 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca93b0d215e14b5c9663061914932a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleSystem: {fileID: 19800006, guid: 2126395fd1f8b3845bb0e820a32dcb66, type: 3}
-  rigidbody: {fileID: 58478071443617714}
+  rigidBody: {fileID: 58478071443617714}

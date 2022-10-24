@@ -13,12 +13,12 @@ namespace Managers
         [SerializeField] private Transform militaryBaseTentTransform;
         [SerializeField] private Transform soldierSpawnTransform;
         [SerializeField] private List<Transform> soldierWaitPoints = new List<Transform>();
-        [SerializeField] private SpriteRenderer renderer;
+        [SerializeField] private SpriteRenderer sRenderer;
         
         private  MilitaryBaseData _data;
-        private List<Transform> candidates = new List<Transform>();
+        private List<Transform> _candidates = new List<Transform>();
 
-        private float radialMultiplier;
+        private float _radialMultiplier;
         private float _timer;
         private float _playerAttackTimer;
         private int _maxSoldierAmount;
@@ -38,7 +38,7 @@ namespace Managers
         {
             _data = GetData();
             InitDatas();
-            radialMultiplier = 360 / _data.SoldierUpgradeTimer;
+            _radialMultiplier = 360 / _data.SoldierUpgradeTimer;
         }
 
         private void InitDatas()
@@ -90,7 +90,7 @@ namespace Managers
         
         private int GetLevelCount() => LevelSignals.Instance.onGetLevelCount();
         
-        private void OnGetCandidates(Transform candidate) => candidates.Add(candidate);
+        private void OnGetCandidates(Transform candidate) => _candidates.Add(candidate);
 
         private Transform ReturnSoldierWaitPoint() => soldierWaitPoints[_currentSoldierAmount];
 
@@ -98,7 +98,7 @@ namespace Managers
 
         private void Update()
         {
-            if (candidates.Count == 0) return;
+            if (_candidates.Count == 0) return;
             _timer += Time.deltaTime;
             UpdateRadialFilletAmount(_timer);
             if (_timer >= _soldierUpgradeTimer && _currentSoldierAmount <= _maxSoldierAmount)
@@ -115,13 +115,13 @@ namespace Managers
             PoolSignals.Instance.onGetPoolObject?.Invoke("Soldier", soldierSpawnTransform);
             _currentCandidateAmount--;
             _currentSoldierAmount++;
-            candidates.Remove(candidates[0]);
-            candidates.TrimExcess();
+            _candidates.Remove(_candidates[0]);
+            _candidates.TrimExcess();
         }
 
-        private void UpdateRadialFilletAmount(float currentTime) => renderer.material.SetFloat("_Arc1", 360 - currentTime * radialMultiplier);
+        private void UpdateRadialFilletAmount(float currentTime) => sRenderer.material.SetFloat("_Arc1", 360 - currentTime * _radialMultiplier);
 
-        private void ResetRadialFilletAmount() => renderer.material.SetFloat("_Arc1", 360);
+        private void ResetRadialFilletAmount() => sRenderer.material.SetFloat("_Arc1", 360);
         
         private int CurrentAvaibleHostageWaitSlot() => _maxCandidateAmount - _currentCandidateAmount;
 

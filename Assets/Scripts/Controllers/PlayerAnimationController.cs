@@ -1,5 +1,6 @@
 ﻿using System;
 using Enums;
+using Signals;
 using UnityEngine;
 
 namespace Controllers
@@ -19,6 +20,7 @@ namespace Controllers
         private static readonly int Idle = Animator.StringToHash("Idle");
         private static readonly int Run = Animator.StringToHash("Run");
         private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int Death = Animator.StringToHash("Death");
         private static readonly int HoldPistol = Animator.StringToHash("HoldPistol");
         private static readonly int HoldRifle = Animator.StringToHash("HoldRifle");
         
@@ -31,6 +33,8 @@ namespace Controllers
         public void EnableAimLayer() => animator.SetLayerWeight(1, 1);
         
         public void DisableAimLayer() => animator.SetLayerWeight(1, 0);
+
+        public void OnDeathAnimComplete() => PlayerSignals.Instance.onPlayerDeadAnimComplete?.Invoke();
         
         public void TranslatePlayerAnimationState(PlayerAnimationState state)
         {
@@ -41,6 +45,9 @@ namespace Controllers
                     break;
                 case PlayerAnimationState.Run:
                     animator.SetTrigger(Run);
+                    break;
+                case PlayerAnimationState.Death:
+                    animator.SetTrigger(Death);
                     break;
                 case PlayerAnimationState.HoldPistol:
                     animator.SetTrigger(HoldPistol);

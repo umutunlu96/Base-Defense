@@ -52,8 +52,6 @@ namespace StateMachine.Enemy
         {
             _animator.SetTrigger(attack);
             PlayerSignals.Instance.onTakeDamage?.Invoke(_damage);
-            //PlayerTakeDamage
-            // Debug.Log("PlayerTookDamage")
         }
     }
 }

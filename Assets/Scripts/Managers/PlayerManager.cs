@@ -4,6 +4,7 @@ using Controllers;
 using Enums;
 using Keys;
 using Signals;
+using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor.Drawers;
 using StateMachine;
 using UnityEngine;
@@ -16,10 +17,11 @@ namespace Managers
 
         #region Seriliazed Field
 
+        public int Health = 100;
         [SerializeField] private Rigidbody rigidBody;
         [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private PlayerPhysicsController physicsController;
-        [SerializeField] private PlayerMeshController meshController;
+        [SerializeField] private PlayerHealthController healthController;
         [SerializeField] private PlayerAimController aimController;
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private Transform attackRadius;
@@ -34,6 +36,7 @@ namespace Managers
         private bool _isAtOutside;
         private Transform _parent;
         private WeaponType _weaponType;
+        private bool _isAlive = true;
         #endregion Private
 
         
@@ -71,6 +74,9 @@ namespace Managers
             PlayerSignals.Instance.onPlayerWeaponTypeChanged += OnWeaponTypeChanged;
             PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerUseTurret;
             PlayerSignals.Instance.onPlayerLeaveTurretArea += OnPlayerLeaveTurret;
+            PlayerSignals.Instance.onTakeDamage += OnTakeDamage;
+            PlayerSignals.Instance.onReturnHealth += OnReturnHealth;
+            PlayerSignals.Instance.onPlayerDeadAnimComplete += OnAlive;
         }
 
         private void UnsubscribeEvents()
@@ -88,6 +94,9 @@ namespace Managers
             PlayerSignals.Instance.onPlayerWeaponTypeChanged -= OnWeaponTypeChanged;
             PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerUseTurret;
             PlayerSignals.Instance.onPlayerLeaveTurretArea -= OnPlayerLeaveTurret;
+            PlayerSignals.Instance.onTakeDamage -= OnTakeDamage;
+            PlayerSignals.Instance.onReturnHealth -= OnReturnHealth;
+            PlayerSignals.Instance.onPlayerDeadAnimComplete -= OnAlive;
         }
 
         private void OnDisable()
@@ -98,6 +107,19 @@ namespace Managers
         #endregion Event Subsicription
 
         private bool OnCanBuy() => _isPlayerMoving;
+
+        private int OnReturnHealth() => Health;
+        
+        private void OnTakeDamage(int damage)
+        {
+            Health -= damage;
+            healthController.SetHealthBar(Health);
+            if (Health <= 0 && _isAlive)
+            {
+                PlayerSignals.Instance.onPlayerDead?.Invoke();
+                OnDeath();
+            }
+        }
         
         private void SetPlayerDataToControllers()
         {
@@ -111,7 +133,6 @@ namespace Managers
             if(_isPlayerUsingTurret) return;
             ActivateMovement();
             _isPlayerMoving = true;
-            // animationController.TranslatePlayerAnimationState(PlayerAnimationState.Run);
         }
 
         private void OnInputReleased()
@@ -120,7 +141,6 @@ namespace Managers
             DeactivateMovement();
             _isPlayerMoving = false;
             animationController.SetSpeed(0);
-            // animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
         }
 
         private void OnInputDragged(InputParams inputParams)
@@ -157,6 +177,10 @@ namespace Managers
             attackRadius.gameObject.layer = layerIgnoreRaycastOutside;
             animationController.DisableAimLayer();
             aimController.DisableAimRig();
+            if (Health < 100)
+            {
+                healthController.Heal();
+            }
         }
         
         public void OnExitBase()
@@ -192,12 +216,30 @@ namespace Managers
         private float OnGetPlayerSpeed() => rigidBody.velocity.magnitude;
         
         private void OnLevelFailed() => movementController.IsReadyToPlay(false);
+
+        private void OnDeath()
+        {
+            _isAlive = false;
+            animationController.DisableAimLayer();
+            aimController.DisableAimRig();
+            animationController.TranslatePlayerAnimationState(PlayerAnimationState.Death);
+        }
+
+        private void OnAlive()
+        {
+            PlayerSignals.Instance.onPlayerAlive?.Invoke();
+            _isAlive = true;
+            animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
+            transform.position = Vector3.zero;
+            OnEnterBase();
+        }
         
         private void OnReset()
         {
             OnEnterBase();
             movementController.MovementReset();
             movementController.OnReset();
+            healthController.ResetHealthBar();
         }
     }
 }

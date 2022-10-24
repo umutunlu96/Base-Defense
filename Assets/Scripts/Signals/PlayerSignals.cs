@@ -21,6 +21,10 @@ namespace Signals
 
         public Action<WeaponType> onPlayerWeaponTypeChanged;
 
+        public Func<int> onReturnHealth;
         public Action<int> onTakeDamage;
+        public Action onPlayerDead;
+        public Action onPlayerAlive;
+        public Action onPlayerDeadAnimComplete;
     }
 }

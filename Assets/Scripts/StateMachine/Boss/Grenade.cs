@@ -6,7 +6,7 @@ namespace StateMachine.Boss
 {
     public class Grenade : MonoBehaviour
     {
-        [SerializeField] private Rigidbody rigidbody;
+        [SerializeField] private Rigidbody rigidBody;
         private Vector3 _playerPosition;
         private GameObject _explosion;
         
@@ -14,8 +14,8 @@ namespace StateMachine.Boss
         {
             Vector3 Vo = Throw(_playerPosition, .5f);
             transform.rotation = Quaternion.LookRotation(Vo);
-            rigidbody.useGravity = true;
-            rigidbody.velocity = Vo;
+            rigidBody.useGravity = true;
+            rigidBody.velocity = Vo;
         }
         
         private Vector3 Throw(Vector3 playerPosition, float time)
@@ -48,7 +48,7 @@ namespace StateMachine.Boss
         private void OnDisable()
         {
             _playerPosition = Vector3.zero;
-            rigidbody.useGravity = false;
+            rigidBody.useGravity = false;
             AiSignals.Instance.onGrenadeThrowed -= OnGrenadeThrowed;
         }
 
@@ -76,7 +76,7 @@ namespace StateMachine.Boss
 
         private void ResetGrenade()
         {
-            rigidbody.velocity = Vector3.zero;
+            rigidBody.velocity = Vector3.zero;
             PoolSignals.Instance.onReleasePoolObject?.Invoke("Grenade", gameObject);
         }
 

@@ -50,6 +50,7 @@ namespace StateMachine.Enemy
         private bool _reachedAtTheBase;
         private bool _isDeath = false;
         private bool _isAlive = true;
+        private bool _isPlayerDead = false;
         private static readonly int Idle = Animator.StringToHash("Idle");
 
         #endregion
@@ -109,6 +110,7 @@ namespace StateMachine.Enemy
             At(moveToBase, chasePlayer, CanChasePlayer());
             At(chasePlayer, attack, IsInAttackRange());
             At(attack, chasePlayer, CanChasePlayer());
+            At(attack, moveToBase, IsPlayerDead());
             At(chasePlayer, moveToBase, GoBase());
             At(moveToBase, attack, IsAtBase());
             At(death, moveToBase, IsAlive());
@@ -126,6 +128,7 @@ namespace StateMachine.Enemy
             Func<bool> IsAtBase() => () => Vector3.Distance(transform.position, BaseTarget.position) < navMeshAgent.stoppingDistance;
             Func<bool> IsDeath() => () => _health <= 0;
             Func<bool> IsAlive() => () => _health > 0;
+            Func<bool> IsPlayerDead() => () => _isPlayerDead;
         }
         
         private void Update()
@@ -141,6 +144,9 @@ namespace StateMachine.Enemy
         
         private void OnEnable()
         {
+            PlayerSignals.Instance.onPlayerDead += OnPlayerDead;
+            PlayerSignals.Instance.onPlayerAlive += OnPlayerAlive;
+            
             if (_isDeath)
             {
                 OnAlive();
@@ -149,12 +155,26 @@ namespace StateMachine.Enemy
 
         private void OnDisable()
         {
+            PlayerSignals.Instance.onPlayerDead -= OnPlayerDead;
+            PlayerSignals.Instance.onPlayerAlive -= OnPlayerAlive;
+            
             if (_isDeath)
             {
                 _isAlive = false;
             }
         }
 
+        private void OnPlayerDead()
+        {
+            _isPlayerDead = true;
+            CurrentTarget = BaseTarget;
+        }
+
+        private void OnPlayerAlive()
+        {
+            _isPlayerDead = false;
+        }
+        
         private void OnAlive()
         {
             _health = _enemyData.Health;
@@ -164,7 +184,6 @@ namespace StateMachine.Enemy
             _isAlive = true;
             ReachedAtBase = false;
         }
-
         private void ChangeSaturation(float saturation, float brightness, float duration)
         {
             sMeshRenderer.material.DOFloat(saturation,"_Saturation", duration);

@@ -104,7 +104,8 @@ namespace Managers
 
         private void SaveLevel(LevelParams saveDataParams)
         {
-            if (saveDataParams.Level != null) ES3.Save("Level", saveDataParams.Level, "LevelData.es3");
+            // if (saveDataParams.Level != null) ES3.Save("Level", saveDataParams.Level, "LevelData.es3");
+            ES3.Save("Level", saveDataParams.Level, "LevelData.es3");
         }
         
         private LevelParams OnLevelLoad()
