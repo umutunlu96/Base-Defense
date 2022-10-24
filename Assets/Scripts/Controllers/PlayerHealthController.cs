@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Globalization;
 using Managers;
-using Signals;
+using TMPro;
 using UnityEngine;
 
 namespace Controllers
@@ -10,7 +10,8 @@ namespace Controllers
     {
         [SerializeField] private PlayerManager manager;
         [SerializeField] private HealthBar healthBar;
-        private Coroutine healCoroutine;
+        [SerializeField] private TextMeshPro healthText;
+        private Coroutine _healCoroutine;
 
         private void Update()
         {
@@ -19,8 +20,8 @@ namespace Controllers
 
         public void Heal()
         {
-            if (healCoroutine == null)
-                healCoroutine = StartCoroutine(HealUp());
+            if (_healCoroutine == null)
+                _healCoroutine = StartCoroutine(HealUp());
         }
 
         private IEnumerator HealUp()
@@ -29,19 +30,25 @@ namespace Controllers
             
             yield return Wait;
             
-            while (manager.Health < 100)
+            while (manager.Health < 101)
             {
                 manager.Health++;
+                healthText.text = manager.Health.ToString();
                 SetHealthBar(manager.Health);
                 yield return Wait;
+                if(manager.Health == 100)
+                    gameObject.SetActive(false);
             }
-            healCoroutine = null;
+            _healCoroutine = null;
         }
         
-        public void SetHealthBar(float curretHealth)
+        public void SetHealthBar(int curretHealth)
         {
-            float ratio = curretHealth / 100;
+            float ratio = (float)curretHealth / 100;
+            healthText.text = curretHealth.ToString();
             healthBar.HealthNormalized = ratio;
+            if (curretHealth == 100)
+                gameObject.SetActive(false);
         }
 
         public void ResetHealthBar() => healthBar.HealthNormalized = 1;

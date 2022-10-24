@@ -12,8 +12,8 @@ namespace Managers
         [SerializeField] private Transform militaryBaseTentEnterenceTransform;
         [SerializeField] private Transform militaryBaseTentTransform;
         [SerializeField] private Transform soldierSpawnTransform;
-        [SerializeField] private List<Transform> soldierWaitPoints = new List<Transform>();
         [SerializeField] private SpriteRenderer sRenderer;
+        [SerializeField] private List<Transform> soldierWaitPoints = new List<Transform>();
         
         private  MilitaryBaseData _data;
         private List<Transform> _candidates = new List<Transform>();

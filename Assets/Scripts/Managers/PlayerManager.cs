@@ -177,8 +177,10 @@ namespace Managers
             attackRadius.gameObject.layer = layerIgnoreRaycastOutside;
             animationController.DisableAimLayer();
             aimController.DisableAimRig();
+            healthController.gameObject.SetActive(false);
             if (Health < 100)
             {
+                healthController.gameObject.SetActive(true);
                 healthController.Heal();
             }
         }
@@ -193,6 +195,7 @@ namespace Managers
             animationController.EnableAimLayer();
             aimController.EnableAimRig(_weaponType);
             DropAllAmmoToGround();
+            healthController.gameObject.SetActive(true);
         }
         
         public void StackMoney(Transform money) => stackController.StackMoney(money);

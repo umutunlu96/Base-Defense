@@ -24,7 +24,6 @@ namespace StateMachine.Enemy
             if (other.CompareTag("GroundMine"))
             {
                 manager.IsInGroundMineArea = true;
-                print("EnteredGround Mine Area");
             }
         }
 
@@ -38,7 +37,6 @@ namespace StateMachine.Enemy
             if (other.CompareTag("GroundMine"))
             {
                 manager.IsInGroundMineArea = false;
-                print("exited ground Mine Area");
             }
         }
     }
