@@ -20,6 +20,12 @@ namespace StateMachine.Enemy
                 manager.PlayerTarget = other.transform.parent;
                 manager.SetTarget(manager.PlayerTarget);
             }
+
+            if (other.CompareTag("GroundMine"))
+            {
+                manager.IsInGroundMineArea = true;
+                print("EnteredGround Mine Area");
+            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -27,6 +33,12 @@ namespace StateMachine.Enemy
             if(other.CompareTag("Player"))
             {
                 manager.SetTarget(manager.BaseTarget);
+            }
+
+            if (other.CompareTag("GroundMine"))
+            {
+                manager.IsInGroundMineArea = false;
+                print("exited ground Mine Area");
             }
         }
     }

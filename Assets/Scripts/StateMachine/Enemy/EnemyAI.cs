@@ -22,6 +22,8 @@ namespace StateMachine.Enemy
         public Transform PlayerTarget;
         public Transform BaseTarget;
         public bool CanAttack;
+        public bool IsInGroundMineArea = false;
+        public Vector3 GroundMinePosition;
 
         #endregion
 
@@ -51,6 +53,7 @@ namespace StateMachine.Enemy
         private bool _isDeath = false;
         private bool _isAlive = true;
         private bool _isPlayerDead = false;
+        private bool _isGroundMineActivated = false;
         private static readonly int Idle = Animator.StringToHash("Idle");
 
         #endregion
@@ -105,8 +108,9 @@ namespace StateMachine.Enemy
             var moveToBase = new MoveToBase(this, animator, navMeshAgent, BaseTarget);
             var chasePlayer = new Chase(this, animator, navMeshAgent);
             var attack = new Attack(this, animator, navMeshAgent, navMeshObstacle, _damage);
-            var death = new Death(this, animator, EnemyType);
-
+            var death = new Death(this, animator);
+            var moveToBomb = new MoveGroundMine(this, animator, navMeshAgent);
+            
             At(moveToBase, chasePlayer, CanChasePlayer());
             At(chasePlayer, attack, IsInAttackRange());
             At(attack, chasePlayer, CanChasePlayer());
@@ -114,8 +118,10 @@ namespace StateMachine.Enemy
             At(chasePlayer, moveToBase, GoBase());
             At(moveToBase, attack, IsAtBase());
             At(death, moveToBase, IsAlive());
+            At(moveToBomb, attack, IsInGroundMineArea());
             
             _stateMachine.AddAnyTransition(death, IsDeath());
+            _stateMachine.AddAnyTransition(moveToBomb, IsGroundMineActivated());
             
             _stateMachine.SetState(moveToBase);
             
@@ -129,6 +135,8 @@ namespace StateMachine.Enemy
             Func<bool> IsDeath() => () => _health <= 0;
             Func<bool> IsAlive() => () => _health > 0;
             Func<bool> IsPlayerDead() => () => _isPlayerDead;
+            Func<bool> IsGroundMineActivated() => () => _isGroundMineActivated;
+            Func<bool> IsInGroundMineArea() => () => Vector3.Distance(transform.position, GroundMinePosition) < navMeshAgent.stoppingDistance * 2;
         }
         
         private void Update()
@@ -146,7 +154,8 @@ namespace StateMachine.Enemy
         {
             PlayerSignals.Instance.onPlayerDead += OnPlayerDead;
             PlayerSignals.Instance.onPlayerAlive += OnPlayerAlive;
-            
+            AiSignals.Instance.onGroundMinePlanted += OnGroundMinePlanted;
+            AiSignals.Instance.onGroundMineExplode += OnGroundMineExplode;
             if (_isDeath)
             {
                 OnAlive();
@@ -157,11 +166,26 @@ namespace StateMachine.Enemy
         {
             PlayerSignals.Instance.onPlayerDead -= OnPlayerDead;
             PlayerSignals.Instance.onPlayerAlive -= OnPlayerAlive;
+            AiSignals.Instance.onGroundMinePlanted -= OnGroundMinePlanted;
+            AiSignals.Instance.onGroundMineExplode -= OnGroundMineExplode;
             
             if (_isDeath)
             {
                 _isAlive = false;
             }
+        }
+
+        private void OnGroundMinePlanted(Vector3 position)
+        {
+            _isGroundMineActivated = true;
+            GroundMinePosition = position;
+        }
+
+        private void OnGroundMineExplode()
+        {
+            if(!IsInGroundMineArea) return;
+            TakeDamage(100);
+            _isGroundMineActivated = false;
         }
 
         private void OnPlayerDead()
@@ -198,7 +222,7 @@ namespace StateMachine.Enemy
             navMeshAgent.enabled = false;
             transform.DOMoveY(-.5f, .2f);
             ChangeSaturation(.25f, .25f, .5f);
-            await Task.Delay(200);
+            await Task.Delay(2100);
             PoolSignals.Instance.onReleasePoolObject?.Invoke($"{EnemyType}", gameObject);
             animator.SetTrigger(Idle);
         }

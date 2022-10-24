@@ -9,14 +9,12 @@ namespace StateMachine.Enemy
     {
         private readonly EnemyAI _enemyAI;
         private readonly Animator _animator;
-        private readonly EnemyType _enemyType;
         private static readonly int death = Animator.StringToHash("Death");
 
-        public Death(EnemyAI enemyAI, Animator animator, EnemyType enemyType)
+        public Death(EnemyAI enemyAI, Animator animator)
         {
             _enemyAI = enemyAI;
             _animator = animator;
-            _enemyType = enemyType;
         }
         
         public void Tick()

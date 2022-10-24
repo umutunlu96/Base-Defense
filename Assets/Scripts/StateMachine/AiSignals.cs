@@ -41,11 +41,14 @@ namespace StateMachine
         #endregion
 
         #region Enemy
-
+        
         public Action<Transform> onEnemyDead;
         public Func<Transform> onGetBaseAttackPoint;
         public Action<IDamageable> onEnemyAIDead;
         public Action<bool> onPlayerIsAtOutside;
+        public Action<Vector3> onGroundMinePlanted;
+        public Action onGroundMineExplode;
+            
         #endregion
 
         #region MoneyWorker

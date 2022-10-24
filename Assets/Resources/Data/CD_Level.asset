@@ -27,7 +27,7 @@ MonoBehaviour:
       FrondYardItemsDatas:
       - BombCost: 50
         BombWaitTime: 60
-        BombExplodeTimer: 0
+        BombExplodeTimer: 10
     BaseData:
       BaseRoomData:
         RoomDatas:
@@ -94,7 +94,7 @@ MonoBehaviour:
       FrondYardItemsDatas:
       - BombCost: 50
         BombWaitTime: 60
-        BombExplodeTimer: 0
+        BombExplodeTimer: 10
     BaseData:
       BaseRoomData:
         RoomDatas:
