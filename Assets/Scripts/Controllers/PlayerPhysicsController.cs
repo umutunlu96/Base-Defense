@@ -68,6 +68,11 @@ namespace Controllers
             {
                 AiSignals.Instance.onPlayerEnterBossArea?.Invoke();
             }
+
+            if (other.CompareTag("Portal"))
+            {
+                _manager.OnNextLevel();
+            }
         }
 
         private void OnTriggerExit(Collider other)

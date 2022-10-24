@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Data.UnityObject;
 using Data.ValueObject.Base;
 using Signals;
@@ -38,6 +39,7 @@ namespace Managers
         {
             _data = GetData();
             InitDatas();
+            InitSoldiers();
             _radialMultiplier = 360 / _data.SoldierUpgradeTimer;
         }
 
@@ -48,6 +50,17 @@ namespace Managers
             _soldierUpgradeTimer = _data.SoldierUpgradeTimer;
             _soldierSlotCost = _data.SoldierSlotCost;
             _attackTimer = _data.AttackTimer;
+        }
+
+        private async void InitSoldiers()
+        {
+            await Task.Delay(200);
+            
+            for (int i = 0; i < _data.CurrentSoldierAmount; i++)
+            {
+                GenerateSoldier();
+                await Task.Delay(200);
+            }
         }
         
         #region EventSubscription
@@ -92,7 +105,7 @@ namespace Managers
         
         private void OnGetCandidates(Transform candidate) => _candidates.Add(candidate);
 
-        private Transform ReturnSoldierWaitPoint() => soldierWaitPoints[_currentSoldierAmount];
+        private Transform ReturnSoldierWaitPoint() => soldierWaitPoints[_currentSoldierAmount - 1];
 
         #endregion
 
@@ -111,10 +124,10 @@ namespace Managers
 
         private void GenerateSoldier()
         {
-            print("Soldier made");
             PoolSignals.Instance.onGetPoolObject?.Invoke("Soldier", soldierSpawnTransform);
-            _currentCandidateAmount--;
             _currentSoldierAmount++;
+            if(_candidates.Count == 0) return;
+            _currentCandidateAmount--;
             _candidates.Remove(_candidates[0]);
             _candidates.TrimExcess();
         }

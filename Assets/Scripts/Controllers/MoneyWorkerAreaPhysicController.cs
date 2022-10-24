@@ -14,7 +14,7 @@ namespace Controllers
         {
             if (other.CompareTag("Player"))
             {
-                if (PlayerSignals.Instance.onIsPlayerMoving()) return;
+                if(PlayerSignals.Instance.onIsPlayerMoving.Invoke()) return;
                 if (ScoreSignals.Instance.onGetMoneyAmount() < manager.Data.MoneyWorkerCost) return;
                 
                 _timer -= Time.deltaTime;
@@ -43,6 +43,7 @@ namespace Controllers
             if (other.CompareTag("Player"))
             {
                 manager.Save(manager.UniqueId);
+                manager.SetRadialFilletAmount(true);
             }
         }
     }

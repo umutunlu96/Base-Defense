@@ -8,6 +8,8 @@ namespace Data.ValueObject.Base
         public int MaxSoldierAmount;
         
         public int MaxCandidateAmount;
+
+        public int CurrentSoldierAmount;
         
         public float SoldierUpgradeTimer = 5f;
 

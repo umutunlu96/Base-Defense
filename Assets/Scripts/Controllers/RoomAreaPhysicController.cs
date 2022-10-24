@@ -17,17 +17,14 @@ namespace Controllers
         
         public void UpdatePayedAmountText(int payedAmount, int cost) => payedAmountText.text = (cost - payedAmount).ToString();
         
-        public void SetRadialFilletAmount(bool isInitialize, int payedAmount, int cost)
+        public void ResetRadialFilletAmount()
         {
-            if (isInitialize)
-            {
-                filledSquareRenderer.material.SetFloat("_Arc2", 360);
-            }
-            else
-            {
-                float filletAmount = 360 - (payedAmount* 360 / cost);
-                filledSquareRenderer.material.DOFloat(filletAmount,"_Arc2",delay);
-            }
+            filledSquareRenderer.material.SetFloat("_Arc2", 360);
+        }
+        public void SetRadialFilletAmount(int payedAmount, int cost)
+        {
+            float filletAmount = 360 - (payedAmount* 360 / cost);
+            filledSquareRenderer.material.DOFloat(filletAmount,"_Arc2",delay);
         }
         
         private void OnTriggerStay(Collider other)
@@ -43,6 +40,7 @@ namespace Controllers
             if (other.CompareTag("Player"))
             {
                 manager.OnPlayerExit();
+                ResetRadialFilletAmount();
             }
         }
     }

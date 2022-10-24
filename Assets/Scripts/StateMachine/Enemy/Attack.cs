@@ -51,7 +51,8 @@ namespace StateMachine.Enemy
         private void AttackToTarget()
         {
             _animator.SetTrigger(attack);
-            PlayerSignals.Instance.onTakeDamage?.Invoke(_damage);
+            if(Vector3.Distance(_enemyAI.transform.position, PlayerSignals.Instance.onGetPlayerTransfrom().position) <= _enemyAI.AttackRange)
+                PlayerSignals.Instance.onTakeDamage?.Invoke(_damage);
         }
     }
 }

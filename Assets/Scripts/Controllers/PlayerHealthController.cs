@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Globalization;
 using Managers;
 using TMPro;
@@ -52,5 +53,10 @@ namespace Controllers
         }
 
         public void ResetHealthBar() => healthBar.HealthNormalized = 1;
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+        }
     }
 }

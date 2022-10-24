@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Controllers;
 using Enums;
 using Keys;
@@ -119,6 +120,7 @@ namespace Managers
                 PlayerSignals.Instance.onPlayerDead?.Invoke();
                 OnDeath();
             }
+            print("DamageTaken");
         }
         
         private void SetPlayerDataToControllers()
@@ -177,12 +179,13 @@ namespace Managers
             attackRadius.gameObject.layer = layerIgnoreRaycastOutside;
             animationController.DisableAimLayer();
             aimController.DisableAimRig();
-            healthController.gameObject.SetActive(false);
             if (Health < 100)
             {
                 healthController.gameObject.SetActive(true);
                 healthController.Heal();
             }
+            else
+                healthController.gameObject.SetActive(false);
         }
         
         public void OnExitBase()
@@ -226,6 +229,7 @@ namespace Managers
             animationController.DisableAimLayer();
             aimController.DisableAimRig();
             animationController.TranslatePlayerAnimationState(PlayerAnimationState.Death);
+            print("DeATH");
         }
 
         private void OnAlive()
@@ -235,6 +239,13 @@ namespace Managers
             animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
             transform.position = Vector3.zero;
             OnEnterBase();
+            print("Alive");
+        }
+
+        public async void OnNextLevel()
+        {
+            await Task.Delay(2000);
+            LevelSignals.Instance.onNextLevel?.Invoke();
         }
         
         private void OnReset()

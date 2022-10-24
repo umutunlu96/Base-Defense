@@ -94,7 +94,7 @@ namespace Managers
                 }
                 Data.PayedAmount++;
                 buyAreaController.UpdatePayedAmountText(Data.PayedAmount,Data.Cost);
-                buyAreaController.SetRadialFilletAmount(false,Data.PayedAmount,Data.Cost);
+                buyAreaController.SetRadialFilletAmount(Data.PayedAmount,Data.Cost);
                 ScoreSignals.Instance.onSetMoneyAmount?.Invoke(-1);
                 yield return new WaitForSeconds(buyDelay);
             }

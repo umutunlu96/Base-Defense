@@ -17,19 +17,19 @@ MonoBehaviour:
     m_Values:
     - Health: 6
       Damage: 2
-      AttackRange: 1.5
+      AttackRange: 2
       ChaseRange: 5
       WalkSpeed: 5
       RunSpeed: 7
     - Health: 10
       Damage: 4
-      AttackRange: 1.5
+      AttackRange: 2
       ChaseRange: 4
       WalkSpeed: 4
       RunSpeed: 6
     - Health: 16
       Damage: 6
-      AttackRange: 1.5
+      AttackRange: 2
       ChaseRange: 3
       WalkSpeed: 3
       RunSpeed: 5

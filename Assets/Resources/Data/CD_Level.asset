@@ -65,6 +65,7 @@ MonoBehaviour:
       MilitaryBaseData:
         MaxSoldierAmount: 8
         MaxCandidateAmount: 12
+        CurrentSoldierAmount: 5
         SoldierUpgradeTimer: 5
         SoldierSlotCost: 500
         AttackTimer: 2
@@ -148,6 +149,7 @@ MonoBehaviour:
       MilitaryBaseData:
         MaxSoldierAmount: 8
         MaxCandidateAmount: 12
+        CurrentSoldierAmount: 1
         SoldierUpgradeTimer: 5
         SoldierSlotCost: 500
         AttackTimer: 2

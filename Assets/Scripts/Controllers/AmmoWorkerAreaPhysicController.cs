@@ -43,6 +43,7 @@ namespace Controllers
             if (other.CompareTag("Player"))
             {
                 manager.Save(manager.UniqueId);
+                manager.SetRadialFilletAmount(true);
             }
         }
     }

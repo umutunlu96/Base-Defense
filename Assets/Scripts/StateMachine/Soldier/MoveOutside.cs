@@ -24,7 +24,7 @@ namespace StateMachine.Soldier
         {
             _animator.SetFloat(Speed, _navMeshAgent.speed);
 
-            if (Vector3.Distance(_navMeshAgent.transform.position , _outsideTransform.position) <= .1f)
+            if (Vector3.Distance(_navMeshAgent.transform.position , _outsideTransform.position) <= 1f)
             {
                 _navMeshAgent.speed = 0;
                 _soldierAI.IsReachedOutside = true;

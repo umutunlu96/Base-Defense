@@ -1475,6 +1475,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1674397570148324552, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_fontSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674397570148324552, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.116767526
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674397570148324552, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.45078743
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674397570148324552, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.6037736
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674397570148324552, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674397570148324552, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674397570148324552, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4280185754
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
 --- !u!4 &6065851127836214703 stripped
