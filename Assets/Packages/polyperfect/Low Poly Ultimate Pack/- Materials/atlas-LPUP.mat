@@ -9,10 +9,9 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: atlas-LPUP
   m_Shader: {fileID: 4800000, guid: 733fefdcde0d35f4b822d2935d5a22f4, type: 3}
-  m_ShaderKeywords: _EMISSION _METALLICSPECGLOSSMAP _MK_ALBEDO_MAP _MK_COLOR_GRADING_ALBEDO
-    _MK_EMISSION _MK_EMISSION_MAP _MK_ENVIRONMENT_REFLECTIONS_AMBIENT _MK_LIGHT_CEL
-    _MK_PBS_MAP_0 _MK_RECEIVE_SHADOWS _MK_WRAPPED_DIFFUSE _RECEIVESHADOWS_ON _SPECULAR_SETUP
-    _WRAPPEDLIGHTING_ON
+  m_ShaderKeywords: _EMISSION _METALLICSPECGLOSSMAP _MK_ALBEDO_MAP _MK_EMISSION _MK_EMISSION_MAP
+    _MK_ENVIRONMENT_REFLECTIONS_AMBIENT _MK_NORMAL_MAP _MK_PBS_MAP_0 _MK_RECEIVE_SHADOWS
+    _MK_WRAPPED_DIFFUSE _RECEIVESHADOWS_ON _SPECULAR_SETUP _WRAPPEDLIGHTING_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -93,7 +92,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6f9fc09b7c228674f9d1ec642c3bd3f6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -159,7 +158,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ColorGrading: 1
+    - _ColorGrading: 0
     - _Contrast: 1
     - _Cull: 2
     - _Cutoff: 0.461
@@ -187,13 +186,13 @@ Material:
     - _IridescenceSize: 1
     - _IridescenceSmoothness: 0.5
     - _IridescenceThresholdOffset: 0
-    - _Light: 1
+    - _Light: 0
     - _LightBands: 4
     - _LightBandsScale: 0.5
     - _LightThreshold: 0.548
     - _Metallic: 0
     - _Mode: 0
-    - _NormalMapIntensity: 1
+    - _NormalMapIntensity: 0.5
     - _OcclusionStrength: 1
     - _OptionsTab: 1
     - _Parallax: 0.02
@@ -240,7 +239,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GoochBrightColor: {r: 0.18923408, g: 0.9245283, b: 0.004360993, a: 1}
+    - _GoochBrightColor: {r: 1, g: 1, b: 1, a: 1}
     - _GoochDarkColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
     - _IridescenceColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RimBrightColor: {r: 1, g: 1, b: 1, a: 1}
