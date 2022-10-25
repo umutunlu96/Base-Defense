@@ -23,7 +23,6 @@ namespace StateMachine.Soldier
         public void Tick()
         {
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
-            Debug.Log("Attack");
         }
 
         public void OnEnter()

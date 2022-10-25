@@ -124,7 +124,8 @@ namespace Managers
 
         private void GenerateSoldier()
         {
-            PoolSignals.Instance.onGetPoolObject?.Invoke("Soldier", soldierSpawnTransform);
+            GameObject soldier = PoolSignals.Instance.onGetPoolObject?.Invoke("Soldier", soldierSpawnTransform);
+            soldier.transform.SetParent(transform);
             _currentSoldierAmount++;
             if(_candidates.Count == 0) return;
             _currentCandidateAmount--;

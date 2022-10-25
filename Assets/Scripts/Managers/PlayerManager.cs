@@ -120,7 +120,6 @@ namespace Managers
                 PlayerSignals.Instance.onPlayerDead?.Invoke();
                 OnDeath();
             }
-            print("DamageTaken");
         }
         
         private void SetPlayerDataToControllers()
@@ -239,7 +238,6 @@ namespace Managers
             animationController.TranslatePlayerAnimationState(PlayerAnimationState.Idle);
             transform.position = Vector3.zero;
             OnEnterBase();
-            print("Alive");
         }
 
         public async void OnNextLevel()

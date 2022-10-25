@@ -23,8 +23,6 @@ namespace StateMachine.Soldier
         
         public void Tick()
         {
-            Debug.Log("Search");
-
             _animator.SetFloat(Speed,_navMeshAgent.velocity.magnitude);
             _timer += Time.deltaTime;
             if (_timer > _soldierAI.ChaseUpdateSpeed)

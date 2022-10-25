@@ -27,7 +27,7 @@ namespace Controllers
             _bombWaitTime = _data.BombWaitTime;
         }
 
-        private void GetData() => _data = Resources.Load<CD_Level>("Data/CD_Level").Levels[LevelSignals.Instance.onGetLevelCount()]
+        private void GetData() => _data = Resources.Load<CD_Level>("Data/CD_Level").Levels[LevelSignals.Instance.onGetLevelID()]
             .frontYardData.FrondYardItemsDatas[0];
 
         private void Update()

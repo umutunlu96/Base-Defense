@@ -84,7 +84,6 @@ namespace Managers
                 }
             }
             Load(UniqueId);
-            // SetDataToControllers();
         }
         
         #region Event Subscription
