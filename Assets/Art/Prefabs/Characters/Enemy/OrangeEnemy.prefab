@@ -189,6 +189,8 @@ MonoBehaviour:
   PlayerTarget: {fileID: 0}
   BaseTarget: {fileID: 0}
   CanAttack: 0
+  IsInGroundMineArea: 0
+  GroundMinePosition: {x: 0, y: 0, z: 0}
   animationController: {fileID: 0}
   sMeshRenderer: {fileID: 5704263202153382710}
   navMeshAgent: {fileID: 4255279260966684481}
@@ -595,7 +597,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2437cd7d6a530f441a663d3643496bb9, type: 2}
+  - {fileID: 2100000, guid: 86294c1646ef6184a8620f362c9f1c32, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -712,7 +714,7 @@ Transform:
   m_GameObject: {fileID: 5704263202150272566}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 5704263202149782036}
   - {fileID: 5704263202149782114}

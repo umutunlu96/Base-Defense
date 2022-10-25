@@ -131,6 +131,8 @@ MonoBehaviour:
   PlayerTarget: {fileID: 0}
   BaseTarget: {fileID: 0}
   CanAttack: 0
+  IsInGroundMineArea: 0
+  GroundMinePosition: {x: 0, y: 0, z: 0}
   animationController: {fileID: 0}
   sMeshRenderer: {fileID: 5704263202153382710}
   navMeshAgent: {fileID: 4255279260966684481}
@@ -537,7 +539,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd8e9b2970dd51142af12e7e29ee77f5, type: 2}
+  - {fileID: 2100000, guid: 1374783bd58e8714d860e6971c20a79d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

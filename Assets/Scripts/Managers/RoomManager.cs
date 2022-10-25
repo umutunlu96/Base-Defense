@@ -40,6 +40,7 @@ namespace Managers
             Load(UniqueId);
             CheckData();
             turretManager.SetData();
+            buyAreaController.UpdatePayedAmountText(Data.PayedAmount,Data.Cost);
         }
 
         public int ReturnUniqueId() => UniqueId;

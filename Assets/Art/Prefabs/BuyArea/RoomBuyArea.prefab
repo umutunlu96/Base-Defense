@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0.005
   manager: {fileID: 0}
-  payedAmountText: {fileID: 0}
+  payedAmountText: {fileID: 7785928849301837435}
   filledSquareRenderer: {fileID: 5644267823722614243}
 --- !u!65 &720573428
 BoxCollider:
@@ -332,7 +332,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.7, y: -4.48}
+  m_AnchoredPosition: {x: 3.06, y: -4.48}
   m_SizeDelta: {x: 2.5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4663604211794547117
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0

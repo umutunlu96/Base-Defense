@@ -179,13 +179,10 @@ namespace Controllers
         private IEnumerator Attack()
         {
             WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
-
             yield return Wait;
-            
             while (Damageables.Count > 0)
             {
                 _closestDamageable = GetClosestDamageable();
-                
                 if (_closestDamageable != null && !_closestDamageable.AmIDeath())
                 {
                     GameObject bullet = GetBullet();
@@ -194,20 +191,22 @@ namespace Controllers
                         bullet.GetComponent<Bullet>().Shoot(muzzleTransform[(int) _weaponType].rotation);
                     }
                 }
-
-                // _closestDamageable = null;
-
                 yield return Wait;
-
                 Damageables.RemoveAll(DisabledDamageables);
             }
-
             AttackCoroutine = null;
         }
 
         protected  bool DisabledDamageables(IDamageable Damageable)
         {
             return Damageable != null && !Damageable.GetTransform().gameObject.activeSelf;
+        }
+
+        public void StopAttack()
+        {
+            StopCoroutine(AttackCoroutine);
+            AttackCoroutine = null;
+            Damageables.Clear();
         }
     }
 }

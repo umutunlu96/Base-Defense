@@ -65,6 +65,7 @@ namespace Managers
             UpdatePayedAmountText();
             CheckPayedAmount();
             CheckBougthState(Data.BuyState);
+            payedAmountText.text = $"{Data.AmmoWorkerCost - Data.AmmoWorkerPayedAmount}";
         }
         
         private void SetData()
@@ -82,7 +83,7 @@ namespace Managers
                 }
             }
             Load(UniqueId);
-            // SetDataToControllers();
+
         }
 
         #region Event Subscription

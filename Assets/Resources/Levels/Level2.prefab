@@ -739,6 +739,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6027085186472970595}
     m_Modifications:
+    - target: {fileID: 1277840294, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
+      propertyPath: _lowToHighHealthTransition.ctime0
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277840294, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
+      propertyPath: _lowToHighHealthTransition.ctime1
+      value: 21395
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277840294, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
+      propertyPath: _lowToHighHealthTransition.ctime2
+      value: 41056
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277840294, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
+      propertyPath: _lowToHighHealthTransition.ctime3
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277840294, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
+      propertyPath: _lowToHighHealthTransition.key1.g
+      value: 0.8434032
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277840294, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
+      propertyPath: _lowToHighHealthTransition.key2.b
+      value: 0.0039215684
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277840294, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
+      propertyPath: _lowToHighHealthTransition.key2.g
+      value: 0.7200863
+      objectReference: {fileID: 0}
     - target: {fileID: 1294032278345427918, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
       propertyPath: m_Name
       value: Player

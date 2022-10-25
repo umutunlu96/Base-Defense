@@ -5,8 +5,6 @@ using Controllers;
 using Enums;
 using Keys;
 using Signals;
-using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor.Drawers;
 using StateMachine;
 using UnityEngine;
 
@@ -14,11 +12,9 @@ namespace Managers
 {
     public class PlayerManager : MonoBehaviour
     {
-        #region Self Variables
-
-        #region Seriliazed Field
-
         public int Health = 100;
+        public bool InBombArea = false;
+        
         [SerializeField] private Rigidbody rigidBody;
         [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private PlayerPhysicsController physicsController;
@@ -27,9 +23,6 @@ namespace Managers
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private Transform attackRadius;
         [SerializeField] private PlayerStackController stackController;
-        #endregion Seriliazed Field
-
-        #region Private
 
         private PlayerData _playerData;
         private bool _isPlayerMoving;
@@ -38,10 +31,6 @@ namespace Managers
         private Transform _parent;
         private WeaponType _weaponType;
         private bool _isAlive = true;
-        #endregion Private
-
-        
-        #endregion Self Variables
 
         private void Awake()
         {
@@ -78,6 +67,8 @@ namespace Managers
             PlayerSignals.Instance.onTakeDamage += OnTakeDamage;
             PlayerSignals.Instance.onReturnHealth += OnReturnHealth;
             PlayerSignals.Instance.onPlayerDeadAnimComplete += OnAlive;
+
+            AiSignals.Instance.onGrenadeExplode += OnGranadeExplode;
         }
 
         private void UnsubscribeEvents()
@@ -98,6 +89,8 @@ namespace Managers
             PlayerSignals.Instance.onTakeDamage -= OnTakeDamage;
             PlayerSignals.Instance.onReturnHealth -= OnReturnHealth;
             PlayerSignals.Instance.onPlayerDeadAnimComplete -= OnAlive;
+            
+            AiSignals.Instance.onGrenadeExplode += OnGranadeExplode;
         }
 
         private void OnDisable()
@@ -110,6 +103,12 @@ namespace Managers
         private bool OnCanBuy() => _isPlayerMoving;
 
         private int OnReturnHealth() => Health;
+
+        private void OnGranadeExplode()
+        {
+            if(!InBombArea) return;
+            OnTakeDamage(20);
+        }
         
         private void OnTakeDamage(int damage)
         {
@@ -118,6 +117,7 @@ namespace Managers
             if (Health <= 0 && _isAlive)
             {
                 PlayerSignals.Instance.onPlayerDead?.Invoke();
+                Health = 0;
                 OnDeath();
             }
         }
@@ -227,8 +227,8 @@ namespace Managers
             _isAlive = false;
             animationController.DisableAimLayer();
             aimController.DisableAimRig();
+            aimController.StopAttack();
             animationController.TranslatePlayerAnimationState(PlayerAnimationState.Death);
-            print("DeATH");
         }
 
         private void OnAlive()

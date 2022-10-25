@@ -22,6 +22,7 @@ namespace Managers
 
         #region Serialized
 
+        [SerializeField] private GameObject portal;
         [SerializeField] private List<RoomManager> roomManagers;
         [SerializeField] private List<TurretManager> turretManagers;
         [SerializeField] private List<Transform> baseAttackPoints;
@@ -60,7 +61,6 @@ namespace Managers
             GetBaseData();
             GetFrontyardData();
             SetDataToManagers();
-            // baseText.text = $"Base {GetLevelID}";
         }
         
         private void SetDataToManagers()
@@ -91,6 +91,7 @@ namespace Managers
             AiSignals.Instance.onGetAmmoWarehouseTransform += OnGetAmmoWarehouseTransform;
             AiSignals.Instance.onGetTurretManagers += OnGetTurretManagers;
             AiSignals.Instance.onGetOutsideTransform += OnGetOutsideTransform;
+            AiSignals.Instance.onBossDead += OnBossDead;
         }
         
         private void UnSubscribeEvents()
@@ -101,6 +102,7 @@ namespace Managers
             AiSignals.Instance.onGetAmmoWarehouseTransform -= OnGetAmmoWarehouseTransform;
             AiSignals.Instance.onGetTurretManagers -= OnGetTurretManagers;
             AiSignals.Instance.onGetOutsideTransform -= OnGetOutsideTransform;
+            AiSignals.Instance.onBossDead += OnBossDead;
         }
 
         private void OnDisable()
@@ -129,6 +131,8 @@ namespace Managers
         private List<TurretManager> OnGetTurretManagers() => turretManagers;
 
         private Transform OnGetOutsideTransform() => outsideTransform;
+
+        private void OnBossDead() => portal.SetActive(true);
 
         #endregion
     }

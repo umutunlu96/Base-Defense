@@ -38,8 +38,6 @@ namespace Managers
         
         [SerializeField] private Renderer filledSquareRenderer;
         
-        //Controllers
-        
         #endregion
 
         #region Private
@@ -67,6 +65,7 @@ namespace Managers
             UpdatePayedAmountText();
             CheckPayedAmount();
             CheckBougthState(Data.BuyState);
+            payedAmountText.text = $"{Data.MoneyWorkerCost - Data.MoneyWorkerPayedAmount}";
         }
         
         private void SetData()

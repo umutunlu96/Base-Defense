@@ -57,6 +57,7 @@ namespace Managers
             }
             Load(_uniqueID);
             CheckData();
+            buyAreaController.UpdatePayedAmountText(Data.PayedAmount, Data.Cost);
             _stackData = Resources.Load<CD_StackData>("Data/CD_StackData").StackDatas[_stackType];
         }
         
@@ -116,8 +117,6 @@ namespace Managers
         }
 
         public int GetCurrentEmptyAmmoCount() => _stackData.Capacity - _currentAmmoAmount;
-
-        public int CurrentAmmoAmount { get => _currentAmmoAmount; set => _currentAmmoAmount += value; }
         
         public Transform AmmoHolderTransform { get => ammoHolderAreaTransform; private set => ammoHolderAreaTransform = value; }
 

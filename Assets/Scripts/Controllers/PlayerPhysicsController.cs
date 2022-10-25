@@ -73,6 +73,11 @@ namespace Controllers
             {
                 _manager.OnNextLevel();
             }
+
+            if (other.CompareTag("BombTarget"))
+            {
+                _manager.InBombArea = true;
+            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -90,6 +95,11 @@ namespace Controllers
             if (other.CompareTag("Boss"))
             {
                 AiSignals.Instance.onPlayerLeaveBossArea?.Invoke();
+            }
+            
+            if (other.CompareTag("BombTarget"))
+            {
+                _manager.InBombArea = false;
             }
         }
     }
