@@ -1251,7 +1251,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -5666909447730324025, guid: 5d25a41d44114a546a898016e00cb7c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1295,15 +1295,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: BASE 2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5d25a41d44114a546a898016e00cb7c1, type: 2}
+  m_sharedMaterial: {fileID: -5666909447730324025, guid: 5d25a41d44114a546a898016e00cb7c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281434202
-  m_fontColor: {r: 0.3532812, g: 0.5, b: 0.19103774, a: 1}
+    rgba: 2152317832
+  m_fontColor: {r: 0.5335551, g: 0.764151, b: 0.28475437, a: 0.5019608}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4309,7 +4309,7 @@ MonoBehaviour:
   - {fileID: 5900150858405001209}
   - {fileID: 807788190273215307}
   baseText: {fileID: 5714352279089825959}
-  mineBaseTransform: {fileID: 7002896784592404803}
+  mineBaseTransform: {fileID: 6211105119220563086}
   baseTransform: {fileID: 6373106569781512577}
   outDoorTransform: {fileID: 6373106569294191045}
   ammoWarehouse: {fileID: 0}

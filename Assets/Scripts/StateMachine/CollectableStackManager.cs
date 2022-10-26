@@ -96,8 +96,8 @@ namespace StateMachine
             if(_collectedAmount == 0) return;
             for (int i = 0; i < collectableList.Count; i++)
             {
-                Vector3 pos1 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-2, 2), collectableList[i].transform.localPosition.y + 3, collectableList[i].transform.localPosition.z + Random.Range(-2, 2));
-                Vector3 pos2 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-2, 2), collectableList[i].transform.localPosition.y - 5, collectableList[i].transform.localPosition.z + Random.Range(-2, 2));
+                Vector3 pos1 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-1, 1), collectableList[i].transform.localPosition.y + 1, collectableList[i].transform.localPosition.z + Random.Range(-1, 1));
+                Vector3 pos2 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-1, 1), collectableList[i].transform.localPosition.y - 1, collectableList[i].transform.localPosition.z + Random.Range(-1, 1));
                 collectableList[i].transform.DOLocalPath(new Vector3[2] { pos1, pos2 }, 0.5f);
                 await Task.Delay(100);
             }

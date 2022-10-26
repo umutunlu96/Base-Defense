@@ -180,7 +180,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DiffuseSmoothness: 0.723
+    - _DiffuseSmoothness: 0.705
     - _DiffuseThresholdOffset: 0.25
     - _Dissolve: 0
     - _DissolveAmount: 0.5
@@ -205,7 +205,7 @@ Material:
     - _Light: 1
     - _LightBands: 4
     - _LightBandsScale: 0.5
-    - _LightThreshold: 0.58
+    - _LightThreshold: 1
     - _Metallic: 0
     - _Mode: 0
     - _NormalMapIntensity: 1

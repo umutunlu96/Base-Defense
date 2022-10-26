@@ -70,14 +70,14 @@ namespace Controllers
             {
                 targetTransform.localPosition = Vector3.Lerp(targetTransform.localPosition,
                     targetInitialTransform.localPosition, Mathf.SmoothStep(0, 1, Time.deltaTime * 12));
-                return;
             }
-            
-            if(_closestDamageable == null) return;
-            if (_closestDamageable.AmIDeath()) return;
-            RotatePlayerSlowly(_closestDamageable.GetTransform());
-            targetTransform.position = Vector3.Lerp(targetTransform.position,
-                _closestDamageable.GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 24));
+            else
+            {
+                if (_closestDamageable.AmIDeath()) return;
+                RotatePlayerSlowly(_closestDamageable.GetTransform());
+                targetTransform.position = Vector3.Lerp(targetTransform.position,
+                    _closestDamageable.GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 24));
+            }
         }
 
         private void RotatePlayerSlowly(Transform target)

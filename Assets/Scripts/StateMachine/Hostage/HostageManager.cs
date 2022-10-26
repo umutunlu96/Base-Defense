@@ -81,7 +81,11 @@ namespace StateMachine.Hostage
             
             MinerPhysicController minerPhysicController = physicController.transform.gameObject.AddComponent(typeof(MinerPhysicController)) as MinerPhysicController;
             minerPhysicController.manager = minerAI;
-
+            
+            int workerLayer = LayerMask.NameToLayer("Worker");
+            var physicControllerGO = physicController.gameObject;
+            physicControllerGO.tag = "Worker";
+            physicControllerGO.layer = workerLayer;
             animator.runtimeAnimatorController = (RuntimeAnimatorController) Resources.Load("Animators/MineWorker",
                 typeof(RuntimeAnimatorController ));
 

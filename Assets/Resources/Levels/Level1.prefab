@@ -671,13 +671,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6027085186472970595}
     m_Modifications:
+    - target: {fileID: 1277840295, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1294032278345427918, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1294032278345427918, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1294032278345427919, guid: 122068fb2e5d48d4eb59c4e593b866a0, type: 3}
       propertyPath: m_RootOrder
@@ -1427,10 +1427,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6027085186472970595}
     m_Modifications:
-    - target: {fileID: 327585125909556450, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
-      propertyPath: buyAreaController
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 383140818337527643, guid: 88cae24ae675a6d479da3b369e4075a1, type: 3}
       propertyPath: m_Name
       value: Base 1

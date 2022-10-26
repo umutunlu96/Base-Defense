@@ -18,12 +18,12 @@ MonoBehaviour:
     - MaxHeight: 11
       Capacity: 20
       LerpSpeed: 0.5
-      OffsetY: 0.156
-      OffsetZ: 0.32
+      OffsetY: 0.062
+      OffsetZ: -0.1
     - MaxHeight: 11
       Capacity: 10
       LerpSpeed: 0.5
-      OffsetY: 0.615
+      OffsetY: 0.17
       OffsetZ: 0.58
     - MaxHeight: 11
       Capacity: 20

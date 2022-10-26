@@ -51,7 +51,7 @@ Material:
     - _ColorMask: 15
     - _CullMode: 0
     - _Diffuse: 0.5
-    - _FaceDilate: 1
+    - _FaceDilate: 0.66
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
     - _GlowInner: 0.05
@@ -62,15 +62,15 @@ Material:
     - _LightAngle: 3.1416
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
-    - _OutlineSoftness: 0.11
+    - _OutlineSoftness: 0.2
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.692
+    - _OutlineWidth: 0.2
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 0.4308333
-    - _ScaleRatioB: 0
-    - _ScaleRatioC: 0
+    - _ScaleRatioA: 0.68708843
+    - _ScaleRatioB: 0.13071428
+    - _ScaleRatioC: 0.13071428
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -97,7 +97,7 @@ Material:
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
@@ -113,11 +113,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: dosis
+  m_Name: dosis 3
   m_EditorClassIdentifier: 
-  hashCode: 115306338
+  hashCode: 1014549489
   material: {fileID: -5666909447730324025}
-  materialHashCode: 150588546
+  materialHashCode: 858541745
   m_Version: 1.1.0
   m_SourceFontFileGUID: 5920d0c1395d5c548a8f427375cd7913
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 5920d0c1395d5c548a8f427375cd7913, type: 3}

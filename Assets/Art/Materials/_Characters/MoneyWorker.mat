@@ -216,7 +216,7 @@ Material:
     - _OutlineFadeMax: 2
     - _OutlineFadeMin: 0.25
     - _OutlineNoise: 0
-    - _OutlineSize: 85
+    - _OutlineSize: 65
     - _OutlineTab: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -256,12 +256,12 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.3537736, g: 0.60732096, b: 1, a: 1}
+    - _AlbedoColor: {r: 0.5990566, g: 0.757004, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GoochBrightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GoochBrightColor: {r: 0.3529412, g: 0.60784316, b: 1, a: 1}
     - _GoochDarkColor: {r: 0, g: 0, b: 0, a: 1}
     - _IridescenceColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _OutlineColor: {r: 0.18729973, g: 0.38771346, b: 0.6509434, a: 1}
