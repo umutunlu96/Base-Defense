@@ -10,6 +10,7 @@ namespace Controllers
     public class Bullet : MonoBehaviour
     {
         [SerializeField] private WeaponType WeaponType;
+        [SerializeField] private TrailRenderer tRenderer;
         private BulletData _bulletData;
         private Rigidbody _rigidBody;
         private const string DisableMethodName = "Disable";
@@ -62,6 +63,7 @@ namespace Controllers
         {
             CancelInvoke(DisableMethodName);
             _rigidBody.velocity = Vector3.zero;
+            tRenderer.Clear();
             PoolSignals.Instance.onReleasePoolObject?.Invoke($"{WeaponType}Bullet", this.gameObject);
         }
     }

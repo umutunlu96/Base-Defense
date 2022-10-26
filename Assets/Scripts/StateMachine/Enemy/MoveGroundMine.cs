@@ -26,7 +26,7 @@ namespace StateMachine.Enemy
         public void OnEnter()
         {
             _navMeshAgent.speed = _enemyAI.RunSpeed;
-            _navMeshAgent.SetDestination(_enemyAI.GroundMinePosition);
+            _navMeshAgent.SetDestination(_enemyAI.GroundMineTarget.position);
         }
 
         public void OnExit()

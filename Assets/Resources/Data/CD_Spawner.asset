@@ -16,17 +16,17 @@ MonoBehaviour:
   - EnemySpawnDelay: 2
     EnemySpawnDatas:
     - EnemyType: 0
-      MaxSpawnAmount: 1
-      CurrentSpawnAmount: 1
+      MaxSpawnAmount: 25
+      CurrentSpawnAmount: 0
     - EnemyType: 1
-      MaxSpawnAmount: 1
-      CurrentSpawnAmount: 1
-    - EnemyType: 2
       MaxSpawnAmount: 10
-      CurrentSpawnAmount: 9
+      CurrentSpawnAmount: 0
+    - EnemyType: 2
+      MaxSpawnAmount: 5
+      CurrentSpawnAmount: 0
     HostageSpawnDatas:
       SpawnDelay: 15
-      MaxSpawnAmount: 5
+      MaxSpawnAmount: 2
       CurrentSpawnAmount: 0
     BombSpawnData:
       BombSpawnDelay: 1
@@ -36,7 +36,7 @@ MonoBehaviour:
     EnemySpawnDatas:
     - EnemyType: 0
       MaxSpawnAmount: 10
-      CurrentSpawnAmount: -2
+      CurrentSpawnAmount: 0
     - EnemyType: 1
       MaxSpawnAmount: 10
       CurrentSpawnAmount: 0

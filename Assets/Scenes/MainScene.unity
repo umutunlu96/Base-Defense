@@ -19,7 +19,7 @@ RenderSettings:
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 60
-  m_LinearFogEnd: 100
+  m_LinearFogEnd: 72
   m_AmbientSkyColor: {r: 1, g: 0.9372549, b: 0.7607843, a: 1}
   m_AmbientEquatorColor: {r: 0.7607843, g: 0.6666667, b: 0.9372549, a: 1}
   m_AmbientGroundColor: {r: 0.6313726, g: 0.6313726, b: 0.6313726, a: 1}
@@ -988,7 +988,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743050994}
   m_LocalRotation: {x: 0.35020736, y: 0, z: 0, w: 0.9366722}
-  m_LocalPosition: {x: 0, y: 17, z: -17.619999}
+  m_LocalPosition: {x: 0, y: 14, z: -15.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1703129138}
@@ -1165,7 +1165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903862709}
   m_LocalRotation: {x: 0.35020736, y: -0, z: -0, w: 0.9366722}
-  m_LocalPosition: {x: 0, y: 17, z: -17.619999}
+  m_LocalPosition: {x: 0, y: 14, z: -15.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 193562365}
@@ -2223,7 +2223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1550847205}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 4.5, z: -6.12}
+  m_LocalPosition: {x: 0, y: 9, z: -11.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2069842429}
@@ -2473,7 +2473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 17, z: -13.5}
+  m_FollowOffset: {x: 0, y: 14, z: -11.5}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -3268,10 +3268,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 4.5, z: -2}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_FollowOffset: {x: 0, y: 9, z: -7}
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0

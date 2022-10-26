@@ -4,6 +4,7 @@ using Data.UnityObject;
 using Data.ValueObject.AI;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace StateMachine.Soldier
 {
@@ -14,13 +15,12 @@ namespace StateMachine.Soldier
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Animator animator;
         
-        // public Transform ChaseTargett;
         public IDamageable ChaseTarget;
         public IDamageable AttackTarget;
         private SoldierData _soldierData;
         private StateMachine _stateMachine;
         public Transform _soldierWaitTransform;
-        public Transform _outsideTransform;
+        public Vector3 _outsideTransform;
         
         [Header("Datas")]
         public float Health;
@@ -36,7 +36,6 @@ namespace StateMachine.Soldier
         private bool _isAlive = true;
         private bool _isPlayerCallForAttack;
         public bool IsReachedOutside;
-        // public bool canAttack;
         private float _timer;
         
         private void Awake()
@@ -98,7 +97,10 @@ namespace StateMachine.Soldier
         private void GetMilitaryLocationTransforms()
         {
             _soldierWaitTransform = AiSignals.Instance.onGetSoldierWaitTransform();
-            _outsideTransform = AiSignals.Instance.onGetOutsideTransform();
+            // _outsideTransform = AiSignals.Instance.onGetOutsideTransform();
+            int randomX = Random.Range(-20, 20);
+            int randomZ = Random.Range(15, 45);
+            _outsideTransform = new Vector3(randomX, 0, randomZ);
         }
 
         private void Update()

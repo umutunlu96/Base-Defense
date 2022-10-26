@@ -23,7 +23,7 @@ namespace StateMachine.Enemy
         public Transform BaseTarget;
         public bool CanAttack;
         public bool IsInGroundMineArea = false;
-        public Vector3 GroundMinePosition;
+        public Transform GroundMineTarget;
 
         #endregion
 
@@ -119,6 +119,7 @@ namespace StateMachine.Enemy
             At(moveToBase, attack, IsAtBase());
             At(death, moveToBase, IsAlive());
             At(moveToBomb, attack, IsInGroundMineArea());
+            At(moveToBomb, moveToBase, IsMineExplode());
             
             _stateMachine.AddAnyTransition(death, IsDeath());
             _stateMachine.AddAnyTransition(moveToBomb, IsGroundMineActivated());
@@ -136,7 +137,9 @@ namespace StateMachine.Enemy
             Func<bool> IsAlive() => () => _health > 0;
             Func<bool> IsPlayerDead() => () => _isPlayerDead;
             Func<bool> IsGroundMineActivated() => () => _isGroundMineActivated;
-            Func<bool> IsInGroundMineArea() => () => Vector3.Distance(transform.position, GroundMinePosition) < navMeshAgent.stoppingDistance * 2;
+            Func<bool> IsInGroundMineArea() => () => Vector3.Distance(transform.position, GroundMineTarget.position) < navMeshAgent.stoppingDistance * 2;
+            Func<bool> IsMineExplode() => () =>  CurrentTarget != GroundMineTarget && _isGroundMineActivated == false;
+            
         }
         
         private void Update()
@@ -175,17 +178,18 @@ namespace StateMachine.Enemy
             }
         }
 
-        private void OnGroundMinePlanted(Vector3 position)
+        private void OnGroundMinePlanted(Transform groundMine)
         {
             _isGroundMineActivated = true;
-            GroundMinePosition = position;
+            GroundMineTarget = groundMine;
         }
 
         private void OnGroundMineExplode()
         {
+            CurrentTarget = BaseTarget;
+            _isGroundMineActivated = false;
             if(!IsInGroundMineArea) return;
             TakeDamage(100);
-            _isGroundMineActivated = false;
         }
 
         private void OnPlayerDead()
@@ -202,6 +206,7 @@ namespace StateMachine.Enemy
         private void OnAlive()
         {
             _health = _enemyData.Health;
+            IsInGroundMineArea = false;
             ChangeSaturation(1, 1, .1f);
             navMeshAgent.enabled = true;
             _isDeath = false;

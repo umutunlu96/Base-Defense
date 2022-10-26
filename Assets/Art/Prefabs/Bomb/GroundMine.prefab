@@ -159,7 +159,7 @@ SphereCollider:
   m_GameObject: {fileID: 4736619809677154439}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df18864493e141febf3ea36cc0e99549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sCollider: {fileID: 4736619809677154437}
   BuySquare: {fileID: 5828677377026402570}
   explosionParticle: {fileID: 4736619809772648577}
   payedAmoundText: {fileID: 1484862551988566435}
@@ -335,7 +336,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d38f6d44feefabd499a29ebbe211dbf9, type: 3}
-  m_Color: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
+  m_Color: {r: 1, g: 0.654902, b: 0.53333336, a: 0.8}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -469,7 +470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 500
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d25a41d44114a546a898016e00cb7c1, type: 2}
   m_sharedMaterial: {fileID: -5666909447730324025, guid: 5d25a41d44114a546a898016e00cb7c1, type: 2}
@@ -478,8 +479,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291690751
-  m_fontColor: {r: 1, g: 0, b: 0.8072939, a: 1}
+    rgba: 4281370034
+  m_fontColor: {r: 0.69803923, g: 0.52156866, b: 0.1882353, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

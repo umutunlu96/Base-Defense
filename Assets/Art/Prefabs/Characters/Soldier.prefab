@@ -1576,6 +1576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8135714198224360882}
   - component: {fileID: 3744092595686129579}
+  - component: {fileID: 8487161677095538258}
   m_Layer: 20
   m_Name: PhysicController
   m_TagString: Soldier
@@ -1606,6 +1607,20 @@ CapsuleCollider:
   m_GameObject: {fileID: 6002244978408422597}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 2.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.3, z: 0}
+--- !u!136 &8487161677095538258
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002244978408422597}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.4
   m_Height: 2.75
@@ -1711,7 +1726,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 4235050299759420384}
   animator: {fileID: 8422295924065925832}
   _soldierWaitTransform: {fileID: 0}
-  _outsideTransform: {fileID: 0}
+  _outsideTransform: {x: 0, y: 0, z: 0}
   Health: 0
   Damage: 0
   AttackRate: 0
@@ -2118,14 +2133,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 862717055, guid: 509f07b39d930b041b2f6c221be9eed5, type: 3}
   m_PrefabInstance: {fileID: 2484035711397911691}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2484035712291534707 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1271180280, guid: 509f07b39d930b041b2f6c221be9eed5, type: 3}
-  m_PrefabInstance: {fileID: 2484035711397911691}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2391020520265303069 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 240816338934995094, guid: 509f07b39d930b041b2f6c221be9eed5, type: 3}
+  m_PrefabInstance: {fileID: 2484035711397911691}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2484035712291534707 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1271180280, guid: 509f07b39d930b041b2f6c221be9eed5, type: 3}
   m_PrefabInstance: {fileID: 2484035711397911691}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4379273318473383364 stripped

@@ -21,8 +21,8 @@ MonoBehaviour:
       levelOffsetY: 0.85
     - row: 3
       column: 3
-      groundOffsetY: 0.244
-      levelOffsetY: 0.506
+      groundOffsetY: 0.28
+      levelOffsetY: 0.576
     - row: 1
       column: 10
       groundOffsetY: 1

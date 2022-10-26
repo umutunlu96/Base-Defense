@@ -46,7 +46,7 @@ namespace StateMachine
         public Func<Transform> onGetBaseAttackPoint;
         public Action<IDamageable> onEnemyAIDead;
         public Action<bool> onPlayerIsAtOutside;
-        public Action<Vector3> onGroundMinePlanted;
+        public Action<Transform> onGroundMinePlanted;
         public Action onGroundMineExplode;
             
         #endregion

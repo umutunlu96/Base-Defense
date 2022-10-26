@@ -61,7 +61,7 @@ namespace Controllers
         {
             Damageables.Remove(damageable);
             Damageables.TrimExcess();
-            _closestDamageable = null;
+            _closestDamageable = GetClosestDamageable();
         }
 
         private void SetTarget()
@@ -71,13 +71,13 @@ namespace Controllers
                 targetTransform.localPosition = Vector3.Lerp(targetTransform.localPosition,
                     targetInitialTransform.localPosition, Mathf.SmoothStep(0, 1, Time.deltaTime * 12));
             }
-            else
-            {
-                if (_closestDamageable.AmIDeath()) return;
-                RotatePlayerSlowly(_closestDamageable.GetTransform());
-                targetTransform.position = Vector3.Lerp(targetTransform.position,
-                    _closestDamageable.GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 24));
-            }
+            if(_closestDamageable == null) return;
+            if (_closestDamageable.AmIDeath()) return;
+            // if(Damageables.Count == 0) return;
+            // if (Damageables[0].AmIDeath()) return;
+            targetTransform.position = Vector3.Lerp(targetTransform.position,
+                Damageables[0].GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 48));
+            // RotatePlayerSlowly(Damageables[0].GetTransform());
         }
 
         private void RotatePlayerSlowly(Transform target)

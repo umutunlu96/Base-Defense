@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponType: 6
+  tRenderer: {fileID: 4272082255070329999}
 --- !u!96 &4272082255070329999
 TrailRenderer:
   serializedVersion: 2

@@ -9,6 +9,7 @@ namespace Controllers
 {
     public class GroundMine : MonoBehaviour
     {
+        [SerializeField] private SphereCollider sCollider;
         [SerializeField] private GameObject BuySquare;
         [SerializeField] private ParticleSystem explosionParticle;
         [SerializeField] private TextMeshPro payedAmoundText;
@@ -35,6 +36,7 @@ namespace Controllers
             if (_isActivated)
             {
                 _bombTick += Time.deltaTime;
+                sCollider.enabled = true;
                 if(_bombTick < _data.BombExplodeTimer) return;
                 explosionParticle.Play();
                 AiSignals.Instance.onGroundMineExplode?.Invoke();
@@ -45,6 +47,7 @@ namespace Controllers
 
             if (_isInCoolDown)
             {
+                sCollider.enabled = false;
                 _bombTick += Time.deltaTime;
                 if (_bombTick >= _bombWaitTime)
                 {
@@ -73,7 +76,7 @@ namespace Controllers
                 if(_isActivated) return;
                 BuySquare.SetActive(false);
                 _isActivated = true;
-                AiSignals.Instance.onGroundMinePlanted?.Invoke(transform.position);
+                AiSignals.Instance.onGroundMinePlanted?.Invoke(transform);
             }
             _timer = _delay;
         }
