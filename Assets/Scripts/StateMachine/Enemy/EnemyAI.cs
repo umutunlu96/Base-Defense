@@ -247,8 +247,8 @@ namespace StateMachine.Enemy
             for (int i = 0; i < 3; i++)
             {
                 GameObject money = PoolSignals.Instance.onGetPoolObject?.Invoke("Money", transform);
-                Vector3 moneySpawnPos = enemyTransform + new Vector3(Random.Range(-1, 1), 1, Random.Range(-1, 1)); 
-                money.transform.position = moneySpawnPos;
+                Vector3 pos1 = new Vector3(enemyTransform.x + Random.Range(-1.4f, 1.4f), 0, enemyTransform.z + Random.Range(-1.4f, 1.4f));
+                money.transform.DOJump(pos1, .5f, 2, .2f);
             }
         }
         

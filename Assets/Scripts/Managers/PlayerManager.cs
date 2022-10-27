@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Controllers;
 using Enums;
@@ -225,6 +223,7 @@ namespace Managers
         private void OnDeath()
         {
             _isAlive = false;
+            stackController.OnDeadDropAllMoney();
             animationController.DisableAimLayer();
             aimController.DisableAimRig();
             aimController.StopAttack();

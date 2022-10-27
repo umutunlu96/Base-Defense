@@ -73,11 +73,10 @@ namespace Controllers
             }
             if(_closestDamageable == null) return;
             if (_closestDamageable.AmIDeath()) return;
-            // if(Damageables.Count == 0) return;
-            // if (Damageables[0].AmIDeath()) return;
+            if(Damageables.Count == 0) return;
+            if (Damageables[0].AmIDeath()) return;
             targetTransform.position = Vector3.Lerp(targetTransform.position,
                 Damageables[0].GetTransform().position, Mathf.SmoothStep(0, 1, Time.deltaTime * 48));
-            // RotatePlayerSlowly(Damageables[0].GetTransform());
         }
 
         private void RotatePlayerSlowly(Transform target)
@@ -204,9 +203,10 @@ namespace Controllers
 
         public void StopAttack()
         {
+            Damageables.Clear();
+            if(AttackCoroutine == null) return;
             StopCoroutine(AttackCoroutine);
             AttackCoroutine = null;
-            Damageables.Clear();
         }
     }
 }

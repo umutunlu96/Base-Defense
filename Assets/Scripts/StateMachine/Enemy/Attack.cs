@@ -28,14 +28,11 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
-            Debug.Log("ATTACK");
-
             _timer -= Time.deltaTime;
             if(_timer >= 0) return;
             
             _animator.SetTrigger(attack);
             AttackToTarget();
-            // _animator.SetFloat(Speed, 0);
             _timer = 1.1f;
         }
 

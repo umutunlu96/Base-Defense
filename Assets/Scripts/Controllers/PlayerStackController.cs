@@ -54,11 +54,18 @@ namespace Controllers
             money.tag = "Collected";
         }
 
-        public void DropAllMoney()
+        public async void DropAllMoney()
         {
             ScoreSignals.Instance.onSetMoneyAmount?.Invoke(_moneyCount * 10);
             _moneyCount = 0;
+            await Task.Delay(1000);
             moneyStack.RemoveStackAll();
+        }
+
+        public void OnDeadDropAllMoney()
+        {
+            _moneyCount = 0;
+            moneyStack.JustRemove();
         }
         
         #endregion

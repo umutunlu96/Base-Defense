@@ -94,17 +94,40 @@ namespace StateMachine
         public async void RemoveStackAll()
         {
             if(_collectedAmount == 0) return;
-            for (int i = 0; i < collectableList.Count; i++)
+            foreach (var t in collectableList)
             {
-                Vector3 pos1 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-1, 1), collectableList[i].transform.localPosition.y + 1, collectableList[i].transform.localPosition.z + Random.Range(-1, 1));
-                Vector3 pos2 = new Vector3(collectableList[i].transform.localPosition.x + Random.Range(-1, 1), collectableList[i].transform.localPosition.y - 1, collectableList[i].transform.localPosition.z + Random.Range(-1, 1));
-                collectableList[i].transform.DOLocalPath(new Vector3[2] { pos1, pos2 }, 0.5f);
+                Vector3 colPos = t.position;
+                Vector3 pos1 = new Vector3(colPos.x + Random.Range(-1f, 1f), colPos.y + 1.5f, colPos.z + Random.Range(-1f, 1f));
+                Vector3 pos2 = new Vector3(pos1.x, -.2f, pos1.z);
+                t.transform.DOPath(new Vector3[2] { pos1, pos2 }, 1f);
                 await Task.Delay(100);
             }
             await Task.Delay(200);
             RemoveAllList();
         }
 
+        public async void JustRemove()
+        {
+            if(_collectedAmount == 0) return;
+            Transform baseTransform = AiSignals.Instance.onGetBaseTransform();
+            foreach (var t in collectableList)
+            {
+                t.SetParent(baseTransform);
+                
+                Vector3 colPos = t.position;
+                Vector3 pos1 = new Vector3(colPos.x + Random.Range(-1.4f, 1.4f), 0, colPos.z + Random.Range(-1.4f, 1.4f));
+                t.transform.DOJump(pos1, .5f, 2, .2f);
+                var o = t.gameObject;
+                if(ReturnTag != null)
+                    o.tag = ReturnTag;
+            }
+
+            await Task.Delay(100);
+            collectableList.Clear();
+            _collectedAmount = 0;
+            InitializeStackPos();
+        }
+        
         private void RemoveAllList()
         {
             foreach (var collectable in collectableList)
