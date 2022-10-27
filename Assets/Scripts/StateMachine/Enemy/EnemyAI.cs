@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstract;
 using Data.UnityObject;
@@ -9,6 +10,8 @@ using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
+
 namespace StateMachine.Enemy
 {
     public class EnemyAI : MonoBehaviour, IDamageable
@@ -21,7 +24,7 @@ namespace StateMachine.Enemy
         public Transform CurrentTarget;
         public Transform PlayerTarget;
         public Transform BaseTarget;
-        public bool CanAttack;
+        public bool CanAttackToBase;
         public bool IsInGroundMineArea = false;
         public Transform GroundMineTarget;
 
@@ -55,6 +58,7 @@ namespace StateMachine.Enemy
         private bool _isPlayerDead = false;
         private bool _isGroundMineActivated = false;
         private static readonly int Idle = Animator.StringToHash("Idle");
+        
 
         #endregion
         
@@ -132,12 +136,12 @@ namespace StateMachine.Enemy
             Func<bool> CanChasePlayer() => () => CurrentTarget == PlayerTarget && Vector3.Distance(transform.position, CurrentTarget.position) > navMeshAgent.stoppingDistance;
             Func<bool> IsInAttackRange() => () =>
                 CurrentTarget == PlayerTarget && Vector3.Distance(transform.position, CurrentTarget.position) <= navMeshAgent.stoppingDistance;
-            Func<bool> IsAtBase() => () => Vector3.Distance(transform.position, BaseTarget.position) < navMeshAgent.stoppingDistance;
+            Func<bool> IsAtBase() => () => CanAttackToBase && !_isDeath;
             Func<bool> IsDeath() => () => _health <= 0;
             Func<bool> IsAlive() => () => _health > 0;
             Func<bool> IsPlayerDead() => () => _isPlayerDead;
             Func<bool> IsGroundMineActivated() => () => _isGroundMineActivated;
-            Func<bool> IsInGroundMineArea() => () => Vector3.Distance(transform.position, GroundMineTarget.position) < navMeshAgent.stoppingDistance * 2;
+            Func<bool> IsInGroundMineArea() => () => Vector3.Distance(transform.position, GroundMineTarget.position) < navMeshAgent.stoppingDistance * 3;
             Func<bool> IsMineExplode() => () =>  CurrentTarget != GroundMineTarget && _isGroundMineActivated == false;
             
         }
@@ -225,11 +229,27 @@ namespace StateMachine.Enemy
             AiSignals.Instance.onEnemyAIDead?.Invoke(this);
             _isDeath = true;
             navMeshAgent.enabled = false;
+            CanAttackToBase = false;
             transform.DOMoveY(-.5f, .2f);
-            ChangeSaturation(.25f, .25f, .5f);
-            await Task.Delay(2100);
+            ChangeSaturation(.25f, .25f, .65f);
+            await Task.Delay(2000);
+            DropMoney();
+            await Task.Delay(500);
             PoolSignals.Instance.onReleasePoolObject?.Invoke($"{EnemyType}", gameObject);
+            await Task.Delay(100);
             animator.SetTrigger(Idle);
+        }
+        
+        private void DropMoney()
+        {
+            Vector3 enemyTransform = transform.position;
+
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject money = PoolSignals.Instance.onGetPoolObject?.Invoke("Money", transform);
+                Vector3 moneySpawnPos = enemyTransform + new Vector3(Random.Range(-1, 1), 1, Random.Range(-1, 1)); 
+                money.transform.position = moneySpawnPos;
+            }
         }
         
         public void TakeDamage(float damage)

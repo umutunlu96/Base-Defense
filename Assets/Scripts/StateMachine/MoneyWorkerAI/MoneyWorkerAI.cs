@@ -92,14 +92,12 @@ namespace StateMachine.MoneyWorkerAI
             At(moveBase, search, HasAtBase());
             At(search, moveToMoney, HasFoundMoney());
             At(moveToMoney, search, HasPickedMoney());
+            At(moveToMoney, search, MoneyHasTaken());
             At(search, moveBase, IsBackPackFull());
-
+            At(search, moveBase, CantFindAnyMoney());
+            At(search, search, SearchOverAgain());
             _stateMachine.SetState(stationary);
-            
-            _stateMachine.AddAnyTransition(moveToMoney, HasFoundMoney());
-            _stateMachine.AddAnyTransition(moveBase, CantFindAnyMoney());
-            _stateMachine.AddAnyTransition(search, SearchOverAgain());
-            
+
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
             Func<bool> HasBougth() => () => IsBougth;
@@ -107,6 +105,8 @@ namespace StateMachine.MoneyWorkerAI
             Func<bool> HasFoundMoney() => () => MoneyTransform != null;
             Func<bool> HasPickedMoney() => () => MoneyTransform == null || MoneyTransform.CompareTag("Collected");
             Func<bool> IsBackPackFull() => () => _collectedMoney >= _capacity;
+            Func<bool> MoneyHasTaken() => () => MoneyTransform != null && MoneyTransform.CompareTag("Collected");
+            
             Func<bool> CantFindAnyMoney() => () => CantFindMoney && !IsAtBase;
             Func<bool> SearchOverAgain() => () => CantFindMoney && IsAtBase;
         }

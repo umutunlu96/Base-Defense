@@ -18,8 +18,8 @@ RenderSettings:
   m_FogColor: {r: 0.5882353, g: 0.8509804, b: 0.8117647, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 60
-  m_LinearFogEnd: 72
+  m_LinearFogStart: 70
+  m_LinearFogEnd: 120
   m_AmbientSkyColor: {r: 1, g: 0.9372549, b: 0.7607843, a: 1}
   m_AmbientEquatorColor: {r: 0.7607843, g: 0.6666667, b: 0.9372549, a: 1}
   m_AmbientGroundColor: {r: 0.6313726, g: 0.6313726, b: 0.6313726, a: 1}
@@ -784,7 +784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0.5019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -969,7 +969,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FarClipPlane: 150
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -1138,7 +1138,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 150
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1848,7 +1848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0.5019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3395,7 +3395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6027085186472970594, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6027085186472970595, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
       propertyPath: m_RootOrder

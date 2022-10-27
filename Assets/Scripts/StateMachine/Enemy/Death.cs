@@ -1,7 +1,4 @@
-﻿using DG.Tweening;
-using Enums;
-using Signals;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace StateMachine.Enemy
 {
@@ -19,18 +16,18 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
+            Debug.Log("DEATHG");
         }
 
         public void OnEnter()
         {
             _animator.applyRootMotion = false;
             _animator.SetTrigger(death);
-            PoolSignals.Instance.onGetPoolObject?.Invoke("Money", _enemyAI.transform);
         }
 
         public void OnExit()
         {
-            
+
         }
     }
 }

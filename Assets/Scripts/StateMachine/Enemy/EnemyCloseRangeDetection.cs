@@ -18,29 +18,19 @@ namespace StateMachine.Enemy
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
-            {
-                manager.CanAttack = true;
-            }
-            
             if (other.CompareTag("GateOutside"))
             {
                 ChangeReachedBaseState(true);
-                manager.CanAttack = true;
+                manager.CanAttackToBase = true;
             }
         }
         
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player"))
-            {
-                manager.CanAttack = false;
-            }
-            
             if (other.CompareTag("GateOutside"))
             {
                 ChangeReachedBaseState(false);
-                manager.CanAttack = false;
+                manager.CanAttackToBase = false;
             }
         }
 

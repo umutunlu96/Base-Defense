@@ -28,6 +28,8 @@ namespace StateMachine.Enemy
         
         public void Tick()
         {
+            Debug.Log("ATTACK");
+
             _timer -= Time.deltaTime;
             if(_timer >= 0) return;
             
