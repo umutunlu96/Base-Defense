@@ -10,7 +10,7 @@ namespace StateMachine.Enemy
         private readonly NavMeshAgent _navMeshAgent;
         
         private static readonly int Speed = Animator.StringToHash("Speed");
-
+        private static readonly int Run = Animator.StringToHash("Run");
         public MoveGroundMine(EnemyAI enemyAI, Animator animator, NavMeshAgent navMeshAgent)
         {
             _enemyAI = enemyAI;
@@ -25,6 +25,7 @@ namespace StateMachine.Enemy
 
         public void OnEnter()
         {
+            _animator.SetTrigger(Run);
             _navMeshAgent.speed = _enemyAI.RunSpeed;
             _navMeshAgent.SetDestination(_enemyAI.GroundMineTarget.position);
         }

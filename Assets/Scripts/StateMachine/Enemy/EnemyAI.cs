@@ -133,8 +133,8 @@ namespace StateMachine.Enemy
             void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
 
             Func<bool> GoBase() => () => CurrentTarget == BaseTarget;
-            Func<bool> CanChasePlayer() => () => CurrentTarget == PlayerTarget && Vector3.Distance(transform.position, CurrentTarget.position) > navMeshAgent.stoppingDistance;
-            Func<bool> IsInAttackRange() => () =>
+            Func<bool> CanChasePlayer() => () => !_isDeath && CurrentTarget == PlayerTarget && Vector3.Distance(transform.position, CurrentTarget.position) > navMeshAgent.stoppingDistance;
+            Func<bool> IsInAttackRange() => () => !_isDeath &&
                 CurrentTarget == PlayerTarget && Vector3.Distance(transform.position, CurrentTarget.position) <= navMeshAgent.stoppingDistance;
             Func<bool> IsAtBase() => () => CanAttackToBase && !_isDeath;
             Func<bool> IsDeath() => () => _health <= 0;
@@ -142,7 +142,7 @@ namespace StateMachine.Enemy
             Func<bool> IsPlayerDead() => () => _isPlayerDead;
             Func<bool> IsGroundMineActivated() => () => _isGroundMineActivated;
             Func<bool> IsInGroundMineArea() => () => Vector3.Distance(transform.position, GroundMineTarget.position) < navMeshAgent.stoppingDistance * 3;
-            Func<bool> IsMineExplode() => () =>  CurrentTarget != GroundMineTarget && _isGroundMineActivated == false;
+            Func<bool> IsMineExplode() => () =>  CurrentTarget == GroundMineTarget && _isGroundMineActivated == false;
             
         }
         
@@ -190,7 +190,6 @@ namespace StateMachine.Enemy
 
         private void OnGroundMineExplode()
         {
-            CurrentTarget = BaseTarget;
             _isGroundMineActivated = false;
             if(!IsInGroundMineArea) return;
             TakeDamage(100);
@@ -211,6 +210,7 @@ namespace StateMachine.Enemy
         {
             _health = _enemyData.Health;
             IsInGroundMineArea = false;
+            _isGroundMineActivated = false;
             ChangeSaturation(1, 1, .1f);
             navMeshAgent.enabled = true;
             _isDeath = false;

@@ -111,7 +111,9 @@ namespace Managers
         private void OnTakeDamage(int damage)
         {
             if (Health >= 0)
+            {
                 Health -= damage;
+            }
             healthController.SetHealthBar(Health);
             if (Health <= 0 && _isAlive)
             {
@@ -179,7 +181,6 @@ namespace Managers
             aimController.DisableAimRig();
             if (Health < 100)
             {
-                Health = 0;
                 healthController.gameObject.SetActive(true);
                 healthController.Heal();
             }

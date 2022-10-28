@@ -151,6 +151,7 @@ namespace Controllers
                 {
                     StopCoroutine(AttackCoroutine);
                     AttackCoroutine = null;
+                    Damageables.Clear();
                 }
             }
         }
