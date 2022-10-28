@@ -127,12 +127,14 @@ namespace StateMachine.Boss
 
         public async void OnDeath()
         {
+            targetCircle.SetActive(false);
             transform.DOMoveY(-.5f, .2f);
             ChangeSaturation(.25f, 1, 1.5f);
             AiSignals.Instance.onEnemyAIDead?.Invoke(this);
             AiSignals.Instance.onBossDead?.Invoke();
             await Task.Delay(3600);
             gameObject.SetActive(false);
+            PoolSignals.Instance.onResetPool?.Invoke();
         }
         
         private void ChangeSaturation(float saturation, float brightness, float duration)

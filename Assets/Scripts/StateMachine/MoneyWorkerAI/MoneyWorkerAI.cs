@@ -97,7 +97,7 @@ namespace StateMachine.MoneyWorkerAI
             At(search, moveBase, CantFindAnyMoney());
             At(search, search, SearchOverAgain());
             _stateMachine.SetState(stationary);
-
+            _stateMachine.AddAnyTransition(moveBase, IsBackPackFull());
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
             Func<bool> HasBougth() => () => IsBougth;

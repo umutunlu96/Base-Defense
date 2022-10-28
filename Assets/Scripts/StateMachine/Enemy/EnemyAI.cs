@@ -225,6 +225,7 @@ namespace StateMachine.Enemy
         
         private async void OnDeath()
         {
+            DropMoney();
             AiSignals.Instance.onEnemyDead?.Invoke(transform);
             AiSignals.Instance.onEnemyAIDead?.Invoke(this);
             _isDeath = true;
@@ -232,9 +233,7 @@ namespace StateMachine.Enemy
             CanAttackToBase = false;
             transform.DOMoveY(-.5f, .2f);
             ChangeSaturation(.25f, .25f, .65f);
-            await Task.Delay(2000);
-            DropMoney();
-            await Task.Delay(500);
+            await Task.Delay(2500);
             PoolSignals.Instance.onReleasePoolObject?.Invoke($"{EnemyType}", gameObject);
             await Task.Delay(100);
             animator.SetTrigger(Idle);

@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using System.Threading.Tasks;
 using Abstract;
 using Controllers;
 using Data.ValueObject.Base;
+using DG.Tweening;
 using Signals;
 using UnityEngine;
 
@@ -10,11 +12,11 @@ namespace Managers
     public class ForceFieldManager : MonoBehaviour, ISaveable
     {
         [SerializeField] private ForceFieldPhysicController buyAreaController;
-        [SerializeField] private GameObject areaToClose;
+        [SerializeField] private MeshRenderer powerShellRenderer;
         [SerializeField] private float buyDelay = 0.05f;
         [HideInInspector] public ForceFieldData Data;
 
-        public int Identifier = 0; //Setted by BaseManager
+        public int Identifier = 0;
         private int UniqueId;
         private int LevelId;
         private bool _playerEntered;
@@ -35,14 +37,30 @@ namespace Managers
                 }
             }
             Load(UniqueId);
-            CheckData();
+            CheckInitialData();
         }
 
         private void CheckData()
         {
             buyAreaController.UpdatePayedAmountText(Data.PayedAmount, Data.Cost);
             if (Data.PayedAmount < Data.Cost) return;
-            areaToClose.SetActive(false); buyAreaController.gameObject.SetActive(false); Save(UniqueId);
+            CloseUp();
+        }
+
+        private void CheckInitialData()
+        {
+            buyAreaController.UpdatePayedAmountText(Data.PayedAmount, Data.Cost);
+            if (Data.PayedAmount < Data.Cost) return;
+            gameObject.SetActive(false);
+        }
+        
+        private void CloseUp()
+        {
+            buyAreaController.gameObject.SetActive(false);
+            Save(UniqueId);
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+            powerShellRenderer.material.DOFloat(1, "Vector1_37163E29", 10).
+                OnComplete(()=> gameObject.SetActive(false));
         }
         
         public void OnPlayerEnter()

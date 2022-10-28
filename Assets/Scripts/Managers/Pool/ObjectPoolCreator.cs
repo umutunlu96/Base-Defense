@@ -56,12 +56,14 @@ namespace Managers
         {
             PoolSignals.Instance.onGetPoolObject += OnGetPoolObject;
             PoolSignals.Instance.onReleasePoolObject += OnReleasePoolObject;
+            PoolSignals.Instance.onResetPool += OnResetPool;
         }
 
         private void UnsubscribeEvents()
         {
             PoolSignals.Instance.onGetPoolObject -= OnGetPoolObject;
             PoolSignals.Instance.onReleasePoolObject -= OnReleasePoolObject;
+            PoolSignals.Instance.onResetPool -= OnResetPool;
         }
 
         private void OnDisable()
@@ -85,6 +87,17 @@ namespace Managers
             obj.transform.SetParent(transform.GetChild((int)_listCache));
             obj.transform.localPosition = Vector3.zero;
             ObjectPoolManager.Instance.ReturnObject(obj,poolType.ToString());
+        }
+        
+        private void OnResetPool()
+        {
+            foreach (GameObject child in transform)
+            {
+                foreach (GameObject obj in child.transform)
+                {
+                    obj.SetActive(false);
+                }
+            }
         }
         
         #region Pool Initialization
@@ -119,5 +132,7 @@ namespace Managers
         }
         
         #endregion
+
+
     }
 }

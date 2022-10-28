@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 327585125909556449}
   - component: {fileID: 327585125909556448}
   - component: {fileID: 327585125909556455}
-  - component: {fileID: 327585125909556454}
-  - component: {fileID: 327585125909556450}
   m_Layer: 19
   m_Name: Mesh
   m_TagString: Untagged
@@ -83,39 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &327585125909556454
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 327585125909556453}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &327585125909556450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 327585125909556453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93d08094a944b229515fbaa085b864e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyAreaController: {fileID: 0}
-  areaToClose: {fileID: 327585125909556453}
-  buyDelay: 0.05
-  Data:
-    Key: ForceFieldData
-    Cost: 0
-    PayedAmount: 0
-  Identifier: 0
 --- !u!1 &2143926758059144810
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyAreaController: {fileID: 3831859648741199150}
-  areaToClose: {fileID: 6544958302082310251}
+  powerShellRenderer: {fileID: 327585125909556455}
   buyDelay: 0.05
   Data:
     Key: ForceFieldData

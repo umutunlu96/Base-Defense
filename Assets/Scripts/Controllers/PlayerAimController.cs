@@ -25,8 +25,11 @@ namespace Controllers
         [SerializeField] private List<GameObject> guns;
         [SerializeField] private List<Transform> muzzleTransform;
         [SerializeField] private WeaponType _weaponType;
-
+        
         private IDamageable _closestDamageable;
+        private bool _canAttack = true;
+
+        public bool CanAttack { get => _canAttack; set => _canAttack = value; }
         
         private void Update()
         {
@@ -179,7 +182,7 @@ namespace Controllers
         {
             WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
             yield return Wait;
-            while (Damageables.Count > 0)
+            while (Damageables.Count > 0 && _canAttack)
             {
                 _closestDamageable = GetClosestDamageable();
                 if (_closestDamageable != null && !_closestDamageable.AmIDeath())
@@ -203,8 +206,9 @@ namespace Controllers
 
         public void StopAttack()
         {
+            _canAttack = false;
             Damageables.Clear();
-            if(AttackCoroutine == null) return;
+            _closestDamageable = null;
             StopCoroutine(AttackCoroutine);
             AttackCoroutine = null;
         }

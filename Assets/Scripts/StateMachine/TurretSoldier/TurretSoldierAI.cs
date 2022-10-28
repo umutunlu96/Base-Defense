@@ -37,6 +37,7 @@ namespace StateMachine.TurretSoldier
             InputSignals.Instance.onInputDragged += OnInputDragged;
             InputSignals.Instance.onInputTaken += ActivateRotation;
             InputSignals.Instance.onInputReleased += DeactivateRotation;
+            PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerUsesTurret;
         }
         
         private void UnSubscribeEvents()
@@ -45,6 +46,7 @@ namespace StateMachine.TurretSoldier
             InputSignals.Instance.onInputDragged -= OnInputDragged;
             InputSignals.Instance.onInputTaken -= ActivateRotation;
             InputSignals.Instance.onInputReleased -= DeactivateRotation;
+            PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerUsesTurret;
         }
 
         private void OnDisable()
@@ -67,6 +69,13 @@ namespace StateMachine.TurretSoldier
         }
 
         private void OnInputDragged(InputParams inputParams) => _inputParams = inputParams;
+
+        private void OnPlayerUsesTurret()
+        {
+            Transform player = PlayerSignals.Instance.onGetPlayerTransfrom(); 
+            player.SetParent(turret);
+            player.transform.localPosition = new Vector3(0, 0, -1);
+        }
         
         #endregion
         
@@ -122,7 +131,7 @@ namespace StateMachine.TurretSoldier
             }
             
             if(!_canRotateByPlayer) return;
-                
+            
             if (_inputParams.movementVector.z <= -0.9f)
             {
                 IsPlayerUsingTurret = false;

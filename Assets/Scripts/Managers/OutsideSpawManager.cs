@@ -51,6 +51,7 @@ namespace Managers
         [ShowInInspector] private int _bombSpawnLimit;
         private List<Transform> _bombSpawnPointsCache = new List<Transform>();
         private float _bombSpawnDelay;
+        private bool _isBossDead = false;
         
         #endregion
         
@@ -68,6 +69,7 @@ namespace Managers
         private void Init()
         {
             _spawnData = GetSpawnData();
+            _isBossDead = false;
             InitEnemy();
             InitHostage();
             InitBomb();
@@ -84,12 +86,14 @@ namespace Managers
         {
             AiSignals.Instance.onEnemyDead += OnEnemyDead;
             AiSignals.Instance.onHostageRescued += OnHostageRescued;
+            AiSignals.Instance.onBossDead += OnBossDead;
         }
         
         private void UnSubscribeEvents()
         {
             AiSignals.Instance.onEnemyDead -= OnEnemyDead;
             AiSignals.Instance.onHostageRescued -= OnHostageRescued;
+            AiSignals.Instance.onBossDead -= OnBossDead;
         }
 
         private void OnDisable()
@@ -117,6 +121,11 @@ namespace Managers
             _hostageSpawnedCount--;
         }
 
+        private void OnBossDead()
+        {
+            _isBossDead = true;
+        }
+        
         #endregion
         
         #region Enemy Spawn
@@ -163,7 +172,7 @@ namespace Managers
         
         private IEnumerator EnemySpawnController()
         {
-            while (_enemySpawnedCount <= _enemySpawnLimit)
+            while (_enemySpawnedCount <= _enemySpawnLimit && !_isBossDead)
             {
                 SpawnEnemy();
                 yield return new WaitForSeconds(_enemySpawnDelay);
@@ -262,7 +271,7 @@ namespace Managers
 
         private IEnumerator BombSpawnController()
         {
-            while (CheckIfBombCanSpawn())
+            while (CheckIfBombCanSpawn() && !_isBossDead)
             {
                 SpawnBomb();
                 yield return new WaitForSeconds(_bombSpawnDelay);

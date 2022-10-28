@@ -11,5 +11,7 @@ namespace Signals
         {
             return default;};
         public UnityAction<string,GameObject> onReleasePoolObject = delegate {  };
+
+        public Action onResetPool;
     }
 }

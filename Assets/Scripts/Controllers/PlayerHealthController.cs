@@ -27,7 +27,7 @@ namespace Controllers
 
         private IEnumerator HealUp()
         {
-            WaitForSeconds Wait = new WaitForSeconds(.1f);
+            WaitForSeconds Wait = new WaitForSeconds(.05f);
             
             yield return Wait;
             

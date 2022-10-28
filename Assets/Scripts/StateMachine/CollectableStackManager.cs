@@ -117,11 +117,17 @@ namespace StateMachine
                 Vector3 colPos = t.position;
                 Vector3 pos1 = new Vector3(colPos.x + Random.Range(-1.4f, 1.4f), 0, colPos.z + Random.Range(-1.4f, 1.4f));
                 t.transform.DOJump(pos1, .5f, 2, .2f);
+            }
+
+            await Task.Delay(5000);
+            
+            foreach (var t in collectableList)
+            {
                 var o = t.gameObject;
                 if(ReturnTag != null)
                     o.tag = ReturnTag;
             }
-
+            
             await Task.Delay(100);
             collectableList.Clear();
             _collectedAmount = 0;

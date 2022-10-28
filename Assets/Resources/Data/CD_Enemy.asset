@@ -33,7 +33,7 @@ MonoBehaviour:
       ChaseRange: 3
       WalkSpeed: 3
       RunSpeed: 5
-    - Health: 20
+    - Health: 150
       Damage: 10
       AttackRange: 10
       ChaseRange: 0
